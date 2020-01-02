@@ -1,0 +1,83 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;\red251\green0\blue7;\red25\green60\blue255;\red0\green0\blue0;
+\red251\green0\blue7;\red251\green0\blue7;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c12195\c0;\cssrgb\c12594\c35385\c100000;\cssrgb\c0\c0\c0;
+\cssrgb\c99893\c12008\c0;\cssrgb\c100000\c12195\c0;}
+\margl1440\margr1440\vieww12780\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 1/1/20\
+AA Data Structures/Algorithms Notes\
+II Dynamic Programming- Memoization\
+\
+
+\f1\b \ul 1. \cf2 \ulc2 Dynamic Programming (DP)
+\f0\b0 \cf0 \ulnone \
+	- a \cf3 way of solving problems efficiently by dividing a problem into smaller sub problems\cf0 \
+	? ^ sounds a lot like \ul functional decomposition\ulnone \
+	- solves problems efficiently avoiding duplicate calculations\
+\
+
+\f1\b \ul 2. \cf2 Memoization
+\f0\b0 \cf0 \ulnone \
+	- strategy of implementing dynamic programming by \cf3 storing results of expensive\
+	 function calls\cf0  and returning the cached/saved result when the same inputs occur\
+	again\
+	- \cf3 ensures that a function doesn\'92t run for the same inputs more than once\cf0 \
+	- this assumes that when we call a function with a particular argument, we expect\
+	to get the same output every time.\
+	- function needs to be recursive?	\
+	- additional data structure (the memo) used is usually an object\
+Ex. \ul Without Memoization\ulnone : \
+\cf2 	function factorial(n) \{\
+		if (n === 1) return 1;\
+		return n * factorial(n - 1);\
+	\}\cf0 \
+	factorial(6);		//=> 720	uses 6 calls\
+	factorial(6);		//=> 720	uses 6 calls   <- calling again even though input 6 already called\
+	factorial(5);		//=> 120	uses 5 calls\
+	factorial(7);		//=> 5040	uses 7 calls\
+- this function is inefficient because the second time we call factorial we have to go down the\
+recursive stack and make an additional 6 calls, even though we did that already.\
+\
+Ex. \ul With Memoization\ulnone :	\cf2 \
+	let memo = \{\};			\cf0 // keys will be inputs, with values outputs of function\cf2 \
+	function factorial(n) \{\
+		\cf0 // if factorial(n) has been calculated before, than just get that stores value from memo obj\cf2 \
+		if (n in memo) return memo[n];\
+		if (n === 1) return 1;\
+		memo[n] = n * factorial(n - 1);\
+		return memo[n];\
+	\}\
+	\cf0 factorial(6);		//=> 720	uses 6 calls\
+	factorial(6);		//=> 720	uses 1 call   \
+	factorial(5);		//=> 120	uses 1 call\
+	factorial(7);		//=> 5040	uses 2 calls\
+- doesn\'92t improve speed of algorithm still O(n), but still more efficient.\
+\
+\
+
+\f1\b \cf4 \ul \ulc5 3. Draw a tree diagram to help visualize/reason the time complexity for recursive functions
+\f0\b0 \cf0 \ulnone \
+- every node refers to a recursive call\
+\
+\
+
+\f1\b 4. Fib with Memoization Example:
+\f0\b0 \
+- note how we pass in an object memo instead of declaring it outside (globally)\
+	\cf6 function fastFib( n, memo = \{\} ) \{\
+		if (n in memo) return memo[n];\
+		if (n == 1 || n == 2) return 1;\
+		memo[n] = fastFib(n - 1, memo) + \cf6 fastFib\cf6 (n - 2, memo);\
+		return memo[n];\
+	\}\cf0 \
+- O(N) Time because the tree only branches to the left side!\
+\
+\
+5. When to Use Memoization\
+- recursive problems that have many overlapping/repeating subproblems like fib(n)\
+\
+\
+}
