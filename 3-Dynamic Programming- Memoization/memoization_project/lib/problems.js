@@ -43,8 +43,8 @@ function lucasNumberMemo(n, memo = {}) {
 
 // WITHOUT MEMOIZATION
 /*
-// [1, 2, 5], 5
-function minChange(coins, amount, memo = {}) {
+// [1, 2, 5], 2			=> 1
+function minChange(coins, amount) {
 	// base case if target amount is nothing, we give back nothing
 	if (amount === 0) return 0;
 
@@ -55,40 +55,51 @@ function minChange(coins, amount, memo = {}) {
 	for (let i = 0; i < coins.length; i++) {
 		let coin = coins[i];
 		// 1st, i = 0: coin = 1
-		// 2nd, i = 0: coin = 1
 		
-		// we don't want to have negative coins
+		// 2nd, i = 0: coin = 1
+		// 2nd, i = 1: coin = 2
+		
+		// 1st, i = 1: coin = 2
+
+		// we don't want to have negative coins		
 		if (coin <= amount) {
-			// 1st, i = 0: 1 <= 5		true
-			// 2nd, i = 0: 1 <= 4		true
+			// 1st, i = 0:	1 <= 2		true
+			// 2nd, i = 0:	1 <= 1		true
+			// 2nd, i = 1:	2 <= 1		false
+			// 1st, i = 1:	2 <= 2		true
+			
+			// Push to numCoins array, the recursive result (where we take away the current coin from amount) + 1
+			// we add + 1 to refer to the quantity/count of coin
 			numCoins.push(minChange(coins, amount - coin) + 1);
-			// 1st, i = 0: numCoins.push(minChange(coins, 5 - 1) + 1)
-			// 1st, i = 0: numCoins.push(minChange(coins, 4) + 1)
-
-			// 2nd, i = 0: numCoins.push(minChange(coins, 4 - 1) + 1)
-			// 2nd, i = 0: numCoins.push(minChange(coins, 3) + 1)
-
-			// 3rd, i = 0: numCoins.push(minChange(coins, 3 - 1) + 1)
-			// 3rd, i = 0: numCoins.push(minChange(coins, 2) + 1)
-
-			// 4th, i = 0: numCoins.push(minChange(coins, 2 - 1) + 1)
-			// 4th, i = 0: numCoins.push(minChange(coins, 1) + 1)					
-			// 4th, i = 0: numCoins.push(1 + 1)														-> .push(2)
-
-			// 5th, i = 0: numCoins.push(minChange(coins, 1 - 1) + 1)			-> .push(1)
-			// 5th, i = 0: numCoins.push(minChange(coins, 0) + 1)				
-			// 5th, i = 0: numCoins.push(0 + 1)
-			// console.log(coin);
+			// 1st, i = 0: 	numCoins.push(minChange(coins, 2 - 1) + 1)
+			// 1st, i = 0: 	numCoins.push(minChange(coins, 1) + 1)
+			
+			// 2nd, i = 0: 	numCoins.push(minChange(coins, 1 - 1) + 1)
+			// 2nd, i = 0: 	numCoins.push(minChange(coins, 0) + 1)
+			// 2nd, i = 0: 	numCoins.push(0 + 1)
+			// 2nd, i = 0: 	numCoins.push(1)													numCoins = [ 1 ]
+			
+			// 1st, i = 0: 	numCoins.push(1 + 1)
+			// 1st, i = 0: 	numCoins.push(2)													numCoins = [ 2 ]
+			// 1st, i = 1: 	numCoins.push(minChange(coins, 2 - 2) + 1)
+			// 1st, i = 1: 	numCoins.push(minChange(coins, 0) + 1)
+			// 1st, i = 1: 	numCoins.push(0 + 1)
+			// 1st, i = 1: 	numCoins.push(1)													numCoins = [ 2, 1 ]
 		}
 	}
 
-	// console.log(numCoins)
-	// console.log('---')
 	// return the smallest number in our numCoins array
 	return Math.min(...numCoins);
+	// 2nd: numCoins = [ 1 ]				=>		1
+	// 1st: numCoins = [ 2, 1 ]			=>		1
 }
-minChange([1,2,5],5);
+// console.log(minChange([1,2,5], 0));		//=> 0
+// console.log(minChange([1,2,5], 1));		//=> 1
+// console.log(minChange([1,2,5], 2));				//=> 1
 */
+
+
+
 
 
 
@@ -107,6 +118,7 @@ function minChange(coins, amount, memo = {}) {
 
 		// we don't want to have negative coins
 		if (coin <= amount) {
+			// we add + 1 to refer to the quantity/count of coin
 			numCoins.push(minChange(coins, amount - coin, memo) + 1);
 		}
 	}
@@ -117,7 +129,6 @@ function minChange(coins, amount, memo = {}) {
 	// return memoized result
 	return memo[amount];
 }
-
 
 
 
