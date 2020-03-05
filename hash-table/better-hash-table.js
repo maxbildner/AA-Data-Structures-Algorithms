@@ -149,6 +149,7 @@ class HashTable {
     } else {    // hashTable NOT empty
       // 2) compute the index from the hash code hashCode(key) % array length
       index = hash % this.underlyingArray.length;
+      // ? why do we limit array size?
 
       // grab the linked list
       linkedList = this.underlyingArray[index];
@@ -200,3 +201,9 @@ console.log(pantry.underlyingArray);        //=> [ LinkedList { head: Node { key
 console.log(pantry.get('pears'));           //=> 5
 console.log(pantry.set('pears', 20));       //=> 20
 console.log(pantry.get('pears'));           //=> 20
+
+
+// MISC Resources:
+// https://adrianmejia.com/data-structures-time-complexity-for-beginners-arrays-hashmaps-linked-lists-stacks-queues-tutorial/
+// https://stackoverflow.com/questions/10256974/under-the-hood-are-javascript-objects-hash-tables
+// https://dev.to/loganwohlers/intro-to-hash-tables-js-objects-under-the-hood-26oa
