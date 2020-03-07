@@ -1,4 +1,6 @@
+// LC 139 Word Break
 // https://leetcode.com/problems/word-break/
+// MEDIUM
 // Given a non - empty string s and a dictionary wordDict containing a list of 
 // non - empty words, determine if s can be segmented into a space - separated 
 // sequence of one or more dictionary words.
@@ -68,3 +70,4 @@ function wordBreak(string, dictionary) {
 
 
 console.log(wordBreak('applepen', ['app', 'apple', 'pen']));
+console.log(wordBreak("catsandog", ["cats", "dog", "sand", "and", "cat"]));
