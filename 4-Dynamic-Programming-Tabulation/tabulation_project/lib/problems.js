@@ -1,3 +1,5 @@
+// *****************************************************************************
+// 1) STEPPER
 // Write a function, stepper(nums), that takes in an array of non negative numbers.
 // Each element of the array represents the maximum number of steps you can take from that position in the array.
 // The function should return a boolean indicating if it is possible to travel from the 
@@ -20,11 +22,87 @@
 // stepper([3, 1, 0, 5, 10]);           // => true, because we can step through elements 3 -> 5 -> 10
 // stepper([3, 4, 1, 0, 10]);           // => true, because we can step through elements 3 -> 4 -> 10
 // stepper([2, 3, 1, 1, 0, 4, 7, 8])    // => false, there is no way to step to the end
-function stepper(nums) {
 
+// SOLUTION 1- TABULATION
+// Ex. ([3, 1, 0, 5, 10]) 	=>	true
+// function stepper(nums) {
+// 	// 1) create table (array) where each val is a bool referring to whether
+// 	// it's possble to step from the 1st position to that vals position
+// 	let table = new Array(nums.length).fill(false);
+// 	// table = [ false, false, false, false, false]
+	
+// 	// 2) populate first val in table (trivial case will always be true)
+// 	table[0] = true;
+// 	// table = [true, false, false, false, false]
+
+// 	// 3) loop through each val in table
+// 	for (let i = 0; i < table.length; i++) {
+		
+// 		// 4) if current val is true
+// 		if (table[i] === true) {
+// 			let range = nums[i];
+
+// 			// 5) loop from 1 to (range, AND we're not at the end of the table)
+// 			for (let step = 1; (step <= range) && (i + step < table.length); step++) {
+
+// 				// 6) populate table with true
+// 				table[i + step] = true;
+// 			}
+// 		}
+// 	}
+
+// 	// 7) return last val in table
+// 	return table[table.length - 1];
+// }
+
+
+// SOLUTION 2- MEMOIZATION
+// Ex. ([3, 1, 0, 5, 10]) 	=>	true
+// memo object keys = inputs, values = outputs of previous function calls
+function stepper(nums, memo={}) {
+	if (nums.length in memo) return memo[nums.length];
+	// 1st: [3, 1, 0].length in memo			3 in {}		false
+	// 2nd: [1, 0].length in memo					2 in {}		false
+
+	// base cases if nums only has 1 val or empty
+	if (nums.length === 1) return true;
+	if (nums.length === 0) return false;
+
+	// first num in nums
+	let range = nums[0];
+	// 1st: range = [3, 1, 0][0] 	= 3
+	// 2nd: range = [1, 0][0] 		= 1
+	
+	// loop from 1 to range
+	for (let step = 1; step <= range; step++) {
+		if (stepper(nums.slice(step), memo)) {
+			// 1st, step = 1: stepper([3, 1, 0].slice(1), {})
+			// 1st, step = 1: stepper([1, 0], {}) 
+
+			// 2nd, step = 1: stepper([1, 0].slice(1), {})
+			// 2nd, step = 1: stepper([0], {})	== true
+			
+			memo[nums.length] = true;
+			// 2nd, step = 1: memo[ [1, 0].length ] = true
+			// 2nd, step = 1: memo[ 2 ] = true			memo = { 2:true }
+
+			// console.log(step, nums, memo);
+			return true;
+		}
+	}
+
+	memo[nums.length] = false;
+	return false;
 }
+// console.log(stepper([2, 3, 1, 1, 0, 4, 7, 8]));		//=> false
+// console.log(stepper([3, 1, 0, 5, 10]));						//=> true
+// console.log(stepper([3, 1]));											//=> true
+// console.log(stepper([3, 1, 0]));										//=> true
 
 
+
+// *****************************************************************************
+// 2) maxNonAdjacentSum
 // Write a function, maxNonAdjacentSum(nums), that takes in an array of nonnegative numbers.
 // The function should return the maximum sum of elements in the array we can get if we cannot take
 // adjacent elements into the sum.
