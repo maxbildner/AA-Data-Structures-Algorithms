@@ -113,11 +113,53 @@ function stepper(nums, memo={}) {
 //
 // maxNonAdjacentSum([2, 7, 9, 3, 4])   // => 15, because 2 + 9 + 4
 // maxNonAdjacentSum([4,2,1,6])         // => 10, because 4 + 6 
-function maxNonAdjacentSum(nums) {
 
+// SOLUTION 1- TABULATION
+// Ex. [4, 2, 1, 6]		=> 10 bec. 4 + 6
+function maxNonAdjacentSum(nums) {
+	// if input nums empty
+	if (nums.length === 0) return 0;
+
+	// build table, fill with undefineds for now
+	let table = new Array(nums.length).fill();
+	
+	// populate first val with first val of nums
+	table[0] = nums[0];
+
+	// loop through table and fill other vals
+	for (let i = 1; i < table.length; i++){
+		// current num in NUMS
+		let currentNum = nums[i];
+		
+		// grab last last num in TABLE (if undefined, make it 0)
+		let skipLeftNeighbor = table[i - 2] === undefined ? 0 : table[i - 2];
+
+		let bestWithThisNum = currentNum + skipLeftNeighbor;
+
+		// grab previous num in TABLE
+		let bestWithoutThisNum = table[i - 1];
+	
+		// assign table val the larger of the two nums (with/without)
+		table[i] = Math.max(bestWithThisNum, bestWithoutThisNum);
+	}
+
+	// return last val in table
+	return table[table.length - 1];
+}
+// console.log(maxNonAdjacentSum([4, 2, 1, 6]));		//=> 10
+
+
+
+// SOLUTION 2- MEMOIZATION
+// Ex. [4, 2, 1, 6]		=> 10 bec. 4 + 6
+function maxNonAdjacentSum(nums) {
+	
 }
 
 
+
+// *****************************************************************************
+// 3) minChange
 // Write a function, minChange(coins, amount), that accepts an array of coin values
 // and a target amount as arguments. The method should the minimum number of coins needed
 // to make the target amount. A coin value can be used multiple times.
