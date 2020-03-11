@@ -116,45 +116,94 @@ function stepper(nums, memo={}) {
 
 // SOLUTION 1- TABULATION
 // Ex. [4, 2, 1, 6]		=> 10 bec. 4 + 6
-function maxNonAdjacentSum(nums) {
-	// if input nums empty
-	if (nums.length === 0) return 0;
+// function maxNonAdjacentSum(nums) {
+// 	// if input nums empty
+// 	if (nums.length === 0) return 0;
 
-	// build table, fill with undefineds for now
-	let table = new Array(nums.length).fill();
+// 	// build table, fill with undefineds for now
+// 	let table = new Array(nums.length).fill();
 	
-	// populate first val with first val of nums
-	table[0] = nums[0];
+// 	// populate first val with first val of nums
+// 	table[0] = nums[0];
 
-	// loop through table and fill other vals
-	for (let i = 1; i < table.length; i++){
-		// current num in NUMS
-		let currentNum = nums[i];
+// 	// loop through table and fill other vals
+// 	for (let i = 1; i < table.length; i++){
+// 		// current num in NUMS
+// 		let currentNum = nums[i];
 		
-		// grab last last num in TABLE (if undefined, make it 0)
-		let skipLeftNeighbor = table[i - 2] === undefined ? 0 : table[i - 2];
+// 		// grab last last num in TABLE (if undefined, make it 0)
+// 		let skipLeftNeighbor = table[i - 2] === undefined ? 0 : table[i - 2];
 
-		let bestWithThisNum = currentNum + skipLeftNeighbor;
+// 		let bestWithThisNum = currentNum + skipLeftNeighbor;
 
-		// grab previous num in TABLE
-		let bestWithoutThisNum = table[i - 1];
+// 		// grab previous num in TABLE
+// 		let bestWithoutThisNum = table[i - 1];
 	
-		// assign table val the larger of the two nums (with/without)
-		table[i] = Math.max(bestWithThisNum, bestWithoutThisNum);
-	}
+// 		// assign table val the larger of the two nums (with/without)
+// 		table[i] = Math.max(bestWithThisNum, bestWithoutThisNum);
+// 	}
 
-	// return last val in table
-	return table[table.length - 1];
-}
+// 	// return last val in table
+// 	return table[table.length - 1];
+// }
 // console.log(maxNonAdjacentSum([4, 2, 1, 6]));		//=> 10
 
 
 
 // SOLUTION 2- MEMOIZATION
 // Ex. [4, 2, 1, 6]		=> 10 bec. 4 + 6
-function maxNonAdjacentSum(nums) {
-	
+function maxNonAdjacentSum(nums, memo={}) {
+	// if nums length already in memo obj, return val in memo obj
+	if (nums.length in memo) return memo[nums.length];
+
+	// base case nums empty
+	if (nums.length === 0) return 0;
+	if (nums.length === 1) return nums[0];
+
+	// set key in memo to nums length, 
+	// and val to the max of:
+	memo[nums.length] = Math.max(
+
+		// recursive call of- slice nums from idx 1 to end
+		maxNonAdjacentSum(nums.slice(1), memo),
+		// 1st: maxNonAdjacentSum([2, 1, 6], {})	=> 8
+		// 2nd: maxNonAdjacentSum([1, 6], {}) 		=> 1
+		// 3rd: maxNonAdjacentSum([6], {})				=> 6 (return result of 4th call) 
+		// 4th: maxNonAdjacentSum([], {}) 				=> 0
+
+		// first num + recursive call of- slice nums from idx 2 to end
+		nums[0] + maxNonAdjacentSum(nums.slice(2), memo)
+		// 4th: [6][0] + maxNonAdjacentSum([6].slice(2), {})
+		// 4th: [6][0] + maxNonAdjacentSum([], {})
+		// 4th: [6][0] + 0 	= 6 + 0 				=> 6		
+		
+		// 3rd: [1,6][0] + maxNonAdjacentSum([1,6].slice(2), { 1:6 })
+		// 3rd: 1 + maxNonAdjacentSum([], {1:6})	
+		// 3rd: 1 + 0												=> 1	
+		
+		// 2nd: [2,1,6][0] + maxNonAdjacentSum([2,1,6].slice(2), { 1:6, 2:1 })
+		// 2nd: 2 + maxNonAdjacentSum([6], { 1:6, 2:1 })  		no need for anoher recursive call since memoized
+		// 2nd: 2 + 6 											=> 8  
+		
+		// 1st: [4,2,1,6][0] + maxNonAdjacentSum([4,2,1,6].slice(2), { 1:6, 2:1, 3:8 })
+		// 1st: 4 + maxNonAdjacentSum([1,6], { 1:6, 2:1, 3:8 })
+		// 1st: 4 + 1												=> 5
+	);
+	// 4th: memo[1] = max(0, 6) 					memo = { 1:6 }
+	// 3rd: memo[[1,6].length] = max(0, ) 
+	// 3rd: memo[2] = max(0, 1)						memo = { 1:6, 2:1 } 
+	// 2nd: memo[[2,1,6].length] = max(1, 8) 
+	// 2nd: memo[3] = max(1, 8) 					memo = { 1:6, 2:1, 3:8 } 
+	// 1st: memo[[4,2,1,6].length] = max(8, 5) 
+	// 1st: memo[4] = max(8, 5) 					memo = { 1:6, 2:1, 3:8, 4:8 } 
+	console.log(memo)
+
+	return memo[nums.length];
+	// 4th: return 6
+	// 3rd: return 1
+	// 2nd: return 8
 }
+// console.log(maxNonAdjacentSum([4, 2, 1, 6]));		//=> 10
 
 
 
