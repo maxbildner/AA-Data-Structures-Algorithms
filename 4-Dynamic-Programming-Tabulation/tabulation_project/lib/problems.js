@@ -221,10 +221,62 @@ function maxNonAdjacentSum(nums, memo={}) {
 // minChange([1, 4, 5], 8))         // => 2, because 4 + 4 = 8
 // minChange([1, 5, 10, 25], 15)    // => 2, because 10 + 5 = 15
 // minChange([1, 5, 10, 25], 100)   // => 4, because 25 + 25 + 25 + 25 = 100
-function minChange(coins, amount) {
 
+// Ex [1, 4, 5], 8		=> 2		bec 4 + 4 = 8
+function minChange(coins, amount) {
+	// Create table w/ amount + 1, fill w/ infinitys
+	// !! table idx refers to an amount
+	// !! element at that table idx refers to the min num of coins to make that amount
+	// If input amount is 8, we slowly build up to 8 by calculating min change for
+	// amount/target = 1, then 2... up to 8
+	// We have "amount + 1" incase we don't want to take any coins
+	let table = new Array(amount + 1).fill(Infinity);
+	// table = [Infinity, Infinity, Infinity, Infinity, Infinity, Infinity, Infinity, Infinity, Infinity]
+	
+	
+
+	// populate first val in table
+	table[0] = 0;
+	// table = [0, Infinity, Infinity, Infinity, Infinity, Infinity, Infinity, Infinity, Infinity]
+	
+	// loop through each coin in coins
+	coins.forEach((val) => {
+
+		// loop through table
+		for (let amt = 0; amt < table.length; amt++) {
+
+			// loop to the maximum amount of 
+			// loop while qty * val <= amt   (need to find all possible combos?)
+			for (let qty = 0; qty * val <= amt; qty++) {
+				// val = 1, amt = 0, qty = 0:		0 * 1 <= 0		0 <= 0	true
+				// val = 1, amt = 0, qty = 1:		1 * 1 <= 0		1 <= 0	false
+				// val = 1, amt = 1, qty = 0:		0 * 1 <= 1		1 <= 1	true
+
+				// calculate remainder 
+				remainder = amt - qty * val;
+				// val = 1, amt = 0, qty = 0: 	remainder = 0 - 0 * 1		= 0 - 0 = 0
+				// val = 1, amt = 1, qty = 0: 	remainder = 1 - 0 * 1		= 1 - 1 = 0
+				
+				attempt = table[remainder] + qty;
+				// val = 1, amt = 0, qty = 0: 	attempt = table[0] + 0	= 0 + 0	= 0
+				// val = 1, amt = 1, qty = 0: 	attempt = table[0] + 0	= 0 + 0 = 0
+				
+				if (attempt < table[amt]) table[amt] = attempt;
+				// val = 1, amt = 0, qty = 0:		0 < table[0]	0 < 0					false
+				// val = 1, amt = 1, qty = 0: 	0 < table[1]	0 < Infinity	true
+				// val = 1, amt = 1, qty = 0: 	table[1] = 0
+
+				// if (val === 1 && amt === 0 && qty === 0) console.log(remainder, attempt, table);
+				// if (val === 1 && amt === 1 && qty === 0) console.log(remainder, attempt, table);
+			}
+		}
+	});
+
+	return table[amount];
 }
 
+// console.log(minChange([1, 4, 5], 8));		//=> 2		bec 4 + 4 = 8
+// minChange([1, 4, 5], 8);		//=> 2		bec 4 + 4 = 8
 
 module.exports = {
     stepper,
