@@ -1,7 +1,10 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
-{\colortbl;\red255\green255\blue255;\red251\green0\blue7;\red202\green202\blue202;}
-{\*\expandedcolortbl;;\cssrgb\c100000\c12195\c0;\cssrgb\c83137\c83137\c83137;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red251\green0\blue7;\red202\green202\blue202;\red0\green0\blue0;
+\red255\green255\blue255;\red202\green202\blue202;\red0\green0\blue233;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c12195\c0;\cssrgb\c83137\c83137\c83137;\cssrgb\c0\c0\c0;
+\cssrgb\c100000\c100000\c100000;\cssrgb\c83137\c83137\c83137;\cssrgb\c0\c0\c93333;}
 \margl1440\margr1440\vieww15320\viewh22280\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
@@ -15,7 +18,22 @@ AA Data Structures/Algorithms Notes\
 	- very inefficient side by side comparison sort\
 	- Time Complexity: O(N^2), N = array length\
 	- Space Complexity: O(1), assuming in place sort\
+	- when to use: don\'92t\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
-}
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b \cf0 2. \cf2 Selection Sort
+\f0\b0 \cf0 \
+	- Time Complexity: O(N^2), N = array length			(n * n/2)  ->  n^2\
+	- Space Complexity: O(1), assuming in place sort\
+	- when to use: \
+		- better than bubble sort in terms of number of possible swaps (this has least)\
+		 bubble sort, swaps on every single comparison, however selection sort only swaps once (per outer loop)\
+		- \'93\cf4 \cb5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 Selection Sort becomes advantageous when making a swap is the most expensive operation in your system. You will likely rarely encounter this scenario, but in a situation where you've built (or have inherited) a system with suboptimal write speed ability, for instance, maybe you're sorting data in a specialized database tuned strictly for fast read speeds at the expense of slow write speeds, using Selection Sort would save you a ton of expensive operations that could potential crash your system under peak load.\'94 (AA Reading)
+\f2\fs24 \cf6 \cb1 \strokec6 \
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/selection-sort-notes"}}{\fldrslt 
+\f3 \cf7 \ul \ulc7 \strokec7 https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/selection-sort-notes}}}
