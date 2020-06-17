@@ -73,10 +73,32 @@ function merge(array1, array2) {
 // console.log(merge([1, 5, 10, 15], [0, 2, 3, 7, 10]));
 
 
-
+// V1- Does NOT Mutate array
+// Time Complexity: O(N Log(N)),	N = input array length
+// log(N) 										represents the two recursive calls
+// the first N in N * log(N) 	represents the while loop in the merge helper function!
+// Space Complexity: O(N)
+// [2, -1, 4, 3, 7, 3]  =>  [-1, 2, 3, 3, 4, 7]
+// [2, 1]		=>  [1, 2]
 function mergeSort(array) {
 	
+	// base case if array length is empty or only has 1 num, then array already sorted
+	if (array.length <= 1) return array;
+
+	// split array in two
+	let midIdx = Math.floor(array.length/2);
+	// 1: midIdx = 2/2 = 1
+
+	let left = array.slice(0, midIdx);
+	// 1: left = [2]
+
+	let right = array.slice(midIdx);
+	// 1: right = [1]
+
+	return merge(mergeSort(left), mergeSort(right));
 }
+// console.log(mergeSort([2, -1, 4, 3, 7, 3]));			// => [-1, 2, 3, 3, 4, 7]
+console.log(mergeSort([2, 1]));											// => [1, 2]
 
 
 
