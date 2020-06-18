@@ -1,16 +1,22 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
-{\colortbl;\red255\green255\blue255;\red251\green0\blue7;}
-{\*\expandedcolortbl;;\cssrgb\c100000\c12195\c0;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 Helvetica-Bold;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red251\green0\blue7;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\cssrgb\c100000\c12195\c0;}
 \margl1440\margr1440\vieww15320\viewh22280\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\fs28 \cf0 6/17/20\
 AA Data Structures/Algorithms Notes\
 6- Efficient Sorting Algorithms \
-\
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/quick-sort-notes"}}{\fldrslt 
+\f1\fs24 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 \strokec2 https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/quick-sort-notes}}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 
-\f1\b 1. \cf2 Merge Sort
+\f2\b 1. \cf3 Merge Sort
 \f0\b0 \cf0 \
 	- Splits array in half, recursively sorts each half, then merges them\
 	- Time Complexity:    O( N log(N) ),  N = input array length\
@@ -19,6 +25,25 @@ AA Data Structures/Algorithms Notes\
 	- Space Complexity:  O(N)\
 	- When to use: \
 		- if you have unlimited memory available\
+\
+\
+
+\f2\b 2. \cf3 Quick Sort
+\f0\b0 \cf0 \
+	- Choose arbitrary* pivot point,  partition array in two with left being all numb\
+	  less than pivot, and right partition being all numbers greater than or equal to pivot. \
+           Then recursively sort both halves and join them with pivot. \
+	- Time Complexity:    	Average:	O(N log(N)),  N = input array length\
+					Best:		O(N log(N)),  \
+		- First N in O(N log(N) comes from partitioning step\
+		- log(N) part comes if pivot at/near the median, so having occurs during partition/recursive calls \
+					Worst: 	O(N^2)	though studies show this rarely occurs\
+	- Space Complexity:     Worst:	O(N),		though there exists a O(log(N)) in-place sort\
+	- When to use: \
+		- easy to read/not that many lines of code (compared to merge sort)\
+		- if the input array is nearly sorted, then don\'92t use first num as pivot (choose middle or random num!)\
+\
+\
 \
 \
 }
