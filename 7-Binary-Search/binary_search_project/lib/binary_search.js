@@ -1,5 +1,5 @@
 // TIME COMPLEXITY: 	O(log(N))		N = length of input array			log(N) = num recursive calls = num times to halve array to reach base case (array length 0)
-// SPACE COMPLEXITY: 
+// SPACE COMPLEXITY: 	O(N)
 // MY SOLUTION V1- (no need for slicing array twice (only once per call))
 // - Only works on SORTED arrays!
 // ([5, 10, 12, 15, 20, 30, 70], 12)  =>  true
@@ -55,9 +55,35 @@ function binarySearch(array, target) {
 
 
 
-function binarySearchIndex(array, target) {
 
+// ([5, 10, 12, 15, 20, 30, 70], 12)  =>  2
+// ([5, 10, 12, 15, 20, 30, 70], 24)	=> -1
+//   0   1   2   3   4   5   6
+// if not found, returns -1
+function binarySearchIndex(array, target) {
+	if (array.length === 0) return -1;																						// 1) base case, exit if array empty	
+
+	let midIdx = Math.floor(array.length/2);
+	let midNum = array[midIdx];
+	let left = array.slice(0, midIdx);
+	let right = array.slice(midIdx + 1);
+
+	if (midNum > target) {																												// if midNum > target, search left half
+		return binarySearchIndex(left, target);
+		
+	} else if (midNum < target) {																									// if midNum < target, search right half
+
+		// unique case if we reach end of array (otherwise we'll end up returning 5 instead of -1)
+		const subResult = binarySearchIndex(right, target);
+		return subResult === -1 ? -1 : subResult + midIdx + 1;
+
+	} else {																																			// if midNum == target
+		return midIdx;
+	}
 }
+
+// console.log(binarySearchIndex([5, 10, 12, 15, 20, 30, 70], 12));							//=> 2
+console.log(binarySearchIndex([5, 10, 12, 15, 20, 30, 70], 24));								//=> -1
 
 
 
