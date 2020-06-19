@@ -48,6 +48,7 @@ AA Data Structures/Algorithms Notes\
 
 \f2\b 3. \cf3 Radix Sort
 \f0\b0 \cf0 \
+	- Non Comparison Sort\
 	- Find K (length of longest integer), loop num times equal to K, create bucket of 10 arrays, then loop\
             Through integers and place them in appropriate buckets (by kth digit)\
 	- Time Complexity:    	Worst:	O(N * K),  N = input array length, K = length of longest integer (maxDigits)\
@@ -58,6 +59,20 @@ AA Data Structures/Algorithms Notes\
 		- You have list of integers, and you don\'92t know the value of the largest integer\
 		  if you do know the value of the largest integer, use countingSort\
 \
+\
+\
+
+\f2\b 4. \cf3 Counting Sort
+\f0\b0 \cf0 \
+	- Non Comparison Sort, Faster than Radix!!\
+	- count num of times each integer appears in array, then because array indices are already sorted, just\
+	  push counters index to sorted result array\
+	- limited to integers less than about 4.2B (limit of array lengths in ECMA 256 for 32-bit numbers)\
+	- Time Complexity:    	Worst:	O(N + k),  N = input array length, k = largest integer in array\
+	- Space Complexity:     Worst:	O(k)\
+	- When to use: \
+		- have a list of integers, AND you DO know k (largest integer in array)\
+		- great for when k is small\
 \
 \
 }
