@@ -39,7 +39,8 @@
 //			To find a node we have to loop through the entire list starting from the 
 //			first node
 //		- Deletion/Insertion Time Complexity = O(1) for doubly linked unlike 
-//			arrays O(N). This assumes you know where to insert already. 
+//			arrays O(N). This assumes you have a reference to the node of where
+//			you wnant to delete/insert, otherwise it's O(N)
 // - Types of Linked Lists:			Directionlity of each node:
 //		- Singly Linked 						Head 	-> 	Tail
 //		- Doubly Linked							Head 	<=>	Tail
