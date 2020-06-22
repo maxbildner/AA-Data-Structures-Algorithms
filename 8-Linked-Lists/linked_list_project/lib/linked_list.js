@@ -98,6 +98,7 @@ class LinkedList {
 		let newTail = currentNode;																									// create var to store newTail node (initialize to currentNode)
 
 		while (currentNode.next !== null) {																					// loop until we reach the tail node (loop since singly linked list, would use .previous prop if doubly linked)
+		// while (currentNode.next) {																								// 	same as above^
 			newTail = currentNode; 																										// reassign newTail to be currentNode
 			currentNode = currentNode.next;																						// reassign currentNode to be next node (so we can move down the list)
 		}
@@ -142,44 +143,139 @@ class LinkedList {
 
 
 
-	// TODO: Implement the addToHead method here
+	// returns updated linked list
+	// 						LinkedList { head: Node { value: 'B', next: null }, 														tail: Node { value: 'B', next: null }, 	length: 1 }
+	// ('A')	=>  LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
 	addToHead(val) {
-		
+		let newHead = new Node(val);																								// create newHead node to add
+	
+		if (this.length === 0) {																										// if list empty before calling addToHead, update tail
+			this.tail = newHead;
+		} else {
+			newHead.next = this.head;																									// update newHead to point to old Head
+		}
+
+		this.head = newHead;																												// update linked lists new head
+		this.length++;																															// increment length of list by 1
+		return this;
 	}
 
-	// TODO: Implement the removeHead method here
+
+
+	// returns removed head node
+	// 		LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+	// => Node { value: 'A', next: Node { value: 'B', next: null } }
+	// LinkedList { head: Node { value: 'B', next: null }, 	tail: Node { value: 'B', next: null }, 	length: 1 }
 	removeHead() {
+		if (this.length === 0) return undefined;																		// if list empty, return undefined
 
+		let removedHead = this.head;																								// store head to remove/return
+		this.head = this.head.next;																									// update head to be new next node in list
+		this.length--;																															// update length property of linked list
+
+		if (this.length === 0) this.tail = null;																		// if new list is empty, reset tail pointer to null
+
+		return removedHead;
 	}
 
-	// TODO: Implement the contains method here
+
+
+	// returns boolean, true if target is a value in linked list
+	// LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+	// ('A')	=>  true
+	// ('C')	=>  false
 	contains(target) {
+		let currentNode = this.head;
 
+		while (currentNode) {																												// loop through ALL nodes in linked list 
+			if (currentNode.value === target) return true;														// return true if val found
+			currentNode = currentNode.next;																						// update currentNode to be the Next Node
+		}
+																							
+		return false;																																// return false if val not found (outside loop)	
 	}
 
-	// TODO: Implement the get method here
+
+
+	// returns node at input index, null if out of bounds
+	// LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+	// (7) => null
+	// (1) => Node { value: 'B', next: null }
 	get(index) {
+		if (index >= this.length) return null;																			// return null if out of bounds
+		let currentNode = this.head;
 
+		for (let i = 0; i < index; i++) {																						// loop until index number of times
+			currentNode = currentNode.next;																						// update currentNode to be the Next Node	
+		}
+
+		return currentNode;
 	}
 
-	// TODO: Implement the set method here
+
+
+	// returns true if node exists at index. Updates value at node
+	// LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+	// (1, 'X')  =>  true
+	// LinkedList { head: Node { value: 'A', next: Node { value: 'X', next: null } }, 	tail: Node { value: 'X', next: null }, 	length: 2 }
+	// (2, 'X)	 =>  false
 	set(index, val) {
+		let foundNode = this.get(index);																						// get current node at input index
 
+		if (foundNode) {																														// if foundNode exists, update value of that node/return true
+			foundNode.value = val;								
+			return true;												
+		} 
+		return false;																																// return false if foundNode doesn't exist at input index
 	}
 
-	// TODO: Implement the insert method here
+
+
+	// returns boolean true if node exists at index. Also inserts new node at index
+	// LinkedList { head: Node { value: 'A', next: Node { value: 'C', next: null } }, tail: Node { value: 'C', next: null }, length: 2 }
+	// (1, 'B')  =>  true
+	// LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: Node{value:'C',next:null} } }, 	tail: Node { value: 'C', next: null }, 	length: 3 }
 	insert(index, val) {
+		if (index < 0 || index >= this.length) return false;												// return false if index out of bounds
+		if (index === 0) return !!this.addToHead(val);															// edge case if index = 0, below code wont work
 
+		let previousNode = this.get(index - 1);																			// get node before node@index
+
+		let nodeAtIndex = previousNode.next;																				// get node@index
+
+		let newNode = new Node(val);																								// create new node
+		previousNode.next = newNode;																								// update node before node@index to point to new node
+		newNode.next = nodeAtIndex;																									// update new node to point to node@index
+		this.length++;																															// update list length
+
+		return true;
 	}
 
-	// TODO: Implement the remove method here
+
+
+	// return undefined if index out of bounds. Removes node at index
+	// return removed node (if index not out of bounds)
+	// LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+	// (0)  =>	Node { value: 'A', next: Node { value: 'B', next: null } }
+	// LinkedList { head: Node { value: 'B', next: null }, 	tail: Node { value: 'B', next: null }, 	length: 1 }
 	remove(index) {
+		if (index < 0 || index >= this.length) return undefined; 										// return undefined if index out of bounds
+		if (index === 0) return this.removeHead();																	// edge case if index = 0, remove head
+		if (index === this.length - 1) return this.removeTail();										// edge case if index = index@last node, remove tail
 
+		let previousNode = this.get(index - 1);																			// get previousNode
+		let nodeAtIndex = previousNode.next;																				// get node@index
+		let nextNode = nodeAtIndex.next;																						// get nextNode
+		previousNode.next = nextNode;																								// update previousNode to point to nextNode
+		this.length--;																															// update list length
+		return nodeAtIndex;																													// return node@index 
 	}
 
-	// TODO: Implement the size method here
-	size() {
 
+
+	// returns linked list length
+	size() {
+		return this.length;
 	}
 }
 
@@ -195,15 +291,66 @@ let myLinkedList = new LinkedList();
 // console.log(myLinkedList.addToTail('D'));		//=> LinkedList { head: Node { value: 'C', next: Node { value: 'D' } }, tail: Node { value: 'D', next: null }, length: 2 }
 
 // Ex 2: removeTail
-console.log(myLinkedList.addToTail('C'));				//=> LinkedList { head: Node { value: 'C', next: null }, 	tail: Node { value: 'C', next: null }, 	length: 1 }
-console.log(myLinkedList.addToTail('D'));				//=> LinkedList { head: Node { value: 'C', next: Node { value: 'D', next: null } }, 	tail: Node { value: 'D', next: null }, length: 2 }
-console.log(myLinkedList.removeTail());					//=> Node { value: 'D', next: null }
-console.log(myLinkedList);											//=> LinkedList { head: Node { value: 'C', next: null }, 	tail: Node { value: 'C', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('C'));		//=> LinkedList { head: Node { value: 'C', next: null }, 	tail: Node { value: 'C', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('D'));		//=> LinkedList { head: Node { value: 'C', next: Node { value: 'D', next: null } }, 	tail: Node { value: 'D', next: null }, length: 2 }
+// console.log(myLinkedList.removeTail());			//=> Node { value: 'D', next: null }
+// console.log(myLinkedList);										//=> LinkedList { head: Node { value: 'C', next: null }, 	tail: Node { value: 'C', next: null }, 	length: 1 }
 
 // Ex 3:	removeTail
-// console.log(myLinkedList.addToTail('C'));				//=> LinkedList { head: Node { value: 'C', next: null }, 	tail: Node { value: 'C', next: null }, 	length: 1 }
-// console.log(myLinkedList.removeTail());					//=> Node Node { value: 'C', next: null }
-// console.log(myLinkedList);												//=> LinkedList { head: null, 	tail: null, 	length: 0 }
+// console.log(myLinkedList.addToTail('C'));		//=> LinkedList { head: Node { value: 'C', next: null }, 	tail: Node { value: 'C', next: null }, 	length: 1 }
+// console.log(myLinkedList.removeTail());			//=> Node Node { value: 'C', next: null }
+// console.log(myLinkedList);										//=> LinkedList { head: null, 	tail: null, 	length: 0 }
+
+// Ex 4:	addToHead
+// console.log(myLinkedList.addToHead('B'));		//=> LinkedList { head: Node { value: 'B', next: null }, 	tail: Node { value: 'B', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToHead('A'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+
+// Ex 5:	removeHead
+// console.log(myLinkedList.addToTail('A'));		//=> LinkedList { head: Node { value: 'A', next: null }, 	tail: Node { value: 'A', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('B'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+// console.log(myLinkedList.removeHead());			//=> Node { value: 'A', next: Node { value: 'B', next: null } }
+// console.log(myLinkedList);										//=> LinkedList { head: Node { value: 'B', next: null }, 	tail: Node { value: 'B', next: null }, 	length: 1 }
+// console.log(myLinkedList.removeHead());			//=> Node { value: 'B', next: null }
+// console.log(myLinkedList);										//=> LinkedList { head: null, 														tail: null, 	length: 0 }
+
+// Ex 6:	contains()
+// console.log(myLinkedList.addToTail('A'));		//=> LinkedList { head: Node { value: 'A', next: null }, 	tail: Node { value: 'A', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('B'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+// console.log(myLinkedList.contains('A'));			//=> true
+// console.log(myLinkedList.contains('B'));			//=> true
+// console.log(myLinkedList.contains('C'));			//=> false
+
+// Ex 7:	get()
+// console.log(myLinkedList.addToTail('A'));		//=> LinkedList { head: Node { value: 'A', next: null }, 	tail: Node { value: 'A', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('B'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+// console.log(myLinkedList.get(7));						//=> null
+// console.log(myLinkedList.get(1));						//=> Node { value: 'B', next: null } 
+
+// Ex 8:	set()
+// console.log(myLinkedList.addToTail('A'));		//=> LinkedList { head: Node { value: 'A', next: null }, 	tail: Node { value: 'A', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('B'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+// console.log(myLinkedList.set(1, 'X'));				//=> true
+// console.log(myLinkedList);										//=> LinkedList { head: Node { value: 'A', next: Node { value: 'X', next: null } }, 	tail: Node { value: 'X', next: null }, 	length: 2 }
+// console.log(myLinkedList.set(3, 'X'));				//=> false
+
+// Ex 9:	insert()
+// console.log(myLinkedList.addToTail('A'));		//=> LinkedList { head: Node { value: 'A', next: null }, 	tail: Node { value: 'A', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('C'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'C', next: null } }, 	tail: Node { value: 'C', next: null }, 	length: 2 }
+// console.log(myLinkedList.insert(1, 'B'));		//=> true
+// console.log(myLinkedList);										//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: Node{value:'C',next:null} } }, 	tail: Node { value: 'C', next: null }, 	length: 3 }
+
+// Ex 10:	remove()
+// console.log(myLinkedList.addToTail('A'));		//=> LinkedList { head: Node { value: 'A', next: null }, 	tail: Node { value: 'A', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('B'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 	tail: Node { value: 'B', next: null }, 	length: 2 }
+// console.log(myLinkedList.remove(0));					//=> Node { value: 'A', next: Node { value: 'B', next: null } }
+// console.log(myLinkedList);										//=> LinkedList { head: Node { value: 'B', next: null }, 	tail: Node { value: 'B', next: null }, 	length: 1 }
+
+// Ex 11:	remove()
+// console.log(myLinkedList.addToTail('A'));		//=> LinkedList { head: Node { value: 'A', next: null }, 	tail: Node { value: 'A', next: null }, 	length: 1 }
+// console.log(myLinkedList.addToTail('B'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: null } }, 		tail: Node { value: 'B', next: null }, 	length: 2 }
+// console.log(myLinkedList.addToTail('C'));		//=> LinkedList { head: Node { value: 'A', next: Node { value: 'B', next: [NodeC] } }, 	tail: Node { value: 'C', next: null }, 	length: 3 }
+// console.log(myLinkedList.remove(1));					//=> Node { value: 'B', next: Node { value: 'C', next: null } }
+// console.log(myLinkedList);										//=> LinkedList { head: Node { value: 'A', next: Node {value:'B',next:[NodeC]} }, 	tail: Node { value: 'C', next: null }, 	length: 2 }
 
 
 
