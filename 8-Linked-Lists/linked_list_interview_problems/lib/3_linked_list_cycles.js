@@ -1,5 +1,6 @@
 // ============================================================================
 // Interview Problem: Linked List Cycles
+// SIMILAR TO LEETCODE LC 141 EASY
 // ============================================================================
 //
 // -------
@@ -97,6 +98,10 @@ function hasCycleV1(linkedList) {
 
 
 // VERSION2- AA SOLUTION,     
+// HINT: Imagine two runners running on a track at different speed. What happens 
+//  when the track is actually a circle? Consider a slow pointer that moves one 
+//  step at a time while the fast pointer moves two steps at a time.
+// 
 // TIME COMPLEXITY:   O(1),   
 // SPACE COMPLEXITY:  O(1),   
 // INPUTS:  1 linked list object
@@ -141,43 +146,6 @@ function hasCycle(linkedList) {
   }
 
   return false;
-
-
-
-  // let slow = linkedList.head;
-  // let fast = linkedList.head;
-  // // slow = A
-  // // fast = A
-  // let pause = true;
-
-  // while (fast = fast.next) {
-  //   // 1:  (fast = B)   =>    B     true
-  //   // 2:  (fast = C)   =>    C     true
-  //   // 3:  (fast = D)   =>    D     true
-  //   // 4:  (fast = E)   =>    E     true
-  //   // 5:  (fast = B)   =>    B     true
-
-  //   if (fast === slow) return true;
-  //   // 1:   B === A   false
-  //   // 2:   C === A   false
-  //   // 3:   D === B   false
-  //   // 4:   E === B   false
-  //   // 5:   B === B   true      
-
-  //   slow = pause ? slow : slow.next;
-  //   // 1:   slow =  (true)  ? A : B     =>    A
-  //   // 2:   slow =  (false) ? A : B     =>    B
-  //   // 3:   slow =  (true)  ? B : C     =>    B
-  //   // 4:   slow =  (false) ? B : C     =>    C
-
-  //   pause = !pause;                   // flip boolean pause
-  //   // 1: pause = !true               => false
-  //   // 2: pause = !false              => true
-  //   // 3: pause = !true               => false
-  //   // 4: pause = !false              => true
-  // }
-
-  // return false;
 }
 
 
@@ -226,9 +194,9 @@ class LinkedList {
 }
 
 
-let myLinkedList = new LinkedList();
-console.log(myLinkedList.addToTail('A'));   //=> LinkedList { head: Node { value: 'A', next: null }, tail: Node { value: 'A', next: null }, length: 1 }
-console.log(hasCycle(myLinkedList));        //=> false
+// let myLinkedList = new LinkedList();
+// console.log(myLinkedList.addToTail('A'));   //=> LinkedList { head: Node { value: 'A', next: null }, tail: Node { value: 'A', next: null }, length: 1 }
+// console.log(hasCycle(myLinkedList));        //=> false
 
 
 exports.Node = Node;

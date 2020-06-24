@@ -27,6 +27,20 @@ AA Data Structures/Algorithms Notes\
 	- When to use: \
 		- \
 \
+2. \cf4 LRU (Least Recently Used) Cache\cf0 \
+	- A data structure similar to a hash table \
+	- Similarity with Hash Table:  \
+		-it has constant read and write capacities get(key), and set(key, val) are O(1) time.\
+	- Difference with Hash Table:\
+		- instead of re-sizing once it reaches maximum storage capacity, it removes\
+		  the least recently used item from the cache, also in O(1) time\
+		- least recently used is determined by \'93get\'94 time, not just by creation time\
+	- property of LRUCache Object is an object to track LRUCacheItem Objects\
+	- another property of LRUCache Object is a doubly linked List to track item ordering\
+\
+3. Use Cases for LRU Caches\
+C\
+\
 Loop through ALL nodes in linked list\
 	let currentNode = this.head;\
 	while (\cf4 currentNode\cf0 ) \{\
@@ -47,9 +61,11 @@ Loop through until 2nd to last Node in linked list\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\b0 \cf0 QUESTIONS\
-- need to go over advantages/disadvantages of singly/doubly/multiply/circular linked lists
+- Need to go over advantages/disadvantages of singly/doubly/multiply/circular linked lists
 \f2\b \
-\
+
+\f0\b0 - Need to go over hasCycles problem (assuming we don\'92t have access to linked list)
+\f2\b \
 
 \f0\b0 \
 \
