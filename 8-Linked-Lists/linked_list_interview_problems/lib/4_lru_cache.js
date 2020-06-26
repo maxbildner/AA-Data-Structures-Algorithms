@@ -1,7 +1,8 @@
 // ============================================================================
 // Interview Problem: Design and Implement an LRU Cache
+// SIMILAR TO LEETCODE LC 146 MEDIUM
 // ============================================================================
-//
+// NOTE !!!! AA SOLUTION DOES NOT WORK!!!!!!
 // -------
 // Prompt:
 // -------
@@ -58,12 +59,16 @@
 
 
 
+
+// VERSION1- MY SOLUTION,     
+// TIME COMPLEXITY (.get & .set methods):   O(1)   
+// SPACE COMPLEXITY:                        O(1)   
 // TODO: Implement the LRUCacheItem class here
 class LRUCacheItem {
   constructor(val = null, key = null) {
     this.key = key;
     this.val = val;
-    this.node = null;           //
+    this.node = null;           
   }
 }
 
@@ -106,42 +111,24 @@ class LRUCache {
   // returns updated LRUCache
   // creates a new LRUCacheItem (node) and adds it to the LRU Cache if one doesn't already exist with key provided
   set(key, val) {
-    // let item;                                                           // item == LRUCacheItem object
+    let item;                                                           // item == LRUCacheItem object
 
-    // if (this.items[key] !== undefined) {                                // if item already exists, set/update val  
-    //   item = this.items[key]                                            // memoize item object in LRUCache items property
-    //   item.val = val;                                                   // update the value of the item
-    //   this.promote(item);                                               // promote item to front of list
+    if (this.items[key] !== undefined) {                                // if item already exists, set/update val  
+      item = this.items[key]                                            // memoize item object in LRUCache items property
+      item.val = val;                                                   // update the value of the item
+      this.promote(item);                                               // promote item to front of list
 
-    // } else {                                                            // item doesn't exist, set new item
-    //   if (this.isFull()) this.prune();                                  // if LRUCache is full, prune the cache
-    //   item = new LRUCacheItem(val, key);                                // create new LRUCacheItem object
-    //   this.items[key] = item;                                           // update this.items property in LRUCache @ key w/ value of new item
-    //   this.length++;                                                    // increment LRUCache length property
-    //   // item.node = this.ordering.unshift(item);                       // set item's node property to head ListNode, also insert item at head of the list
-    //   this.ordering.unshift(item);                                      // below 2 lines equal to above 1 line. ListNode is created in .unshift
-    //   item.node = this.ordering.head;
-    // }
-
-    // return this;
-
-    let item;
-    // Set an existing item
-    if (this.items[key]) {
-      item = this.items[key];
-      item.val = val;
-      this.promote(item);
-
-      // Set a new item
-    } else {
-      // Make space if necessary
-      if (this.isFull()) this.prune();
-
-      item = new LRUCacheItem(val, key);
-      item.node = this.ordering.unshift(item);
-      this.items[key] = item;
-      this.length += 1;
+    } else {                                                            // item doesn't exist, set new item
+      if (this.isFull()) this.prune();                                  // if LRUCache is full, prune the cache
+      item = new LRUCacheItem(val, key);                                // create new LRUCacheItem object
+      this.items[key] = item;                                           // update this.items property in LRUCache @ key w/ value of new item
+      this.length++;                                                    // increment LRUCache length property
+      // item.node = this.ordering.unshift(item);                       // set item's node property to head ListNode, also insert item at head of the list
+      this.ordering.unshift(item);                                      // below 2 lines equal to above 1 line. ListNode is created in .unshift
+      item.node = this.ordering.head;
     }
+
+    return this;
   }
 
 
@@ -477,7 +464,7 @@ console.log(stringify(fancyLRUCache.ordering.head));    //=> 'B -> C -> E -> D -
 // }
 
 
-// 9) 
+// 9) NOTE!!! DOESN'T WORK
 console.log(" ");
 console.log(fancyLRUCache.set('f'));                    
 console.log(" "); 
