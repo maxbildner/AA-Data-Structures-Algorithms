@@ -159,9 +159,10 @@ function insertionSortV2(arr) {
 
 // ATTEMPT V3- Not as efficient as V2, but still same worst case Time
 // Time Complexity: O(N^2)		bec. inner 3 loops simply to O(N) + O(N) + O(N) 	-> O(N + N + N)   ->  O(3N)   -> O(N)
+// Space Complexity: 	O(1) 
 // [ 3, 4, 1, 2 ]			=> [ 1, 2, 3, 4]
 // In place sort (mutates input array)
-function insertionSort(arr) {
+function insertionSortV3(arr) {
 
 	// 1) Loop through nums in array (but start at 2nd num, no need to start at 1st bec 1st num by itself already sorted)
 	for (let i = 1; i < arr.length; i++) {
@@ -190,6 +191,36 @@ function insertionSort(arr) {
 // console.log(insertionSortV3([5, 2, 1, 2]));																	//=>  [ 1, 2, 2, 5 ]
 // console.log(insertionSortV3([3, 4, 1, 2]));																	//=> 	[ 1, 2, 3, 4 ]
 
+
+
+
+
+
+
+// ATTEMPT V4- MY SOLUTION (SIMILAR TO AA, but less complicated for/while condition)
+// Time Complexity: 	O(N^2)	N = array length
+// Space Complexity: 	O(1) 
+// [ 5, 2, 1, 2 ]			=> [ 1, 2, 2, 5]
+function insertionSort(array) {
+	
+	for (let i = 1; i < array.length; i++) {																			// 1) loop through array, but start at 2nd num (bec. 1st num already sorted)
+		let currentNum = array[i];																									//    grab currentNum
+
+		for (var j = i - 1; j >= 0; j--) {																					// 2) loop again over left sorted half (from right to left), but start at previous num
+			let prev = array[j];																											//    grab prevNum
+
+			if (currentNum < prev) {																									// 3) if num < prev,  replace num @ j + 1 with num @ j
+				array[j + 1] = array[j];	
+			} else {																																	// 4) else exit loop (num >= prev) bec now we know where to insert currentNum
+				break;	
+			}
+		}
+
+		array[j + 1] = currentNum;																									// 5) outside inner loop, insert currentNum @ j + 1 (+ 1 to offset j-- in for loop above)
+	}
+
+	return array;
+}
 
 
 
