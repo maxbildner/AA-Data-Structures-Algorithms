@@ -16,8 +16,8 @@
 // in the table provided in the Time and Space Complexity Analysis section
 // of your Stack reading!
 // 
-//  stack.push()     O(1) TIME    (returns new size after new val/node added to stack)
-//  stack.pop()      O(1) TIME    (returns oldTop node removed, or null if stack empty)
+//  stack.push()     O(1) TIME    adds node to Top (Head), of stack,      returns new size
+//  stack.pop()      O(1) TIME    removes node from Front (Head) of line, returns removed node value
 //  stack.size()     O(1) TIME
 //
 // -----------
