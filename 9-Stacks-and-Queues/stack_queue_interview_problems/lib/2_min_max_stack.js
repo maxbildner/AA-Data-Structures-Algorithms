@@ -1,6 +1,6 @@
 // ============================================================================
 // Interview Problem: Constant Time Stack Max
-// SIMILAR TO LEETCODE LC 155 Min Stack EASY
+// SIMILAR TO LEETCODE LC 155 Min Stack EASY or Max Stack (716)
 // ============================================================================
 //
 // -------
@@ -71,6 +71,7 @@ class Node {
 }
 
 // VERSION 1- MY SOLUTION (uses helper method, easier to read, but similar to AA solution)
+// USES Singly Linked List (with nodes) as underlying stack data structure
 // Refactor the regular Stack below into a MinMaxStack!
 class MinMaxStack {
 	constructor() {
