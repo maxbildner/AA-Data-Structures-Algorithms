@@ -23,12 +23,98 @@
 //
 //
 // -----------
-// Let's code!
-// -----------
 
+
+// VERSION 1- MY SOLUTION- no stack ADT, just O(N) loop, and .slice
+// Returns String ex. 'DCBA'
+// 'A -> B -> C -> D'			=>  'D -> C -> B -> A'
+// TODO: Implement the iterateAcrossLinkedListBackwards function here
+// TIME 10Min to complete
+function iterateAcrossLinkedListBackwardsV1(linkedList) {
+	let reversedString = '';									
+	let currentNode = linkedList.head;	
+
+	while (currentNode) {											// loop over all nodes in linked list
+		reversedString = currentNode.value + ' -> ' + reversedString;
+		currentNode = currentNode.next; 
+	}
+
+	reversedString = reversedString.slice(0, reversedString.length - 4);
+
+	return reversedString;
+}
+
+
+
+// VERSION 2- MY SOLUTION- no stack ADT, but O^2 TIME due to array.unshift inside loop
+// Returns String ex. 'DCBA'
+// 'A -> B -> C -> D'			=>  'D -> C -> B -> A'
+// TODO: Implement the iterateAcrossLinkedListBackwards function here
+function iterateAcrossLinkedListBackwardsV2(linkedList) {
+	let reversedString = [];									
+	let currentNode = linkedList.head;	
+
+	while (currentNode) {														// loop over all nodes in linked list
+		reversedString.unshift(String(currentNode.value));
+		currentNode = currentNode.next; 
+	}
+
+	return reversedString.join(' -> ');
+}
+
+
+
+// VERSION 3- MY SOLUTION- Stack ADT used
+// TIME COMPLEXITY:  O(N), 	N = linked list length
+// SPACE COMPLEXITY: O(N)
+// Returns String ex. 'DCBA'
+// 'A -> B -> C -> D'			=>  'D -> C -> B -> A'
+// TODO: Implement the iterateAcrossLinkedListBackwards function here
 function iterateAcrossLinkedListBackwards(linkedList) {
-    // TODO: Implement the iterateAcrossLinkedListBackwards function here
+	let stack = new Stack();
+	let currentNode = linkedList.head;	
+	let result = '';
 
+	while (currentNode) {														// loop over all nodes in linked list
+		stack.push(currentNode.value);
+		currentNode = currentNode.next; 
+	}
+
+	currentNode = stack.head;
+	let firstVal = true;
+	
+	while (currentNode) {
+		if (firstVal) {
+			result = result + currentNode.value;
+			firstVal = false;
+		} else {
+			result = result + ' -> ' + currentNode.value;
+		}
+		currentNode = currentNode.next;
+	}
+
+	return result;
+}
+
+
+class Stack {
+	constructor() {
+		this.head = null;
+		this.tail = null;
+	}
+
+	push(val) {																			// adds to head
+		let newNode = { value: val, next: null };
+
+		if (this.head === null) {											// stack empty
+			this.head = newNode;
+			this.tail = newNode;
+
+		} else {																			// stack not empty
+			newNode.next = this.head;
+			this.head = newNode
+		}
+	}
 }
 
 exports.iterateAcrossLinkedListBackwards = iterateAcrossLinkedListBackwards;
