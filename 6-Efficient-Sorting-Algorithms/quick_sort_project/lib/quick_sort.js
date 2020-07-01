@@ -1,16 +1,22 @@
-// TIME COMPLEXITY:		AVG:  	O(N Log(N)),		N = input array length, if lucky, pivot will be median so halving will occur during partition (thus log(N))
-// TIME COMPLEXITY:		BEST:  	O(N Log(N))
-// TIME COMPLEXITY:		WORST:  O(N^2)
-// SPACE COMPLEXITY:					O(N),  					Note* theres a O(log(N)) that's inpalce that also exists
+// TIME COMPLEXITY:		WORST:  O(N^2),				N = input array length, however research shows worst case to be rare 
+//														First N comes from partitioning array, then O(N) again for every recursive step if pivot is min or max (see below)
+// TIME COMPLEXITY:		AVG:  	O(N log(N))
+// TIME COMPLEXITY:		BEST:  	O(N log(N))
+// SPACE COMPLEXITY:					O(N),  	bec of partition arrays created, but a worst case O(log(N)) in place solution exists
+//                                
+// NOTES
+//   	- Num of recursive calls = num times array is split to reach base case, which is dependant on how pivot is chosen
+// 		- Best Case: If lucky, pivot will be median so halving will occur during partition (left and right partitions equal lengths). O(log(N)) to reach base case
+//		- Worst Case: pivot is min or max, so one partion will contain everything and other is empty (this will decrease array length by 1 each recursive step), so O(N)
 // [2, -1, 4, 3, 7, 3]     =>   [-1, 2, 3, 3, 4, 7]
 // MUTATES INPUT ARRAY (deletes first num)
 function quickSort(array) {
 	if (array.length <= 1) return array;																					// 1) Base case if input array length <= 1 (already sorted)
 
-	// let pivot = array[0];																											//    WRONG! Don't forget to remove num from array!
-	let pivot = array.shift();																										// 2) Select pivot point (lets use first element for now)
+	let pivot = array[0];																													// 2) Select pivot point (use 1st num for simplicity unless array nearly sorted)
+	array = array.slice(1);
 
-	let left = array.filter(num => num < pivot);																	// 3) Sort/partition all nums < and > pivot in two diff arrays
+	let left = array.filter(num => num < pivot);																	// 3) partition all nums < and >= pivot in two diff arrays
 	let right = array.filter(num => num >= pivot);
 
 	let leftSorted = quickSort(left);																							// 4) Recursively sort left and right subarrays
