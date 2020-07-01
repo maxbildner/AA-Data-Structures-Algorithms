@@ -96,6 +96,101 @@ function radixSortWithNegatives(arr) {
 // console.log(radixSortWithNegatives([23, -1, 263, -40]));											//=> [ -40, -1, 23, 263 ]
 
 
+
+
+// *****************************************************************************
+// SOLUTION V3- MY SOLUTION WORKS FOR ALL INTEGERS POSTIVE/NEGATIVE NO RADIXSORT HELPER NEEDED!!!
+// TIME COMPLEXITY: 		O(N * L),		N = array length, L = length of longest integer (maxDigits)
+// SPACE COMPLEXITY: 		O(N + L)
+
+function radixSort(arr) {
+	if (!Array.isArray(arr)) return null;
+	if (arr.length <= 1) return arr;
+
+	let L = getMaxDigits(arr);
+
+	for (let i = 1; i <= L; i++) {
+		let bucketsPos = {
+			0: [],
+			1: [],
+			2: [],
+			3: [],
+			4: [],
+			5: [],
+			6: [],
+			7: [],
+			8: [],
+			9: [],
+		};
+
+		let bucketsNeg = {
+			"-9": [],
+			"-8": [],
+			"-7": [],
+			"-6": [],
+			"-5": [],
+			"-4": [],
+			"-3": [],
+			"-2": [],
+			"-1": [],
+		};
+
+		// let bucketsPos = [[], [], [], [], [], [], [], [], [], []];
+		// let bucketsNeg = [[], [], [], [], [], [], [], [], [], []];
+
+		for (let j = 0; j < arr.length; j++) {
+			let num = arr[j];
+			let lthDigit = getDigit(num, i);
+			if (num < 0) {
+				bucketsNeg[lthDigit].push(num);
+			} else {
+				bucketsPos[lthDigit].push(num);
+			}								
+		}
+
+		arr = [].concat(...Object.values(bucketsNeg), ...Object.values(bucketsPos));
+		// arr = [].concat(...bucketsNeg.reverse(), ...bucketsPos);	
+	}
+
+	return arr;
+}
+
+
+
+// Helper function, O(1) Time
+// 23 	=>	2
+// 234 	=>	3
+function getIntLength(num) {
+	if (num === 0) {
+		return 1;
+	} else {
+		return Math.floor(Math.log10(Math.abs(num))) + 1;
+	}
+}
+
+
+// Helper function, O(1) Time
+// [ 23, 1, 269, 40, 0 ]			=>    3																						
+function getMaxDigits(nums) {
+	let maxDigits = 0;
+	for (let i = 0; i < nums.length; i++) {
+		maxDigits = Math.max(maxDigits, getIntLength(nums[i]));
+	}
+	return maxDigits;
+}
+
+
+// Helper Function, O(1) Time
+// (23, 1)			=>   3
+// (23, 2)			=>   2
+function getDigit(number, i) {
+	return Math.floor(number / Math.pow(10, i - 1)) % 10;
+}
+
+console.log(radixSort([-5, -2, 3, -1, 20, 0]));  //=> [ -5, -3, -2, -1, 0, 20 ]
+
+
+
 module.exports = {
 	radixSort
 };
