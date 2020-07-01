@@ -26,6 +26,7 @@ AA Data Structures/Algorithms Notes\
 	- Space Complexity:  O(N)\
 	- When to use: \
 		- if you have unlimited memory available\
+		- array has rational numbers (radix/counting sort won\'92t work)\
 \
 \
 
@@ -54,12 +55,13 @@ AA Data Structures/Algorithms Notes\
             Through integers and place them in appropriate buckets (by kth digit)\
 	- Time Complexity:    	Worst:	O(N * K),  N = input array length, K = length of longest integer (maxDigits)\
 					Best:		O(N log(K)),  \
-	- Space Complexity:     Worst:	O(N * K)\
+	- Space Complexity:     Worst:	O(N + K)\
 	- When to use: \
 		- You have a list of binary data\
 		- You have list of integers, and you don\'92t know the value of the largest integer\
 		  if you do know the value of the largest integer, use countingSort\
-\
+		- Very fast when K is small\
+	- Sorting negatives is very simple (just use radixSort as a helper method to sort negatives and positives)\
 \
 \
 
