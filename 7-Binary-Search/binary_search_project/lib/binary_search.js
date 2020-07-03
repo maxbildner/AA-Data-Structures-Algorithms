@@ -1,6 +1,8 @@
+// SIMILAR TO LEETCODE LC 704 Binary Search
+// *****************************************************************************
+// VERSION 1- MY SOLUTION, (no need for slicing array twice (only once per call))
 // TIME COMPLEXITY: 	O(log(N))		N = length of input array			log(N) = num recursive calls = num times to halve array to reach base case (array length 0)
 // SPACE COMPLEXITY: 	O(N)
-// MY SOLUTION V1- (no need for slicing array twice (only once per call))
 // - Only works on SORTED arrays!
 // ([5, 10, 12, 15, 20, 30, 70], 12)  =>  true
 //   0   1   2   3   4   5   6
@@ -28,8 +30,8 @@ function binarySearchV1(array, target) {
 
 
 
-
-// AA SOLUTION V2- easier to read, but slices array twice
+// *****************************************************************************
+// VERSION 2- AA SOLUTION, easier to read, but slices array twice
 // - Only works on SORTED arrays!
 // ([5, 10, 12, 15, 20, 30, 70], 12)  =>  true
 //   0   1   2   3   4   5   6
@@ -55,36 +57,73 @@ function binarySearch(array, target) {
 
 
 
-
+// *****************************************************************************
+// VERSION 1- AA SOLUTION, RECURSIVE- uses .slice/more memory
+// TIME COMPLEXITY: 	O(log(N))		N = length of input array			log(N) = num recursive calls = num times to halve array to reach base case (array length 0)
+// SPACE COMPLEXITY: 	O(N)				due to array.slice()
 // ([5, 10, 12, 15, 20, 30, 70], 12)  =>  2
 // ([5, 10, 12, 15, 20, 30, 70], 24)	=> -1
 //   0   1   2   3   4   5   6
 // if not found, returns -1
-function binarySearchIndex(array, target) {
-	if (array.length === 0) return -1;																						// 1) base case, exit if array empty	
+function binarySearchIndexV1(array, target) {
+	if (array.length === 0) return -1;																						// 1) base case, not found if array empty
 
-	let midIdx = Math.floor(array.length/2);
-	let midNum = array[midIdx];
-	let left = array.slice(0, midIdx);
-	let right = array.slice(midIdx + 1);
-
-	if (midNum > target) {																												// if midNum > target, search left half
-		return binarySearchIndex(left, target);
+	let midIdx = Math.floor(array.length/2);																			// 2) grab midIdx
+	let midNum = array[midIdx];																										// 3) grab midNum @ midIdx
+	
+	if (midNum > target) {																												// 4) if midNum > target, overshot so search left half
+		let left = array.slice(0, midIdx);
+		return binarySearchIndexV1(left, target);
 		
-	} else if (midNum < target) {																									// if midNum < target, search right half
+	} else if (midNum < target) {																									// 5) if midNum < target, search right half
+		let right = array.slice(midIdx + 1);
+		
+		// unique case if we reach end of array (otherwise we'll end up returning 4 instead of -1)
+		let subResult = binarySearchIndexV1(right, target);													// capture recursive call in subResult
+		return subResult === -1 ? -1 : subResult + midIdx + 1;											// return -1 if subresult not found, else adjust for midIdx
 
-		// unique case if we reach end of array (otherwise we'll end up returning 5 instead of -1)
-		const subResult = binarySearchIndex(right, target);
-		return subResult === -1 ? -1 : subResult + midIdx + 1;
-
-	} else {																																			// if midNum == target
+	} else {																																			// 6) if midNum == target, target found!
 		return midIdx;
 	}
 }
 
-// console.log(binarySearchIndex([5, 10, 12, 15, 20, 30, 70], 12));							//=> 2
-console.log(binarySearchIndex([5, 10, 12, 15, 20, 30, 70], 24));								//=> -1
+// console.log(binarySearchIndexV1([5, 10, 12, 15, 20, 30, 70], 12));						//=> 2
+// console.log(binarySearchIndexV1([5, 10, 12, 15, 20, 30, 70], 24));						//=> -1
 
+
+
+
+// *****************************************************************************
+// VERSION 2- LC SOLUTION, ITERATIVE- uses pointers (instead of array slicing) to track halving array
+// TIME COMPLEXITY: 	O(log(N))		N = length of input array			
+// SPACE COMPLEXITY: 	O(1)				
+// ([5, 10, 12, 15, 20, 30, 70], 12)  =>  2
+// ([5, 10, 12, 15, 20, 30, 70], 24)	=> -1																			// if not found, returns -1
+//   0   1   2   3   4   5   6
+function binarySearchIndex(array, target) {
+	let l = 0;																																		// 1) left pointer, set to first index in array
+	let r = nums.length - 1;																											// 2) right pointer, set to last index in array
+
+	while (l <= r) {																															// 3) while left <= right
+		let midIdx = Math.floor((l + r) / 2);																					// grab middle index using left/right pointers
+		// let m = parseInt((l + r) / 2);																						// works. converts num to string, then truncates non numbers after first num (ex. 2.9 => 2)
+
+		let midNum = nums[midIdx];
+
+		if (midNum === target) return midIdx;																				// 4) target found if midNum == target, return midIdx
+
+		if (midNum < target) {																											// 5) if midNum < target, increase left by midIdx + 1
+			l = midIdx + 1;
+		} else {																																		// 6) if midNum > target, decrease right by midIdx - 1
+			r = midIdx - 1;
+		}
+	}
+
+	return nums[r] === target ? r : -1;																						// 7) return right pointer if target found, -1 otherwise
+}
+
+// console.log(binarySearchIndex([5, 10, 12, 15, 20, 30, 70], 12));							//=> 2
+// console.log(binarySearchIndex([5, 10, 12, 15, 20, 30, 70], 24));							//=> -1
 
 
 
