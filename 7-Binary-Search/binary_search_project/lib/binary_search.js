@@ -25,7 +25,7 @@ function binarySearchV1(array, target) {
 
 	return binarySearchV1(leftOrRight, target);
 }
-// console.log(binarySearchV1([5, 10, 12, 15, 20, 30, 70], 12));											//=> true
+// console.log(binarySearchV1([5, 10, 12, 15, 20, 30, 70], 12));								//=> true
 
 
 
@@ -100,26 +100,25 @@ function binarySearchIndexV1(array, target) {
 // ([5, 10, 12, 15, 20, 30, 70], 12)  =>  2
 // ([5, 10, 12, 15, 20, 30, 70], 24)	=> -1																			// if not found, returns -1
 //   0   1   2   3   4   5   6
-function binarySearchIndex(array, target) {
-	let l = 0;																																		// 1) left pointer, set to first index in array
-	let r = nums.length - 1;																											// 2) right pointer, set to last index in array
+function binarySearchIndex(nums, target) {
+	let left = 0;                                                                 // 1) left pointer, set to first index in array
+	let right = nums.length - 1;                                                  // 2) right pointer, set to last index in array
 
-	while (l <= r) {																															// 3) while left <= right
-		let midIdx = Math.floor((l + r) / 2);																					// grab middle index using left/right pointers
-		// let m = parseInt((l + r) / 2);																						// works. converts num to string, then truncates non numbers after first num (ex. 2.9 => 2)
+	while (left <= right) {                                                       // 3) loop while <= right. (bec the delta btwn them refers to the subarray/halving, as soon as that disappears/becomes negative, we're done)
+		let midIdx = Math.floor((left + right) / 2);                                // 4) grab middle index using left/right pointers
+		// let m = parseInt((l + r) / 2);																						//    works. converts num to string, then truncates non numbers after first num (ex. 2.9 => 2)
+		let midNum = nums[midIdx];                                                  // 5) grab num @ middle index
 
-		let midNum = nums[midIdx];
+		if (midNum === target) return midIdx;                                       // 6) if midNum == target, found! return midIdx
 
-		if (midNum === target) return midIdx;																				// 4) target found if midNum == target, return midIdx
-
-		if (midNum < target) {																											// 5) if midNum < target, increase left by midIdx + 1
-			l = midIdx + 1;
-		} else {																																		// 6) if midNum > target, decrease right by midIdx - 1
-			r = midIdx - 1;
+		if (midNum > target) {                                                      // 7) if midNum > target, update right pointer
+			right = midIdx - 1;
+		} else {                                                                    // 8) if midNum < target, update left pointer
+			left = midIdx + 1;
 		}
 	}
 
-	return nums[r] === target ? r : -1;																						// 7) return right pointer if target found, -1 otherwise
+	return -1;                                                                    // 9) target not found if we reach this point after loop
 }
 
 // console.log(binarySearchIndex([5, 10, 12, 15, 20, 30, 70], 12));							//=> 2
