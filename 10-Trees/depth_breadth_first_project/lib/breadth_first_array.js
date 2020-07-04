@@ -1,9 +1,9 @@
 class TreeNode {
-    constructor(val) {
-        this.val = val;
-        this.left = null;
-        this.right = null;
-    }
+	constructor(val) {
+		this.val = val;
+		this.left = null;
+		this.right = null;
+	}
 }
 
 // EXAMPLE 1:
@@ -73,6 +73,7 @@ function breadthFirstArray(root) {
 		// 3: 							result = [ A, B, C ]  				queue = [ D, E ]
 		// 4: 							result = [ A, B, C, D ]  			queue = [ E, F ]
 		// 5: 							result = [ A, B, C, D, E ]  	queue = [ F ]
+		// 6: 							result = [ A, B, C, D, E, F ] queue = [ ]
 		
 		if (node.right) queue.push(node.right);			
 		// 1: 							result = [ A ]      					queue = [ B, C ]
@@ -80,6 +81,7 @@ function breadthFirstArray(root) {
 		// 3: 							result = [ A, B, C ]  				queue = [ D, E, F ]
 		// 4: 							result = [ A, B, C, D ]  			queue = [ E, F ]
 		// 5: 							result = [ A, B, C, D, E ]  	queue = [ F ]
+		// 6: 							result = [ A, B, C, D, E, F ] queue = [ ]
 	}
 
 	return result;
