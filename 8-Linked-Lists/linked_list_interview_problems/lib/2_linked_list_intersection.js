@@ -40,7 +40,7 @@
 // -----------
 
 
-
+// *****************************************************************************
 // VERSION1- MY SOLUTION,     Good time, meh space
 // TIME COMPLEXITY:   O(N),   N = shorter list length
 // SPACE COMPLEXITY:  O(N),   bec we create obj to store shorter list vals
@@ -95,6 +95,7 @@ function linkedListIntersectionV1(list1, list2) {
 
 
 
+// *****************************************************************************
 // VERSION2- AA SOLUTION          efficient space, ok time (compared to v1)
 // TIME COMPLEXITY:   O(N),       N = Longer List Length
 // SPACE COMPLEXITY:  O(1)   
@@ -157,6 +158,65 @@ function getLinkedListLength(listNode) {
     return getLinkedListLength(listNode.next) + 1;
   }
 }
+
+
+
+
+
+
+// *****************************************************************************
+// VERSION 3- HASH TABLE/SET
+// LC 160 Intersection of Two Linked Lists
+// https://leetcode.com/problems/intersection-of-two-linked-lists/solution/
+// TIME COMPLEXITY: O(M + N)        M = list1 length,  N = list2 length
+// SPACE COMPLEXITY: O(M) or O(N)   depending on which list you use to store the hash/set
+// function linkedListIntersection(headA, headB) {
+function linkedListIntersection(list1, list2) {
+  let l1Head = list1.head;
+  let l2Head = list2.head;
+  let list1Nodes = new Set();
+
+  while (l1Head) {                                                              // 1) loop through list1 and store vals in hash table/set
+    list1Nodes.add(l1Head);
+    l1Head = l1Head.next;
+  }
+
+  while (l2Head) {                                                              // 2) loop through list2 and see if any nodes are in list1Nodes
+    if (list1Nodes.has(l2Head)) return l2Head;
+    l2Head = l2Head.next;
+  }
+
+  return null;                                                                  // 3) return null if we reach this point, no intersection
+}
+
+
+
+
+// *****************************************************************************
+// VERSION 4- 2 POINTERS BEST SOLUTION
+// LC 160 Intersection of Two Linked Lists
+// https://leetcode.com/problems/intersection-of-two-linked-lists/solution/
+// TIME COMPLEXITY: O(M + N)        M = list1 length,  N = list2 length
+// SPACE COMPLEXITY: O(1)   
+// function linkedListIntersection(headA, headB) {
+function linkedListIntersection(list1, list2) {
+  let headA = list1.head;
+  let headB = list2.head;
+
+  if (!headA || !headB) return null;                                            // 1) return null if either list is empty
+
+  var curA = headA;                                                             // 2) initialize 2 pointers to both heads
+  var curB = headB;
+
+  while (curA != curB) {                                                        // 3) keep looping as long as node pointers are different. Both pointers are being updated only 1 node at a time
+    curA = curA == null ? headB : curA.next;                                    // 4) if curA is null, make curA = headB,   else update curA to point to next
+    curB = curB == null ? headA : curB.next;                                    // 5) if curB is null, make curB = headA,   else update curB to point to next
+  }
+
+  return curA;                                                                  // 6) return either pointer (they will be the same or null)
+}
+
+
 
 
 
