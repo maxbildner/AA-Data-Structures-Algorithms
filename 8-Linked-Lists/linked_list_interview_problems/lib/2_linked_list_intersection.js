@@ -19,11 +19,11 @@
 // linkedListIntersection(list1,list2) should return D 
 // as the node of intersection.
 // 
-//    A → B → C
-//             ↘
-//               D → E → F
-//             ↗
-//        X → Y
+//  A → B → C
+//           ↘
+//             D → E → F
+//           ↗
+//      X → Y
 //
 // ---------- 
 // Example 2:
@@ -41,7 +41,7 @@
 
 
 // *****************************************************************************
-// VERSION1- MY SOLUTION,     Good time, meh space
+// VERSION 1- MY SOLUTION,     Good time, meh space
 // TIME COMPLEXITY:   O(N),   N = shorter list length
 // SPACE COMPLEXITY:  O(N),   bec we create obj to store shorter list vals
 // INPUTS:  Two Singly Linked List Objects
@@ -96,7 +96,7 @@ function linkedListIntersectionV1(list1, list2) {
 
 
 // *****************************************************************************
-// VERSION2- AA SOLUTION          efficient space, ok time (compared to v1)
+// VERSION 2- AA SOLUTION          efficient space, ok time (compared to v1)
 // TIME COMPLEXITY:   O(N),       N = Longer List Length
 // SPACE COMPLEXITY:  O(1)   
 // INPUTS:  Two Singly Linked List Objects
@@ -170,13 +170,12 @@ function getLinkedListLength(listNode) {
 // https://leetcode.com/problems/intersection-of-two-linked-lists/solution/
 // TIME COMPLEXITY: O(M + N)        M = list1 length,  N = list2 length
 // SPACE COMPLEXITY: O(M) or O(N)   depending on which list you use to store the hash/set
-// function linkedListIntersection(headA, headB) {
 function linkedListIntersection(list1, list2) {
   let l1Head = list1.head;
   let l2Head = list2.head;
   let list1Nodes = new Set();
 
-  while (l1Head) {                                                              // 1) loop through list1 and store vals in hash table/set
+  while (l1Head) {                                                              // 1) loop through list1 and store nodes in hash table/set
     list1Nodes.add(l1Head);
     l1Head = l1Head.next;
   }
@@ -198,22 +197,22 @@ function linkedListIntersection(list1, list2) {
 // https://leetcode.com/problems/intersection-of-two-linked-lists/solution/
 // TIME COMPLEXITY: O(M + N)        M = list1 length,  N = list2 length
 // SPACE COMPLEXITY: O(1)   
-// function linkedListIntersection(headA, headB) {
+// function linkedListIntersection(head1, head2) {
 function linkedListIntersection(list1, list2) {
-  let headA = list1.head;
-  let headB = list2.head;
+  let head1 = list1.head;
+  let head2 = list2.head;
 
-  if (!headA || !headB) return null;                                            // 1) return null if either list is empty
+  if (!head1 || !head2) return null;                                            // 1) return null if either list is empty
 
-  var curA = headA;                                                             // 2) initialize 2 pointers to both heads
-  var curB = headB;
+  let pNode1 = head1;                                                           // 2) initialize 2 pointers to both heads
+  let pNode2 = head2;
 
-  while (curA != curB) {                                                        // 3) keep looping as long as node pointers are different. Both pointers are being updated only 1 node at a time
-    curA = curA == null ? headB : curA.next;                                    // 4) if curA is null, make curA = headB,   else update curA to point to next
-    curB = curB == null ? headA : curB.next;                                    // 5) if curB is null, make curB = headA,   else update curB to point to next
+  while (pNode1 != pNode2) {                                                    // 3) keep looping as long as node pointers are different. loop through both lists one node at a time
+    pNode1 = pNode1 == null ? head2 : pNode1.next;                              // 4) update each node to the next node, unless node reaches end of its list- then update it to the head of opposite list
+    pNode2 = pNode2 == null ? head1 : pNode2.next;                              
   }
 
-  return curA;                                                                  // 6) return either pointer (they will be the same or null)
+  return pNode1;                                                                // 5) return either pointer (they will be the same or null)
 }
 
 

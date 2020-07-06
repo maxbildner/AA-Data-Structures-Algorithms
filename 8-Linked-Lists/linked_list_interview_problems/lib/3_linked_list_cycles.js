@@ -60,93 +60,93 @@
 // -----------
 
 
-
-// VERSION1- MY SOLUTION,     
+// *****************************************************************************
+// VERSION 1- MY SOLUTION, (won't work for LeetCode because of assumptions)
 // TIME COMPLEXITY:   O(1),   
 // SPACE COMPLEXITY:  O(1),   
 // INPUTS:  1 linked list object
 // OUTPUT:  boolean, true if cyclical linked list, false if not
 // ASSUMPTIONS
-//  - we have access to the linked lists tail!!
+//  - we have O(1) access to the linked lists tail!!
 // EX Input:
 // A -> B -> C -> D -> E          =>      false
 // A -> B -> C -> D -> E -> B     =>      true
 function hasCycleV1(linkedList) {
-
-  // // create var to track curent node, initialize to head node
-  // let currentNode = linkedList.head;
-  // // currentNode = A
-
-  // // loop num times = length of linked list (all nodes)
-  // for (let i = 0; i < linkedList.length; i++) {
-  //   // i = 0:   0 < 5   true
-
-  //   currentNode = currentNode.next;                                             // update current node
-  //   // i = 0: currentNode = B
-
-  // }
-
-  // if (linkedList.tail.next === null) {
-  //   return false;
-  // } else {
-  //   return true;
-  // }
-
   return linkedList.tail.next !== null;
 }
 
 
 
-// VERSION2- AA SOLUTION,     
+// *****************************************************************************
+// VERSION 2- AA SOLUTION (only 17% faster than all submissions)
 // HINT: Imagine two runners running on a track at different speed. What happens 
 //  when the track is actually a circle? Consider a slow pointer that moves one 
 //  step at a time while the fast pointer moves two steps at a time.
 // 
-// TIME COMPLEXITY:   O(1),   
-// SPACE COMPLEXITY:  O(1),   
+// TIME COMPLEXITY:   O(N),   O(N + K) => O(N),  N = Length of list
+//      N = Non-Cyclic length of list (num nodes)
+//      K = Cyclic length of list
 // INPUTS:  1 linked list object
 // OUTPUT:  boolean, true if cyclical linked list, false if not
 // ASSUMPTIONS
-//  - we DO NOT have access to the linked lists tail!!
+//  - we DO NOT have O(1) access to the linked lists tail!!
 // EX Input:
 // A -> B -> C -> D -> E          =>      false
 // A -> B -> C -> D -> E -> B     =>      true
 function hasCycle(linkedList) {
+  if (!head) return false;        
   let slow = linkedList.head;
   let fast = linkedList.head;
-  // slow = A
-  // fast = A
   let pause = true;
 
   while (fast = fast.next) {
-    // 1:  (fast = B)     =>    B     true
-    // 2:  (fast = C)     =>    C     true
-    // 3:  (fast = D)     =>    D     true
-    // 4:  (fast = E)     =>    E     true
-    // 5:  (fast = null)  =>    B     false, exit loop
-
     if (fast === slow) return true;
-    // 1:   B === A   false
-    // 2:   C === A   false
-    // 3:   D === B   false
-    // 4:   E === B   false
-    // 5:   B === B   true      
-
     slow = pause ? slow : slow.next;
-    // 1:   slow =  (true)  ? A : B     =>    A
-    // 2:   slow =  (false) ? A : B     =>    B
-    // 3:   slow =  (true)  ? B : C     =>    B
-    // 4:   slow =  (false) ? B : C     =>    C
-
     pause = !pause;                                                             // flip boolean pause
-    // 1: pause = !true               => false
-    // 2: pause = !false              => true
-    // 3: pause = !true               => false
-    // 4: pause = !false              => true
   }
 
   return false;
 }
+
+
+
+// *****************************************************************************
+// VERSION 3- LEET CODE SOLUTION
+// HINT: Imagine two runners running on a track at different speed. What happens 
+//  when the track is actually a circle? Consider a slow pointer that moves one 
+//  step at a time while the fast pointer moves two steps at a time.
+// 
+// TIME COMPLEXITY:   O(N),   O(N + K) => O(N),  N = Length of list
+//      N = Non-Cyclic length of list (num nodes)
+//      K = Cyclic length of list
+// INPUTS:  1 linked list object
+// OUTPUT:  boolean, true if cyclical linked list, false if not
+// ASSUMPTIONS
+//  - we DO NOT have O(1) access to the linked lists tail!!
+// EX Input:
+// A -> B -> C -> D -> E          =>      false
+// A -> B -> C -> D -> E -> B     =>      true
+// if there is a cycle, eventually slow and fast will meet
+function hasCycle(linkedList) {
+  if (!linkedList.head) return false;                                           //    edge case if list empty
+  let slow = linkedList.head;                                                   // 1) slow runner will move 1 node at a time
+  let fast = linkedList.head;                                                   // 2) fast runner will move 2 nodes at a time
+
+  while (fast) {                                                                // 3) keep looping as long as fast node exists (not null)
+    if (fast.next === null) {                                                   // 4) if no node after fast (null), then there's no cycle
+      return false;
+
+    } else {                                                                    // 5) else there is a node after fast, update slow/fast pointers
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+
+    if (slow === fast) return true;                                             // 6) if slow == fast, then we have a cycle (runners meet)
+  }
+
+  return false;                                                                 // 7) if we get here that means we've looped through all nodes and we've reached null, so no cycle
+}
+
 
 
 
