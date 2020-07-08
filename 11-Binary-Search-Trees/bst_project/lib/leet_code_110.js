@@ -67,5 +67,3 @@ function getHeight(root) {
 
 
 
-// *****************************************************************************
-// VERSION 2- LC SOLUTION, RECURSIVE
