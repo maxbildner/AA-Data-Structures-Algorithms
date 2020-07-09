@@ -8,6 +8,7 @@ const { maxValue } = require('../lib/max_value');
 const { numRegions } = require('../lib/num_regions');
 
 describe('GraphNode Algorithms', () => {
+	// PROBLEM 1 *****************************************************************
 	describe('breadthFirstSearch(startingNode, targetVal)', () => {
 		// it should accept a starting GraphNode and a targetVal as args
 
@@ -68,41 +69,43 @@ describe('GraphNode Algorithms', () => {
 		});
 	});
 
+	// PROBLEM 2 *****************************************************************
 	describe('maxValue(startingNode)', () => {
-			// it should accept a starting GraphNode as an arg
+		// it should accept a starting GraphNode as an arg
 
-			it('should return the largest value within the full graph', () => {
-					let five = new GraphNode(5);
-					let three = new GraphNode(3);
-					let two = new GraphNode(2);
-					let four = new GraphNode(4);
-					let ten = new GraphNode(10);
-					let seven = new GraphNode(7);
-					let six = new GraphNode(6);
-					five.neighbors = [three, two, four];
-					two.neighbors = [seven, ten];
-					four.neighbors = [six];
-					expect(maxValue(five)).to.equal(10);
+		it('should return the largest value within the full graph', () => {
+			let five = new GraphNode(5);
+			let three = new GraphNode(3);
+			let two = new GraphNode(2);
+			let four = new GraphNode(4);
+			let ten = new GraphNode(10);
+			let seven = new GraphNode(7);
+			let six = new GraphNode(6);
+			five.neighbors = [three, two, four];
+			two.neighbors = [seven, ten];
+			four.neighbors = [six];
+			expect(maxValue(five)).to.equal(10);
 
-					let eight = new GraphNode(8);
-					expect(maxValue(eight)).to.equal(8);
+			let eight = new GraphNode(8);
+			expect(maxValue(eight)).to.equal(8);
+		});
+
+		context('when the graph has a cycle', () => {
+			it('should not get trapped in an infinite loop', () => {
+				let seven = new GraphNode(7);
+				let eight = new GraphNode(8);
+				let nine = new GraphNode(9);
+				seven.neighbors = [eight];
+				eight.neighbors = [nine];
+				nine.neighbors = [seven];
+				expect(maxValue(seven)).to.equal(9);
 			});
-
-			context('when the graph has a cycle', () => {
-					it('should not get trapped in an infinite loop', () => {
-							let seven = new GraphNode(7);
-							let eight = new GraphNode(8);
-							let nine = new GraphNode(9);
-							seven.neighbors = [eight];
-							eight.neighbors = [nine];
-							nine.neighbors = [seven];
-							expect(maxValue(seven)).to.equal(9);
-					});
-			});
+		});
 	});
-
 });
 
+
+// PROBLEM 3 *****************************************************************
 describe('Adjacency List Algorithms', () => {
 	describe('numRegions(graph)', () => {
 			// it should accept an adjacency list representing a graph
