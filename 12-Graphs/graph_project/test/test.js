@@ -108,46 +108,46 @@ describe('GraphNode Algorithms', () => {
 // PROBLEM 3 *****************************************************************
 describe('Adjacency List Algorithms', () => {
 	describe('numRegions(graph)', () => {
-			// it should accept an adjacency list representing a graph
+		// it should accept an adjacency list representing a graph
 
-			it('should return the number of connected components that make up the full graph', () => {
-					let graph1 = {
-							'a': ['b'],
-							'b': ['a'],
-							'c': ['d'],
-							'd': ['e', 'c'],
-							'e': ['d'],
-					};
-					expect(numRegions(graph1)).to.equal(2);
+		it('should return the number of connected components that make up the full graph', () => {
+			let graph1 = {
+			'a': ['b'],
+			'b': ['a'],
+			'c': ['d'],
+			'd': ['e', 'c'],
+			'e': ['d'],
+			};
+			expect(numRegions(graph1)).to.equal(2);
 
-					let graph2 = {
-							'x': [],
-							'y': [],
-							'z': []
-					};
-					expect(numRegions(graph2)).to.equal(3);
+			let graph2 = {
+			'x': [],
+			'y': [],
+			'z': []
+			};
+			expect(numRegions(graph2)).to.equal(3);
+		});
+
+		context('when the graph has a cycle', () => {
+			it('should not get trapped in an infinite loop', () => {
+				let graph1 = {
+					'a': ['b'],
+					'b': ['a'],
+				};
+				expect(numRegions(graph1)).to.equal(1);
+
+				let graph2 = {
+					'q': ['r'],
+					'r': ['q'],
+					's': ['t'],
+					't': ['s', 'u', 'v'],
+					'u': ['t', 'v'],
+					'v': ['u', 't'],
+					'w': []
+				};
+				expect(numRegions(graph2)).to.equal(3);
 			});
-
-			context('when the graph has a cycle', () => {
-					it('should not get trapped in an infinite loop', () => {
-							let graph1 = {
-									'a': ['b'],
-									'b': ['a'],
-							};
-							expect(numRegions(graph1)).to.equal(1);
-
-							let graph2 = {
-									'q': ['r'],
-									'r': ['q'],
-									's': ['t'],
-									't': ['s', 'u', 'v'],
-									'u': ['t', 'v'],
-									'v': ['u', 't'],
-									'w': []
-							};
-							expect(numRegions(graph2)).to.equal(3);
-					});
-			});
+		});
 	});
 });
 
