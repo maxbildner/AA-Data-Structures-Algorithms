@@ -2,13 +2,13 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 Helvetica-Bold;
 \f3\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red251\green0\blue7;\red0\green0\blue0;
-\red27\green64\blue255;\red251\green0\blue7;\red28\green65\blue255;\red88\green138\blue67;\red255\green255\blue255;
-\red202\green202\blue202;\red71\green137\blue205;\red141\green212\blue254;\red202\green202\blue202;\red194\green126\blue101;
-}
+\red251\green0\blue7;\red0\green0\blue0;\red27\green64\blue255;\red28\green65\blue255;\red88\green138\blue67;
+\red255\green255\blue255;\red202\green202\blue202;\red71\green137\blue205;\red141\green212\blue254;\red202\green202\blue202;
+\red194\green126\blue101;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\cssrgb\c100000\c12195\c0;\cssrgb\c0\c1\c1;
-\cssrgb\c13821\c36821\c100000;\cssrgb\c100000\c12195\c0;\cssrgb\c14226\c37295\c100000;\cssrgb\c41525\c59950\c33208;\cssrgb\c100000\c100000\c100000\c0;
-\cssrgb\c83229\c83229\c83125;\cssrgb\c33936\c61427\c84130;\cssrgb\c61361\c86489\c99746;\cssrgb\c83137\c83137\c83137;\cssrgb\c80778\c56830\c46925;
-}
+\cssrgb\c100000\c12195\c0;\cssrgb\c0\c1\c1;\cssrgb\c13821\c36821\c100000;\cssrgb\c14226\c37295\c100000;\cssrgb\c41525\c59950\c33208;
+\cssrgb\c100000\c100000\c100000\c0;\cssrgb\c83229\c83229\c83125;\cssrgb\c33936\c61427\c84130;\cssrgb\c61361\c86489\c99746;\cssrgb\c83137\c83137\c83137;
+\cssrgb\c80778\c56830\c46925;}
 \margl1440\margr1440\vieww20840\viewh23840\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
@@ -28,8 +28,10 @@ AA Data Structures/Algorithms Notes\
 	- Very broad ADT (Abstract Data Structure)\
 	- Graph = collection of \cf4 \ul \ulc4 nodes\cf0 \ulnone  and any \cf4 \ul edges\cf0 \ulnone  between those nodes\
 		- 
-\f2\b \cf3 nodes
-\f0\b0 \cf0  = contain values and pointer(s) to another node. Think of Nodes as values\
+\f2\b \cf3 node
+\f0\b0 \cf0  = 
+\f2\b \cf5 vertex 
+\f0\b0 \cf0 = contain value and pointer(s) to another node. Think of Nodes as values\
 		- 
 \f2\b \cf3 edges
 \f0\b0 \cf0  = arrows pointing to other nodes. Think of graphs as relationships between Nodes\
@@ -46,7 +48,7 @@ AA Data Structures/Algorithms Notes\
 \f2\b \
 \
 \
-2. \cf6 Adjacency Matrix\cf0 \
+2. \cf5 Adjacency Matrix\cf0 \
 
 \f0\b0 	- allows us reference to the entire graph if there\'92s no root node \
 	- use a 2D array to represent edges\
@@ -59,45 +61,45 @@ AA Data Structures/Algorithms Notes\
 \fs32 \
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f3\fs24 \cf8 \cb9 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec8 // - each row in matrix refers to source of an edge, and column index its \cf10 \cb9 \strokec10 \
-\cf8 \cb9 \strokec8 //   destination. (true = there is an edge from source to destination)\cf11 \cb9 \strokec11 \
-let\cf10 \cb9 \strokec10  \cf12 \cb9 \strokec12 matrix\cf10 \cb9 \strokec10  = [\
-\cf8 \cb9 \strokec8 /*SOURCE    A       B      C      D      E      F      DESTINATION */\cf10 \cb9 \strokec10  \
-\cf8 \cb9 \strokec8 /*A*/\cf10 \cb9 \strokec10      [\cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 ],\
-\cf8 \cb9 \strokec8 /*B*/\cf10 \cb9 \strokec10      [\cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 ],\
-\cf8 \cb9 \strokec8 /*C*/\cf10 \cb9 \strokec10      [\cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 ],\
-\cf8 \cb9 \strokec8 /*D*/\cf10 \cb9 \strokec10      [\cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 ],\
-\cf8 \cb9 \strokec8 /*E*/\cf10 \cb9 \strokec10      [\cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 ],\
-\cf8 \cb9 \strokec8 /*F*/\cf10 \cb9 \strokec10      [\cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 false\cf10 \cb9 \strokec10 , \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10 ,  \cf11 \cb9 \strokec11 true\cf10 \cb9 \strokec10  ]\
+\f3\fs24 \cf9 \cb10 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9 // - each row in matrix refers to source of an edge, and column index its \cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //   destination. (true = there is an edge from source to destination)\cf12 \cb10 \strokec12 \
+let\cf11 \cb10 \strokec11  \cf13 \cb10 \strokec13 matrix\cf11 \cb10 \strokec11  = [\
+\cf9 \cb10 \strokec9 /*SOURCE    A       B      C      D      E      F      DESTINATION */\cf11 \cb10 \strokec11  \
+\cf9 \cb10 \strokec9 /*A*/\cf11 \cb10 \strokec11      [\cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 ],\
+\cf9 \cb10 \strokec9 /*B*/\cf11 \cb10 \strokec11      [\cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 ],\
+\cf9 \cb10 \strokec9 /*C*/\cf11 \cb10 \strokec11      [\cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 ],\
+\cf9 \cb10 \strokec9 /*D*/\cf11 \cb10 \strokec11      [\cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 ],\
+\cf9 \cb10 \strokec9 /*E*/\cf11 \cb10 \strokec11      [\cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 ],\
+\cf9 \cb10 \strokec9 /*F*/\cf11 \cb10 \strokec11      [\cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 false\cf11 \cb10 \strokec11 , \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11 ,  \cf12 \cb10 \strokec12 true\cf11 \cb10 \strokec11  ]\
 ];\
-\cf8 \cb9 \strokec8 // - when the edges have direction, matrix[i][j] may not be the same as \cf10 \cb9 \strokec10 \
-\cf8 \cb9 \strokec8 //   matrix[j][i]\cf10 \cb9 \strokec10 \
-\cf8 \cb9 \strokec8 // - it is common to say that a node is adjacent to itself, so \cf10 \cb9 \strokec10 \
-\cf8 \cb9 \strokec8 //   matrix[x][x] === true for any x\cf10 \cb9 \strokec10 \
-\cf8 \cb9 \strokec8 // - Disadvantage: N^2 Space for 2D array\cf13 \cb1 \strokec13 \
+\cf9 \cb10 \strokec9 // - when the edges have direction, matrix[i][j] may not be the same as \cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //   matrix[j][i]\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 // - it is common to say that a node is adjacent to itself, so \cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //   matrix[x][x] === true for any x\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 // - Disadvantage: N^2 Space for 2D array\cf14 \cb1 \strokec14 \
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f2\b\fs32 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
-3. \cf6 Adjacency List\cf0 \
+3. \cf5 Adjacency List\cf0 \
 
 \f0\b0 - seeks to solve shortcoming of Adjacency matrix
 \f2\b \
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f3\b0\fs24 \cf8 \cb9 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec8 // - use an object where keys represent the node labels.The values associated \cf10 \cb9 \strokec10 \
-\cf8 \cb9 \strokec8 //   with the keys will be an array containing all adjacent nodes\cf10 \cb9 \strokec10 \
-\cf11 \cb9 \strokec11 let\cf10 \cb9 \strokec10  \cf12 \cb9 \strokec12 graph\cf10 \cb9 \strokec10  = \{\
-  \cf14 \cb9 \strokec14 'a'\cf12 \cb9 \strokec12 :\cf10 \cb9 \strokec10  [\cf14 \cb9 \strokec14 'b'\cf10 \cb9 \strokec10 , \cf14 \cb9 \strokec14 'c'\cf10 \cb9 \strokec10 , \cf14 \cb9 \strokec14 'e'\cf10 \cb9 \strokec10 ],\
-  \cf14 \cb9 \strokec14 'b'\cf12 \cb9 \strokec12 :\cf10 \cb9 \strokec10  [],\
-  \cf14 \cb9 \strokec14 'c'\cf12 \cb9 \strokec12 :\cf10 \cb9 \strokec10  [\cf14 \cb9 \strokec14 'b'\cf10 \cb9 \strokec10 , \cf14 \cb9 \strokec14 'd'\cf10 \cb9 \strokec10 ],\
-  \cf14 \cb9 \strokec14 'd'\cf12 \cb9 \strokec12 :\cf10 \cb9 \strokec10  [],\
-  \cf14 \cb9 \strokec14 'e'\cf12 \cb9 \strokec12 :\cf10 \cb9 \strokec10  [\cf14 \cb9 \strokec14 'a'\cf10 \cb9 \strokec10 ],\
-  \cf14 \cb9 \strokec14 'f'\cf12 \cb9 \strokec12 :\cf10 \cb9 \strokec10  [\cf14 \cb9 \strokec14 'e'\cf10 \cb9 \strokec10 ]\
+\f3\b0\fs24 \cf9 \cb10 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9 // - use an object where keys represent the node labels.The values associated \cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //   with the keys will be an array containing all adjacent nodes\cf11 \cb10 \strokec11 \
+\cf12 \cb10 \strokec12 let\cf11 \cb10 \strokec11  \cf13 \cb10 \strokec13 graph\cf11 \cb10 \strokec11  = \{\
+  \cf15 \cb10 \strokec15 'a'\cf13 \cb10 \strokec13 :\cf11 \cb10 \strokec11  [\cf15 \cb10 \strokec15 'b'\cf11 \cb10 \strokec11 , \cf15 \cb10 \strokec15 'c'\cf11 \cb10 \strokec11 , \cf15 \cb10 \strokec15 'e'\cf11 \cb10 \strokec11 ],\
+  \cf15 \cb10 \strokec15 'b'\cf13 \cb10 \strokec13 :\cf11 \cb10 \strokec11  [],\
+  \cf15 \cb10 \strokec15 'c'\cf13 \cb10 \strokec13 :\cf11 \cb10 \strokec11  [\cf15 \cb10 \strokec15 'b'\cf11 \cb10 \strokec11 , \cf15 \cb10 \strokec15 'd'\cf11 \cb10 \strokec11 ],\
+  \cf15 \cb10 \strokec15 'd'\cf13 \cb10 \strokec13 :\cf11 \cb10 \strokec11  [],\
+  \cf15 \cb10 \strokec15 'e'\cf13 \cb10 \strokec13 :\cf11 \cb10 \strokec11  [\cf15 \cb10 \strokec15 'a'\cf11 \cb10 \strokec11 ],\
+  \cf15 \cb10 \strokec15 'f'\cf13 \cb10 \strokec13 :\cf11 \cb10 \strokec11  [\cf15 \cb10 \strokec15 'e'\cf11 \cb10 \strokec11 ]\
 \};\
-\cf8 \cb9 \strokec8 // - Space = number of edges\cf13 \cb1 \strokec13 \
+\cf9 \cb10 \strokec9 // - Space = number of edges\cf14 \cb1 \strokec14 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f2\b\fs32 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
@@ -131,6 +133,17 @@ let\cf10 \cb9 \strokec10  \cf12 \cb9 \strokec12 matrix\cf10 \cb9 \strokec10  = [
 \ul \ulc2 \outl0\strokewidth0 \strokec2 https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/representing-graphs}}\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
+\
+
+\f0\b0 5. MISC TERMS\
+- Topological Sort: {\field{\*\fldinst{HYPERLINK "https://www.youtube.com/watch?v=eL-KzMXSXXI"}}{\fldrslt 
+\f1\fs24 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 \strokec2 https://www.youtube.com/watch?v=eL-KzMXSXXI}}\
+	- Orderings are NOT unique\
+	- ordering of nodes where node A appears before node B\'85\
+- Acyclic Graph = graph with no cycles\
+- Directed Acyclic Graph (DAG)
+\f2\b \
 \
 \
 

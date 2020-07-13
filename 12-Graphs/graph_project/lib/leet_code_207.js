@@ -38,8 +38,10 @@
 
 // *****************************************************************************
 // VERSION 1- AA SOLUTION- TOPOLOGICAL SORT (using graph). Can only visit node, when all of surrounding nodes have been visited
-// TIME COMPLEXITY:   O(  ),   
-// SPACE COMPLEXITY:  O(  )
+// TIME COMPLEXITY:   O(E + V),   E = Number of courses, V = number of dependencies
+//    takes us E time to build graph, then like a DFS takes E + V to traverse
+//    E + E + V  ->   2E + V    -> E + V
+// SPACE COMPLEXITY:  O(E + V)
 // (2, [[1,0], [0,1]])    =>  false
 // (2, [[1,0]])           =>  true
 function canFinish(numCourses, prerequisites) {
