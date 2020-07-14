@@ -1,10 +1,12 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 Helvetica-Bold;
-}
+\f3\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red251\green0\blue7;\red25\green60\blue255;
-\red0\green0\blue0;\red251\green0\blue7;\red0\green0\blue0;\red202\green202\blue202;}
+\red0\green0\blue0;\red251\green0\blue7;\red0\green0\blue0;\red202\green202\blue202;\red88\green138\blue67;
+\red255\green255\blue255;\red202\green202\blue202;\red202\green202\blue202;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\cssrgb\c100000\c12195\c0;\cssrgb\c12594\c35385\c100000;
-\cssrgb\c0\c1\c1;\cssrgb\c100000\c12195\c0;\cssrgb\c0\c1\c1;\cssrgb\c83137\c83137\c83137;}
+\cssrgb\c0\c1\c1;\cssrgb\c100000\c12195\c0;\cssrgb\c0\c1\c1;\cssrgb\c83137\c83137\c83137;\cssrgb\c41525\c59950\c33208;
+\cssrgb\c100000\c100000\c100000\c0;\cssrgb\c83229\c83229\c83125;\cssrgb\c83137\c83137\c83137;}
 \margl1440\margr1440\vieww22240\viewh23100\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
@@ -104,10 +106,41 @@ AA Data Structures/Algorithms Notes\
 \f2\b \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f3\b0\fs24 \cf9 \cb10 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec9 // BINARY HEAP IMPLEMENTATION NOTES\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 // 1) Can use array to represent a heap\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //    - each index represents a node (root = index 1 so math is easy)\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //    - left child of node i can be found at index 2 * i\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //    - right child of node i can be found at index 2 * i + 1\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //    - parent of node at index i can be found at Math.floor(i / 2)\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //    example: [ null, 42, 32, 24, 30, 9, 20, 18, 2, 7 ]\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //        idx:      0   1   2   3   4  5   6   7  8  9\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 // \cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //        42\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //       /  \\           \cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //     32    24         for root i = 1:   24 = array[2 * i + 1]\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //    / \\    / \\\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //   30  9  20  18\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 //  / \\\cf11 \cb10 \strokec11 \
+\cf9 \cb10 \strokec9 // 2   7\cf12 \cb1 \strokec12 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\b\fs32 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+
+\f0\b0 MISC
+\f2\b \
+\
+\
 \
 
 \f0\b0 QUESTIONS\
-1. \
+1. How does converting an array into a max heap data structure only takes O(N) ?\
+Insertion by itself is O(log N) and that needs to be done N times thus N * log(N) ?!\
+\
+\
 \
 \
 \

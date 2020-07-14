@@ -2,7 +2,7 @@
 // 1) Can use array to represent a heap
 //    - each index represents a node (root = index 1 so math is easy)
 //    - left child of node i can be found at index 2 * i
-//    - right chold of node i can be found at index 2 * i + 1
+//    - right child of node i can be found at index 2 * i + 1
 //    - parent of node at index i can be found at Math.floor(i / 2)
 //    example: [ null, 42, 32, 24, 30, 9, 20, 18, 2, 7 ]
 //        idx:      0   1   2   3   4  5   6   7  8  9
