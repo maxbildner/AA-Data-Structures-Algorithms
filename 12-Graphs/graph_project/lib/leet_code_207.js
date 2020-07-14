@@ -90,7 +90,7 @@ function canFinish(numCourses, prerequisites) {
 function buildGraph(list) {
   let graph = {};
   // keys = (String/Number) course number
-  // values = (Array 2D) prerequisites for corresponding course
+  // values = (Array) prerequisites for corresponding course
   
   list.forEach(prereq => {                                                      // loop through prereq list
     // create vars for course and prereq (through array deconstruction), convert them to strings so we have keys and inner values of same datatype
