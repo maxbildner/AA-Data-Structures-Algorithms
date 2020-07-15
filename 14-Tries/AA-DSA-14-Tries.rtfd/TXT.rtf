@@ -1,0 +1,114 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 Helvetica-Bold;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red251\green0\blue7;\red25\green60\blue255;
+\red202\green202\blue202;\red202\green202\blue202;\red251\green0\blue7;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\cssrgb\c100000\c12195\c0;\cssrgb\c12594\c35385\c100000;
+\cssrgb\c83137\c83137\c83137;\cssrgb\c83229\c83229\c83125;\cssrgb\c100000\c12195\c0;}
+\margl1440\margr1440\vieww22240\viewh23100\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs32 \cf0 7/15/20\
+AA Data Structures/Algorithms Notes\
+14- 1- Tries\
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/tries-notes"}}{\fldrslt 
+\f1\fs24 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 \strokec2 https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/tries-notes}}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\b \cf0 1. \cf3 Tries (Prefix Trees)
+\f0\b0 \cf0 \
+	- Type of search tree used to efficiently store a set of strings for later retrieval\
+	- Path from root to any node in trie represents a prefix of at least on string in the set\
+	- can make a trie as a class with many node objects\
+	- values are NOT stored in nodes, \cf4 values are stored in edges that leave nodes\cf0 \
+	- Trie is NOT a binary tree, so trie can have any number of children\
+- Example below is NOT a full trie, but not values stored at edges\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs24 \cf0 {{\NeXTGraphic trie_node.png \width9320 \height5220 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}
+\f2\b\fs32 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+
+\f0\b0 2. Examples
+\f2\b \
+
+\f0\b0 Example 1
+\f2\b \
+
+\f0\b0 	- A Trie stores words. Say we wanted a tree to store the word \'93ten\'94:
+\f2\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 {{\NeXTGraphic trie_1.png \width5140 \height6020 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\b\fs32 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0 \cf0 	- note \'93ten\'94 is represented by a path from the root ( blank ) to the terminal node (n in gray)\
+	- \cf4 a word recognized by tree must begin at root and end at terminal\cf0 \
+\
+\
+Example 2\
+	- insert \'93tea\'94 into the example 1 trie\
+	- note* how the 2 word paths overlap so we don\'92t store redundant characters\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs24 \cf0 {{\NeXTGraphic trie_2.png \width5360 \height6060 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}
+\fs32 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+Example 3\
+	- insert the words, \'93taco\'94, \'93in\'94, and \'93inn\'94
+\f2\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0\fs24 \cf0 {{\NeXTGraphic Pasted Graphic.png \width9900 \height7600 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\b\fs32 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+
+\f0\b0 3. 
+\f2\b \
+
+\f0\b0 TIME COMPLEXITY (Trie#insert, Trie#search):	\cf4 O(M)	M = length of target word
+\f2\b \cf0 \
+
+\f0\b0 SPACE COMPLEXITY:		
+\f2\b 				
+\f0\b0 \cf4 O(N * M)  N\cf0  = number of words in tree, M = maximum Length of any word
+\f2\b \
+\
+\
+4. \cf7 When to use Tries\cf0 \
+
+\f0\b0 - when we have a dictionary of words and need efficient look up to check if a word is in a dictionary
+\f2\b \
+
+\f0\b0 - Hash Tables worst case time is O(N), N = number of entries in dictionary (due to hash collisions)\
+However, Tries worst case time is O(M), M = length of word
+\f2\b \
+\
+\
+\
+\
+
+\f0\b0 QUESTIONS\
+1. \
+\
+\
+\
+\
+}
