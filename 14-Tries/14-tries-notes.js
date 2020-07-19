@@ -15,7 +15,7 @@
 // 2) Trie Node Implementation (not a full trie yet)
 class Node {
   constructor() {
-    this.children = {};
+    this.children = {};                    // keys = edges (values),   values = node
     this.isTerminal = false;
   }
 }
