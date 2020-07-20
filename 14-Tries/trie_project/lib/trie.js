@@ -97,82 +97,51 @@ class Trie {
 	// ('tend')	=> []
 	// ('ta')		=> []
 	// ('te') 	=> ['ten', 'tea']
-	wordsWithPrefix(prefix, root=this.root) {																			// set default current node to root
-		let allWords = [];
+	// wordsWithPrefix(prefix, root=this.root) {																			// set default current node to root
+	// 	let allWords = [];
 		
-		if (prefix.length === 0) {																									// if prefix empty '', return all words in trie starting from given node
-			if (root.isTerminal) allWords.push('');																		// base case, if current node is terminal, add empty string to array (incase we have words "in" AND "inn" we need to add aditional '')
-			// 1: root = { children:{'t':Node}, isTerminal:false }
-			// 2: root = { children:{'e':Node}, isTerminal:false }
-			// 3: root = { children:{'n':Node, 'a':Node}, isTerminal:false }
-			// 4: root = { children:{}, isTerminal:true },   	allWords = ['']
-			// 5: root = { children:{}, isTerminal:true },   	allWords = ['']
-			
-			for (let letter in root.children) {																				// loop through current node's children
-				// 1, 1: letter = 't'
-				// 2, 1: letter = 'e'
-				// 3, 1: letter = 'n'
-				// 3, 2: letter = 'a'
-	
-				let child = root.children[letter];																			// grab child node at key letter
-				// 1, 1: child = { children:{'e':Node}, isTerminal:false }
-				// 2, 1: child = { children:{'n':Node, 'a':Node}, isTerminal:false }
-				// 3, 1: child = { children:{}, isTerminal:true }
-				// 3, 2: child = { children:{}, isTerminal:true }
-				
-				let suffixes = this.wordsWithPrefix(prefix, child); 										// recursively traverse through this child, and grab suffixes (ex. -'ing', 'ed')
-				// 1, 1: suffixes = wordsWithPrefix(prefix, child)	=> ['en', 'ea']
-				// 2, 1: suffixes = wordsWithPrefix(prefix, child)  => ['n', 'a']
-				// 3, 1: suffixes = wordsWithPrefix(prefix, child)	=> ['']
-				// 3, 2: suffixes = wordsWithPrefix(prefix, child)	=> ['']
-				
-				let words = suffixes.map(suffix => letter + suffix);										// add letter to begin of each suffix
-				// 3, 1: words = ['n']
-				// 3, 2: words = ['a']
-				// 2, 1: words = ['en', 'ea']
-				// 1, 1: words = ['ten', 'tea']
-	
-				allWords.push(...words);																								// add words to allWords array
-				// 3, 1: allWords = ['n']
-				// 3, 2: allWords = ['n', 'a']
-				// 2, 1: allWords = ['en', 'ea']
-				// 1, 1: allWords = ['ten', 'tea']
-			}
-			return allWords;
+	// 	if (prefix.length === 0) {																									// if prefix empty '', return all words in trie starting from given node
+	// 		if (root.isTerminal) allWords.push('');																		// base case, if current node is terminal, add empty string to array (incase we have words "in" AND "inn" we need to add aditional '')
+	// 		for (let letter in root.children) {																				// loop through current node's children
+	// 			let child = root.children[letter];																			// grab child node at key letter
+	// 			let suffixes = this.wordsWithPrefix(prefix, child); 										// recursively traverse through this child, and grab suffixes (ex. -'ing', 'ed')
+	// 			let words = suffixes.map(suffix => letter + suffix);										// add letter to begin of each suffix
+	// 			allWords.push(...words);																								// add words to allWords array
+	// 		}
+	// 		return allWords;
 
-		} else {																																		// if prefix exists (i.e. length != 0)
-			let firstLetter = prefix[0];																							// grab first letter of prefix
-			let child = root.children[firstLetter];
+	// 	} else {																																		// if prefix exists (i.e. length != 0)
+	// 		let firstLetter = prefix[0];																							// grab first letter of prefix
+	// 		let child = root.children[firstLetter];
 
-			if (child === undefined) {																								// exit if no edge for letter
-				return [];
+	// 		if (child === undefined) {																								// exit if no edge for letter
+	// 			return [];
 
-			} else {																																	// if edge for letter exists
-				let suffixes = this.wordsWithPrefix(prefix.slice(1), child);						// travel through edge of first letter
-				let words = suffixes.map(suffix => firstLetter + suffix);
-				return words;
-			} 
-		}
-		
-	}
+	// 		} else {																																	// if edge for letter exists
+	// 			let suffixes = this.wordsWithPrefix(prefix.slice(1), child);						// travel through edge of first letter
+	// 			let words = suffixes.map(suffix => firstLetter + suffix);
+	// 			return words;
+	// 		} 
+	// 	}
+	// }
 
 
 
 	// VERY EASY TO UNDERSTAND. EASY TO READ CODE FOR HUMANS (helper function)
 	// VERSION 2- get last node of prefix, then get all valid words from that node
-	// wordsWithPrefix(prefix, root = this.root) {
-	// 	let words = [];
-	// 	for (let i = 0; i < prefix.length; i++) {																		// 1) grab node at end of prefix
-	// 		var letter = prefix[i];
-	// 		if (!(letter in root.children)) {																					// 2) exit if no edge for letter
-	// 			return words;
-	// 		}
-	// 		root = root.children[letter];																		
-	// 	}
-	// 	let suffixes = this.allWordsInTrie(root);																		// 3) grab all valid words starting with end prefix node
-	// 	words = suffixes.map(suffix => prefix + suffix);														// 4) prepend prefix to all suffixes
-	// 	return words;
-	// }
+	wordsWithPrefix(prefix, root = this.root) {
+		let words = [];
+		for (let i = 0; i < prefix.length; i++) {																		// 1) grab node at end of prefix
+			var letter = prefix[i];
+			if (!(letter in root.children)) {																					// 2) exit if no edge for letter
+				return words;
+			}
+			root = root.children[letter];																		
+		}
+		let suffixes = this.allWordsInTrie(root);																		// 3) grab all valid words starting with end prefix node
+		words = suffixes.map(suffix => prefix + suffix);														// 4) prepend prefix to all suffixes
+		return words;
+	}
 
 
 
