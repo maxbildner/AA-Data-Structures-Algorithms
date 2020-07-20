@@ -90,78 +90,146 @@ class Trie {
 	}
 
 
+	// VERSION 3- AA SOLUTION- HARD TO READ, ONE MASSIVE FUNCTION
 	// Returns array of all words that start with prefix
 	// ('ten') 	=> ['ten']
 	// ('t') 		=> ['ten', 'tea']
 	// ('tend')	=> []
 	// ('ta')		=> []
-
 	// ('te') 	=> ['ten', 'tea']
-	wordsWithPrefix(prefix, root=this.root) {
-		// 1: prefix = 'te',	root = { children:{'t':Node}, isTerminal: false }
-		// 2: prefix = 'e', 	root = { children:{'e':Node}, isTerminal: false }
-		// 3: prefix = '', 		root = { children:{'n':Node, 'a':Node}, isTerminal: false }
-		// 4: prefix = '', 		root = { children:{}, isTerminal: true }
-		// 5: prefix = '', 		root = { children:{'t':Node, 'r':Node}, isTerminal: true }
-
-		if (prefix.length === 0) {
-			// 1: 'te'.length === 0		false
-			// 2: 'e'.length === 0		false
-			// 3: ''.length === 0		 	true
-			// 4: ''.length === 0		 	true
-			// 5: ''.length === 0		 	true
-
-			let allWords = [];
-			if (root.isTerminal) allWords.push('');
-			// 4: allWords = ['']
-			// 5: allWords = ['']
-
-			for (let letter in root.children) {
+	wordsWithPrefix(prefix, root=this.root) {																			// set default current node to root
+		let allWords = [];
+		
+		if (prefix.length === 0) {																									// if prefix empty '', return all words in trie starting from given node
+			if (root.isTerminal) allWords.push('');																		// base case, if current node is terminal, add empty string to array (incase we have words "in" AND "inn" we need to add aditional '')
+			// 1: root = { children:{'t':Node}, isTerminal:false }
+			// 2: root = { children:{'e':Node}, isTerminal:false }
+			// 3: root = { children:{'n':Node, 'a':Node}, isTerminal:false }
+			// 4: root = { children:{}, isTerminal:true },   	allWords = ['']
+			// 5: root = { children:{}, isTerminal:true },   	allWords = ['']
+			
+			for (let letter in root.children) {																				// loop through current node's children
+				// 1, 1: letter = 't'
+				// 2, 1: letter = 'e'
 				// 3, 1: letter = 'n'
 				// 3, 2: letter = 'a'
-				// 5, 1: letter = 't'
-
-				let child = root.children[letter];
-				// 3, 1: child = { children:{}, isTerminal: true }
-				// 3, 2: child = { children:{'t':Node, 'r':Node}, isTerminal: true }
-				// 5, 1: child = { children:{}, isTerminal: true }
-
-				let suffixes = this.wordsWithPrefix('', child);
-				// 3, 1: suffixes = wordsWithPrefix('', { children:{}, isTerminal: true }) = ['']
-				// 3, 2: suffixes = wordsWithPrefix('', { children:{'t':Node, 'r':Node}, isTerminal: true }) = ['']
-				// 5, 1: suffixes = wordsWithPrefix('', { children:{}, isTerminal: true }) = ['']
-
-				let words = suffixes.map(word => letter + word);
-				// 4: words = ['n']
-				// 5: words = ['5']
-				// console.log(words)
-
-				allWords.push(...words);
+	
+				let child = root.children[letter];																			// grab child node at key letter
+				// 1, 1: child = { children:{'e':Node}, isTerminal:false }
+				// 2, 1: child = { children:{'n':Node, 'a':Node}, isTerminal:false }
+				// 3, 1: child = { children:{}, isTerminal:true }
+				// 3, 2: child = { children:{}, isTerminal:true }
+				
+				let suffixes = this.wordsWithPrefix(prefix, child); 										// recursively traverse through this child, and grab suffixes (ex. -'ing', 'ed')
+				// 1, 1: suffixes = wordsWithPrefix(prefix, child)	=> ['en', 'ea']
+				// 2, 1: suffixes = wordsWithPrefix(prefix, child)  => ['n', 'a']
+				// 3, 1: suffixes = wordsWithPrefix(prefix, child)	=> ['']
+				// 3, 2: suffixes = wordsWithPrefix(prefix, child)	=> ['']
+				
+				let words = suffixes.map(suffix => letter + suffix);										// add letter to begin of each suffix
+				// 3, 1: words = ['n']
+				// 3, 2: words = ['a']
+				// 2, 1: words = ['en', 'ea']
+				// 1, 1: words = ['ten', 'tea']
+	
+				allWords.push(...words);																								// add words to allWords array
+				// 3, 1: allWords = ['n']
+				// 3, 2: allWords = ['n', 'a']
+				// 2, 1: allWords = ['en', 'ea']
+				// 1, 1: allWords = ['ten', 'tea']
 			}
-
 			return allWords;
-			// 4: ['']
 
-		} else {
-			let firstLetter = prefix[0];
-			// 1: firstLetter = 't'
-			// 2: firstLetter = 'e'
+		} else {																																		// if prefix exists (i.e. length != 0)
+			let firstLetter = prefix[0];																							// grab first letter of prefix
 			let child = root.children[firstLetter];
-			// 1: child = { children:{'e':Node}, isTerminal: false }
-			// 2: child = { children:{'n':Node, 'a':Node}, isTerminal: false }
-			// console.log(child);
-			
-			if (child === undefined) {
+
+			if (child === undefined) {																								// exit if no edge for letter
 				return [];
 
-			} else {
-				let suffixes = this.wordsWithPrefix(prefix.slice(1), child);
-				// 1: suffixes = wordsWithPrefix('e', { children:{'e':Node}, isTerminal: false })
-				// 2: suffixes = wordsWithPrefix('', { children:{'n':Node, 'a':Node}, isTerminal: false })
-
-				return suffixes.map(suffix => firstLetter + suffix);
-			}
+			} else {																																	// if edge for letter exists
+				let suffixes = this.wordsWithPrefix(prefix.slice(1), child);						// travel through edge of first letter
+				let words = suffixes.map(suffix => firstLetter + suffix);
+				return words;
+			} 
 		}
+		
+	}
+
+
+
+	// VERY EASY TO UNDERSTAND. EASY TO READ CODE FOR HUMANS (helper function)
+	// VERSION 2- get last node of prefix, then get all valid words from that node
+	// wordsWithPrefix(prefix, root = this.root) {
+	// 	let words = [];
+	// 	for (let i = 0; i < prefix.length; i++) {																		// 1) grab node at end of prefix
+	// 		var letter = prefix[i];
+	// 		if (!(letter in root.children)) {																					// 2) exit if no edge for letter
+	// 			return words;
+	// 		}
+	// 		root = root.children[letter];																		
+	// 	}
+	// 	let suffixes = this.allWordsInTrie(root);																		// 3) grab all valid words starting with end prefix node
+	// 	words = suffixes.map(suffix => prefix + suffix);														// 4) prepend prefix to all suffixes
+	// 	return words;
+	// }
+
+
+
+	// VERSION 1-  BRUTE FORCE get all words in trie, then filter them for prefix
+	// wordsWithPrefix(prefix, root = this.root) {
+	// 	let words = this.allWordsInTrie();																				// 1) get all words in trie
+	// 	words = words.filter(word => {																						// 2) filter words for begin prefix
+	// 		return word.slice(0, prefix.length) === prefix;
+	// 	});
+	// 	return words;
+	// }
+
+
+	// Returns array of all words in the trie
+	// () 	=> ['ten', 'tea']
+	allWordsInTrie(root=this.root) {																							// set default current node to root
+		let allWords = [];
+
+		if (root.isTerminal) allWords.push('');																			// base case, if current node is terminal, add empty string to array (incase we have words "in" AND "inn" we need to add aditional '')
+		// 1: root = { children:{'t':Node}, isTerminal:false }
+		// 2: root = { children:{'e':Node}, isTerminal:false }
+		// 3: root = { children:{'n':Node, 'a':Node}, isTerminal:false }
+		// 4: root = { children:{}, isTerminal:true },   	allWords = ['']
+		// 5: root = { children:{}, isTerminal:true },   	allWords = ['']
+		
+		for (let letter in root.children) {																					// loop through current node's children
+			// 1, 1: letter = 't'
+			// 2, 1: letter = 'e'
+			// 3, 1: letter = 'n'
+			// 3, 2: letter = 'a'
+
+			let child = root.children[letter];																				// grab child node at key letter
+			// 1, 1: child = { children:{'e':Node}, isTerminal:false }
+			// 2, 1: child = { children:{'n':Node, 'a':Node}, isTerminal:false }
+			// 3, 1: child = { children:{}, isTerminal:true }
+			// 3, 2: child = { children:{}, isTerminal:true }
+			
+			let suffixes = this.allWordsInTrie(child); 																// recursively traverse through this child, and grab suffixes (ex. -'ing', 'ed')
+			// 1, 1: suffixes = allWordsInTrie(child)	=> ['en', 'ea']
+			// 2, 1: suffixes = allWordsInTrie(child)  => ['n', 'a']
+			// 3, 1: suffixes = allWordsInTrie(child)	=> ['']
+			// 3, 2: suffixes = allWordsInTrie(child)	=> ['']
+			
+			let words = suffixes.map(suffix => letter + suffix);											// add letter to begin of each suffix
+			// 3, 1: words = ['n']
+			// 3, 2: words = ['a']
+			// 2, 1: words = ['en', 'ea']
+			// 1, 1: words = ['ten', 'tea']
+
+			allWords.push(...words);																									// add words to allWords array
+			// 3, 1: allWords = ['n']
+			// 3, 2: allWords = ['n', 'a']
+			// 2, 1: allWords = ['en', 'ea']
+			// 1, 1: allWords = ['ten', 'tea']
+		}
+
+		return allWords;
 	}
 
 
@@ -196,7 +264,7 @@ let myTrie = new Trie();
 //   O              = terminal node
 // myTrie.print();
 
-// INSERT ITERATIVELY
+// #INSERT ITERATIVELY
 // myTrie.insertIter('ten');
 // myTrie.insertIter('tea');
 // myTrie.insertIter('in');
@@ -218,20 +286,32 @@ let myTrie = new Trie();
 // console.log(myTrie.searchIter('te'));						//=> false
 // console.log(myTrie.searchIter('tend'));					//=> false
 
+// #ALL WORDS IN TRIE;
+// myTrie.insertRecur('ten');
+// myTrie.insertRecur('tea');
+// // myTrie.insertRecur('teat');
+// // myTrie.insertRecur('tear');
+// // console.log(myTrie.allWordsInTrie());			//=> ['ten', 'tea', 'teat', 'tear'];
+// console.log(myTrie.allWordsInTrie());					//=> ['ten', 'tea'];
+
 // #PREFIX
+// myTrie.insertRecur('t');
+myTrie.insertRecur('te');
 myTrie.insertRecur('ten');
 myTrie.insertRecur('tea');
 myTrie.insertRecur('teat');
 myTrie.insertRecur('tear');
-// console.log(myTrie.wordsWithPrefix('ta'));			//=> [];
-console.log(myTrie.wordsWithPrefix('te'));			//=> ['ten', 'tea', 'teat', 'tear'];
+console.log(myTrie.wordsWithPrefix('te'));					//=> ['te', 'ten', 'tea'];
+// console.log(myTrie.wordsWithPrefix(''));					//=> ['ten', 'tea', 'teat', 'tear'];
+// console.log(myTrie.wordsWithPrefix('t'));					//=> ['te', 'ten', 'tea'];
+// console.log(myTrie.wordsWithPrefix('t'));					//=> ['te', 'ten', 'tea'];
+// console.log(myTrie.wordsWithPrefix('ta'));					//=> ['te', 'ten', 'tea'];
 
-
-// console.log(wordsWithPrefix(''));					//=> ['ten', 'tea'];
-// console.log(wordsWithPrefix('t'));				//=> ['ten', 'tea'];
-// console.log(wordsWithPrefix('ten'));			//=> ['ten'];
-// console.log(wordsWithPrefix('tend'));			//=> [];
-
+// console.log(myTrie.wordsWithPrefix('te'));					//=> ['te', 'ten', 'tea'];
+// console.log(myTrie.wordsWithPrefix('ta'));				//=> [];
+// console.log(myTrie.wordsWithPrefix('tend'));			//=> [];
+// console.log(myTrie.wordsWithPrefix('ten'));			//=> ['ten'];
+// console.log(myTrie.wordsWithPrefix('tea'));			//=> ['tea', 'teat', 'tear'];
 
 
 
