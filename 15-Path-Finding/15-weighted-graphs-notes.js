@@ -45,6 +45,20 @@ let graphWeighted = {
 // - Helps us solve the following problem:
 //   Given a graph with weighted edges and a source node, calculate the shortest 
 //   path between that source and all other nodes in the graph.
+// - Visualization below:
+//    - Numbers = weights between nodes
+//
+//            F
+//         /     \
+//      4 /       \ 9
+//       /         \ 
+//      /  20    5  \ 
+//     C ---- D ---- E         
+//     |      |    /
+//   1 |   12 |   / 13
+//     |      |  /
+//     A ---- B /
+//        7
 let graph = {
   'a': { 'c': 1, 'b': 7 },
   'b': { 'a': 7, 'd': 12, 'e': 13 },
