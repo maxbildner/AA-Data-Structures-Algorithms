@@ -1,10 +1,10 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 Helvetica-Bold;
-}
+\f3\fswiss\fcharset0 Helvetica-Oblique;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red251\green0\blue7;\red25\green60\blue255;
-}
+\red14\green14\blue14;\red252\green252\blue252;\red0\green0\blue233;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\cssrgb\c100000\c12195\c0;\cssrgb\c12594\c35385\c100000;
-}
+\cssrgb\c6667\c6667\c6667;\cssrgb\c99216\c99216\c99216;\cssrgb\c0\c0\c93333;}
 \margl1440\margr1440\vieww15320\viewh22280\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
@@ -14,7 +14,7 @@ AA Data Structures/Algorithms Notes\
 \pard\pardeftab720\sl280\partightenfactor0
 {\field{\*\fldinst{HYPERLINK "https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/stacks-and-queues-notes"}}{\fldrslt 
 \f1\fs24 \cf2 \expnd0\expndtw0\kerning0
-\ul \ulc2 \outl0\strokewidth0 \strokec2 https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/stacks-and-queues-notes}}\
+\ul \ulc2 https://open.appacademy.io/learn/self-study/data-structures-and-algorithms/stacks-and-queues-notes}}\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
@@ -31,13 +31,13 @@ AA Data Structures/Algorithms Notes\
 		.push(val)		O(1) Time.  
 \f2\b \cf4 \ul \ulc4 Adds
 \f0\b0 \cf0 \ulnone  node to Top of stack (
-\f2\b \cf4 \ul \ulc4 Head
+\f2\b \cf4 \ul Head
 \f0\b0 \cf0 \ulnone  of linked list)\
 						returns new length\
 		.pop()		O(1) Time.  
-\f2\b \cf4 \ul \ulc4 Removes
+\f2\b \cf4 \ul Removes
 \f0\b0 \cf0 \ulnone  node from Top of stack (
-\f2\b \cf4 \ul \ulc4 Head
+\f2\b \cf4 \ul Head
 \f0\b0 \cf0 \ulnone  of linked list)\
 						returns removed node (or node val)\
 		note* search and access average/worst time complexities are O(N) just like linked list\
@@ -47,20 +47,45 @@ AA Data Structures/Algorithms Notes\
 		- .bottom 		(optional bottom node in stack. Analogous to \ul Tail\ulnone  in linked list)\
 	- Very similar to linked list (each node has next and value property)\
 	- Stack sort of like singly linked list (has Node Objects)\
-	- When to use: \
-		- Ex. Browser History (React Router Module)\
-		- Ex. Undo/Redo Functionality in most apps\
-\
+	- using singly linked list vs array will depend on your needs and array vs linked list pros/cons\
+	- When to use:  {\field{\*\fldinst{HYPERLINK "https://www.thecrazyprogrammer.com/2016/04/applications-of-stack.html"}}{\fldrslt 
+\f1\fs24 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 https://www.thecrazyprogrammer.com/2016/04/applications-of-stack.html}}\
+		- BackTracking:\
+			- Ex. Browser History (React Router Module)\
+			- Ex. Undo/Redo Functionality in most apps\
+		- Syntax/Parenthesis Parsing\
+			- Ex. Checking/Evaluating mathematical expressions like (3(4+5))/(3 + 4)\
+		- Reversing Things\
+			- Ex. Reversing a string\
+		- Function Calls\
+			- Ex. Operating systems to keep track of active functions/subroutines\
+	\'93\cf5 \cb6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 Stacks are good for scenarios where we want to start up a new task, but we have to\'a0
+\f3\i wait
+\f0\i0 \'a0for it to finish before we can continue. Queues are good for scenarios where we want to start up an\'a0
+\f3\i independent
+\f0\i0 \'a0new task, that we don\'92t care about. We only want to wait until all tasks are finished.\'94\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f2\b 2. \cf3 Queue
+\f1\fs24 \cf2 \cb1 \ul \ulc2 \outl0\strokewidth0 	{\field{\*\fldinst{HYPERLINK "http://staffwww.fullcoll.edu/aclifton/cs133/lecture-6-stacks-queues-deques.html"}}{\fldrslt \cf2 \ulc2 http://staffwww.fullcoll.edu/aclifton/cs133/lecture-6-stacks-queues-deques.html}}
+\f0\fs32 \cf0 \kerning1\expnd0\expndtw0 \ulnone \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\b \cf0 	{\field{\*\fldinst{HYPERLINK "https://www.geeksforgeeks.org/implement-a-stack-using-singly-linked-list/#:~:text=The%20main%20advantage%20of%20using,node%20will%20be%20dynamically%20allocate."}}{\fldrslt 
+\f1\b0\fs24 \cf7 \expnd0\expndtw0\kerning0
+\ul \ulc7 \outl0\strokewidth0 \strokec7 https://www.geeksforgeeks.org/implement-a-stack-using-singly-linked-list/#:~:text=The%20main%20advantage%20of%20using,node%20will%20be%20dynamically%20allocate.}}\
+\
+\
+2. \cf3 Queue
 \f0\b0 \cf0 \
 	- They\'92re ADT\'92s (Abstract Data Structures)\
 	- Follows \cf4 FIFO\cf0  (First In First Out).\
 	  Think of people waiting in line\
 	- Typically has 2 methods:\
-		.push(val)		O(1) Time. \cf4 \ul \ulc4 Adds\cf0 \ulnone  node to Back of line (\cf4 \ul \ulc4 Tail\cf0 \ulnone  of linked list), \
+		.push(val)		O(1) Time. \cf4 \ul Adds\cf0 \ulnone  node to Back of line (\cf4 \ul Tail\cf0 \ulnone  of linked list), \
 						returns new length\
-		.shift()		O(1) Time. \cf4 \ul \ulc4 Removes\cf0 \ulnone  node from Front of line (\cf4 \ul \ulc4 Head\cf0 \ulnone  of linked list),\
+		.shift()		O(1) Time. \cf4 \ul Removes\cf0 \ulnone  node from Front of line (\cf4 \ul Head\cf0 \ulnone  of linked list),\
 						returns removed node (or node val)\
 	- Properties\
 		.length		num of nodes in linked list\
@@ -70,19 +95,21 @@ AA Data Structures/Algorithms Notes\
 		- Printers so jobs are printed in orders received\
 		- Chat rooms, customer service phone lines to ensure people served in order\
 		- Amazon\'92s Simple Queue Service (SQS part of AWS). \
+		- Operating Systems to handle job scheduling\
+		- Breadth First Search (BFS) traversing \
 \
 \
 
 \f2\b \
 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\b0 \cf0 QUESTIONS\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\f0\b0 QUESTIONS\
+- which is better in terms of memory for stack- array or singly linked list implementation?
+\f2\b \
 
-\f2\b \cf0 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\f0\b0 \cf0 \
+\f0\b0 	singly linked list advantage- dynamic memory (array size fixed), can keep adding to stack\
+	singly linked list disadvantage- \
+	using singly linked list vs array will depend on your needs and array vs linked list pros/cons\
+\
 \
 }
