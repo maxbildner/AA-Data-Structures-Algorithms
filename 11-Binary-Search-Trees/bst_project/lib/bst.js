@@ -7,13 +7,15 @@ class TreeNode {
 }
 
 
+// NOT SELF BALANCING #INSERT
+// NAIVE IMPLEMENTATION
 class BST {
 	constructor() {
 		this.root = null;
 	}
 
 
-	insert(val, root=this.root) {
+	insertRecur(val, root=this.root) {
 		if (!this.root) {                                                           // if tree is empty, make a new node and have it be the root
 			this.root = new TreeNode(val);
 			return;
@@ -24,14 +26,46 @@ class BST {
 			if (!root.left) {                                                         //    and left child does NOT exist, make a node as roots left child
 				root.left = new TreeNode(val);
 			} else {                                                                  //    left child DOES exist, recursively insert on left child node
-				this.insert(val, root.left);
+				this.insertRecur(val, root.left);
 			}
 
 		} else {                                                                    // if val >= root val
 			if (!root.right) {                                                        //    and right child does NOT exist, make a node as roots right child
 				root.right = new TreeNode(val);
 			} else {                                                                  //    left child DOES exist, recursively insert on right child node
-				this.insert(val, root.right);
+				this.insertRecur(val, root.right);
+			}
+		}
+	}
+
+
+	//       10
+	//      / \
+	//     5   16
+	//    /      
+	//   1        
+	// #insert(7)
+	// INSERT ITERATIVE
+	insert(val) {
+		let node = this.root;																												// set current node to root
+		
+		if (!node) {                                                           			// if tree is empty, make a new node and have it be the root
+			this.root = new TreeNode(val);
+			return;
+		}
+
+		while (node) {																															// loop while node exists (not null)
+			if (val < node.val) {
+				if (!node.left) {
+					node.left = new TreeNode(val);
+				} 
+				node = node.left;
+		
+			} else {
+				if (!node.right) {
+					node.right = new TreeNode(val);
+				} 
+				node = node.right;
 			}
 		}
 	}

@@ -39,17 +39,16 @@ class TreeNode {
 // 
 // (TreeNode A, 'x') => TreeNode X node2
 function depthFirstSearch(root, targetVal) {
+	if (!root) return null;																												// base case if no root, return null
+	if (root.val === targetVal) return root;																			// if current node's (root) val matches target, return current node
+	return depthFirstSearch(root.left, targetVal) ||  														// recursively search left and right child nodes of current node
+				 depthFirstSearch(root.right, targetVal);
+
+	// Below works aswell as above:
 	// if (root === null) return null;																						// base case, exit if root doesnt exist (null)
 	// if (root.val === targetVal) return root;																		// if root's val == targetVal, found! return root node
 	// let leftSearch = depthFirstSearch(root.left, targetVal);										// recursively store left search 
-	// let rightSearch = depthFirstSearch(root.right, targetVal);									// recursively store right search
-	// return leftSearch ? leftSearch : rightSearch;															// return left or right, whichver is not null, else return null
-
-	// Below works aswell as above:
-	if (root === null) return null;																								// base case, exit if root doesnt exist (null)
-	if (root.val === targetVal) return root;																			// if root's val == targetVal, found! return root node
-	let leftSearch = depthFirstSearch(root.left, targetVal);											// recursively store left search 
-	return leftSearch ? leftSearch : depthFirstSearch(root.right, targetVal);
+	// return leftSearch ? leftSearch : depthFirstSearch(root.right, targetVal);
 }
 
 // EXAMPLE 2:
@@ -107,6 +106,37 @@ function depthFirstSearchV2(root, targetVal) {
 // node1.left = node2;
 // console.log(depthFirstSearchV2(root, 'x') == node2);			//=> true
 
+
+
+
+// *****************************************************************************
+// PRACTICE
+// Takes in root TreeNode, and string val, returns first TreeNode matching string val
+// Return null if targetVal not found
+// DFS = continuously travel deeper into a tree before switching branches. 
+// 		(i.e. must visit all descendants before visiting siblings)
+//     = PRE ORDER (SELF, LEFT, RIGHT)
+// 
+// (TreeNode A, 'x') => TreeNode X node2
+// function depthFirstSearch(root, targetVal) {
+
+// }
+
+// EXAMPLE 2:
+//      a
+//     / \      
+//    b   x			 x = Node3
+//   / \  
+//  x   E 			 x = Node2
+// let root = new TreeNode('a');
+// let node1 = new TreeNode('b');
+// let node2 = new TreeNode('x');
+// let node3 = new TreeNode('x');
+// root.left = node1;
+// root.right = node3;
+// node1.left = node2;
+// console.log(depthFirstSearchV2(root, 'x') == node2);			//=> true
+// console.log(depthFirstSearch(root, 'x') == node2);			//=> true
 
 
 module.exports = {

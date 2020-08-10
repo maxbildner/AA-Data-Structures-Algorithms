@@ -36,7 +36,7 @@ function preOrderArray(root) {
 	if (!root) return [];																													// base case if no root (null), return empty path
 	let path = [];
 
-	path.push(root.val);
+	path.push(root.val);	
 	path = path.concat(preOrderArray(root.left));
 	path = path.concat(preOrderArray(root.right));
 
@@ -49,16 +49,16 @@ function preOrderArray(root) {
 // (TreeNode A) => [ A, B, D, E, C, F ]
 // (TreeNode B)	=> [ B, D, E ]
 function preOrderArrayIter(root) {
-	let path = [];																																// initialze stack w/ root node in it
+	let path = [];																																// 1) initialze stack w/ root node in it
 	let stack = [root];
 
-	while (stack.length) {																												// while loop stack is NOT empty
+	while (stack.length) {																												// 2) while loop stack is NOT empty
 
-		let node = stack.pop();																											// "visit" root node/top of stack by popping last node in stack
+		let node = stack.pop();																											// 3) "visit" root node/top of stack by popping last node in stack
 
-		path.push(node.val);																												// push current node val to path
+		path.push(node.val);																												// 4) push current node val to path
 
-		if (node.right) stack.push(node.right);																			// add right/left children of current node to stack
+		if (node.right) stack.push(node.right);																			// 5) add right/left children of current node to stack
 		if (node.left) stack.push(node.left);
 	}
 
@@ -75,12 +75,12 @@ function preOrderArrayIter(root) {
 // (TreeNode B)	=> 	[ D, B, E ]
 // (TreeNode D)	=> 	[ D ]
 function inOrderArray(root) {
-	if (!root) return [];
+	if (!root) return [];																													// 1)base case- if no root, return path (empty arr [])
 	let path = [];
 
-	path = path.concat(inOrderArray(root.left))
-	path.push(root.val);
-	path = path.concat(inOrderArray(root.right));
+	path = path.concat(inOrderArray(root.left))																		// 2) recursively go down current node's (root) left child until we hit bottom
+	path.push(root.val);																													// 3) push curent node's (root) val to path (pushing == "visiting a node")
+	path = path.concat(inOrderArray(root.right));																	// 4) recursively concat current node's right child
 
 	return path;
 }
@@ -93,21 +93,21 @@ function inOrderArray(root) {
 // (TreeNode B)	=> 	[ D, B, E ]
 // (TreeNode D)	=> 	[ D ]
 function inOrderArrayIter(root) {
-	let path = [];																																// initialize empty stack, and current node to root
+	let path = [];																																// 1) initialize empty stack, and current node to root
 	let stack = [];
 	let node = root;
 
-	while (stack.length || node) {																								// loop while stack NOT empty OR node exists
+	while (stack.length || node) {																								// 2) loop while stack NOT empty OR node exists
 
-		if (node) {																																	// if current node exists, push node to stack, update node to left node
+		if (node) {																																	// 3) if current node exists, push node to stack, update node to left node
 			stack.push(node);
 			node = node.left;
 
-		} else {																																		// if current node does NOT exist
+		} else {																																		// 4) if current node does NOT exist
 
-			node = stack.pop();																												// update node"visit" node/pop last node in stack
-			path.push(node.val);																											// push node val to path
-			node = node.right;																												// update node to right node
+			node = stack.pop();																												// 5) update node"visit" node/pop last node in stack
+			path.push(node.val);																											// 6) push node val to path
+			node = node.right;																												// 7) update node to right node
 		}
 	}
 
