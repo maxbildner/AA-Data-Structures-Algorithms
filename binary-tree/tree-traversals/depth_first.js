@@ -138,6 +138,33 @@ function postOrderArray(root) {
 // console.log(postOrderArray(root));				//=> [ 'd', 'e', 'b', 'f', 'c', 'a' ]
 
 
+// POSTORDER ITERATIVE
+// - a node can only be "visited" once its left and right subtrees have been visited
+// (TreeNode)   => 	Array
+// (TreeNode A)	=> 	[ D, E, B, F, C, A ] 
+function postOrderArrayIter(root) {
+  if (!root) return [];                                                         // 1) if no root, exit
+  let stack = [ root ];                                                         // 2) initialize stack with root node
+  let path = [];                                                                
+
+  while (stack.length) {                                                        // 3) loop while stack NOT empty
+
+    let node = stack.pop();                                                     // 4) remove last node from stack, set that node as current node
+    
+    path.unshift(node.val);                                                     // 5) insert currentNode's value to begin of path result
+    // path.push(node.val);            
+    
+    if (node.left) stack.push(node.left);                                       // 6) if currentNode's left child exists, push to stack
+
+    if (node.right) stack.push(node.right);                                     // 7) if currentNode's right child exists, push to stack
+  }
+
+  // return path.reverse(); // optional- can also reverse path if node pushed instead of unshifted
+  return path;
+}
+// console.log(postOrderArrayIter(root));				//=> [ 'd', 'e', 'b', 'f', 'c', 'a' ]
+
+
 
 
 

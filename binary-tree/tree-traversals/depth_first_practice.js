@@ -84,6 +84,16 @@ function postOrderArray(root) {
 
 
 
+// DEPTH FIRST- POSTORDER ITERATIVE
+// (TreeNode)   => 	Array
+// (TreeNode A)	=> 	[ D, E, B, F, C, A ]
+function postOrderArrayIter(root) {
+ 
+}
+// console.log(postOrderArrayIter(root));				//=> [ 'd', 'e', 'b', 'f', 'c', 'a' ]
+
+
+
 
 
 
