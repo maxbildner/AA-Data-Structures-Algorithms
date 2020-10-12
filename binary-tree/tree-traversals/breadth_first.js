@@ -39,30 +39,16 @@ c.right = f;
 // (TreeNode A)    				=>      				['a', 'b', 'c', 'd', 'e', 'f']
 function breadthFirstArray(root) {
   let queue = [root];																														// 1) use lazy Queue array (shift, push)
-  // queue = [ A ]
 
-  let result = [];
+  let path = [];
 
   while (queue.length > 0) {																										// 2) loop while queue is not empty
     let node = queue.shift();																										// 3) remove first node from queue
-    result.push(node.val);																											// 4) push node's val to result
+    path.push(node.val);																											  // 4) push node's val to path
     if (node.left) queue.push(node.left);																				// 5) push left and right nodes to queue (if they exist)
     if (node.right) queue.push(node.right);
   }
 
-  return result;
+  return path;
 }
 // console.log(breadthFirstArray(a));																						//=> ['a', 'b', 'c', 'd', 'e', 'f']
-
-
-// *****************************************************************************
-// PRACTICE
-// Takes in root TreeNode, returns array with node values in BFS order (left to right)
-// BFS = Will visit all the nodes on a current level before moving down to the 
-//      next level. (Move laterally before going down deeper)
-// 
-// (TreeNode A)    				=>      				['a', 'b', 'c', 'd', 'e', 'f']
-function breadthFirstArray(root) {
-
-}
-// console.log(breadthFirstArray(a));
