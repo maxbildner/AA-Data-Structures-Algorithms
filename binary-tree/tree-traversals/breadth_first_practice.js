@@ -38,19 +38,7 @@ c.right = f;
 // 
 // (TreeNode A)    				=>      				['a', 'b', 'c', 'd', 'e', 'f']
 function breadthFirstArray(root) {
-  if (!root) return [];
-  let queue = [ root ];
-  let path = [];
-
-  while (queue.length) {
-    let node = queue.shift();
-
-    path.push(node.val);
-    if (node.left) queue.push(node.left);
-    if (node.right) queue.push(node.right);
-  }
   
-  return path;
 }
 // console.log(breadthFirstArray(b));																						//=> ['b', 'd', 'e' ]
 // console.log(breadthFirstArray(a));																						//=> ['a', 'b', 'c', 'd', 'e', 'f']
