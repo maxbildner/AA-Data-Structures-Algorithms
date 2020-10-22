@@ -26,19 +26,16 @@ class TreeNode {
 // b.right = e;
 // c.right = f;
 //
-// DFS Order = A B D E C F
+// BFS Order = A B C D E F
 
 
 // *****************************************************************************
 // SOLUTION V1- RECURSIVE
 // Takes in root TreeNode, and string val, returns first TreeNode matching string val
 // Return null if targetVal not found
-// DFS = continuously travel deeper into a tree before switching branches. 
-// 		(i.e. must visit all descendants before visiting siblings)
-//     = PRE ORDER (SELF, LEFT, RIGHT)
-// 
+
 // (TreeNode A, 'x') => TreeNode X node2
-function depthFirstSearch(root, targetVal) {
+function breadthFirstSearch(root, targetVal) {
 
 }
 
@@ -57,10 +54,9 @@ root.left = node1;
 root.right = node2;
 node1.left = node3;
 node1.right = node4;
-// console.log(depthFirstSearch(root, 'x'));		//=> node3 x
-// console.log(depthFirstSearch(root, 'e'));		//=> node4 e
-// console.log(depthFirstSearch(root, 'z'));		//=> null  or -1
-
+// console.log(breadthFirstSearch(root, 'x'));		//=> node2
+// console.log(breadthFirstSearch(root, 'e'));		//=> node4
+// console.log(breadthFirstSearch(root, 'z'));		//=> null  or -1
 
 
 
@@ -68,14 +64,13 @@ node1.right = node4;
 // SOLUTION V2- ITERATIVE
 // Takes in root TreeNode, and string val, returns first TreeNode matching string val
 // Return null if targetVal not found
-// DFS = continuously travel deeper into a tree before switching branches. 
-// 		(i.e. must visit all descendants before visiting siblings)
-//     = PRE ORDER (SELF, LEFT, RIGHT)
-// 
-// (TreeNode A, 'x') => TreeNode X node2
-function depthFirstSearchIter(root, targetVal) {
 
+
+// (TreeNode A, 'x') => TreeNode X node2
+function breadthFirstSearchIter(root, targetVal) {
+  
 }
+
 
 // EXAMPLE 2:
 //      a
@@ -92,6 +87,6 @@ root.left = node1;
 root.right = node2;
 node1.left = node3;
 node1.right = node4;
-// console.log(depthFirstSearchIter(root, 'x'));		//=> node3   x
-// console.log(depthFirstSearchIter(root, 'e'));		//=> node4   e
-// console.log(depthFirstSearchIter(root, 'z'));		//=> null    or -1
+// console.log(breadthFirstSearchIter(root, 'x'));		//=> node2   x
+// console.log(breadthFirstSearchIter(root, 'e'));		//=> node4   e
+// console.log(breadthFirstSearchIter(root, 'z'));		//=> null    or -1

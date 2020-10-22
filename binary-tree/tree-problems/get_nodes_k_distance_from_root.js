@@ -18,34 +18,10 @@ class TreeNode {
 }
 
 
-// function getNodesKDistanceFromRoot(node, k) {
-//   if (!node) return;
-//   if (k === 0)   {
-//     console.log(node.val + " ");
-//   } else {
-//     getNodesKDistanceFromRoot(node.left, k - 1);
-//     getNodesKDistanceFromRoot(node.right, k - 1);
-//   }
-// }
-
-
 // N1, 2    => [4, 5, 8]
 function getNodesKDistanceFromRoot(node, k) {
-  if (!node) return [];
-
-  let nodes = [];
-
-  if (k === 0)   {
-    nodes.push(node.val);
-
-  } else { 
-    nodes = nodes.concat(getNodesKDistanceFromRoot(node.left, k - 1));
-    nodes = nodes.concat(getNodesKDistanceFromRoot(node.right, k - 1));
-  }
-
-  return nodes;
+  
 }
-
 
 let root = new TreeNode(1);
 let two = new TreeNode(2);
@@ -58,6 +34,64 @@ root.right = three;
 two.left = four;
 two.right = five;
 three.left = eight;
+
+console.log(getNodesKDistanceFromRoot(root, 2));    //=> [ 4, 5, 8 ]
+console.log(getNodesKDistanceFromRoot(root, 1));    //=> [ 2, 3 ]
+console.log(getNodesKDistanceFromRoot(root, 0));    //=> [ 1 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// N1, 2    => [4, 5, 8]
+// function getNodesKDistanceFromRoot(node, k) {
+//   if (!node) return [];
+
+//   let nodes = [];
+
+//   if (k === 0)   {
+//     nodes.push(node.val);
+
+//   } else { 
+//     nodes = nodes.concat(getNodesKDistanceFromRoot(node.left, k - 1));
+//     nodes = nodes.concat(getNodesKDistanceFromRoot(node.right, k - 1));
+//   }
+
+//   return nodes;
+// }
+
+
+// let root = new TreeNode(1);
+// let two = new TreeNode(2);
+// let three = new TreeNode(3);
+// let four = new TreeNode(4);
+// let five = new TreeNode(5);
+// let eight = new TreeNode(8);
+// root.left = two;
+// root.right = three;
+// two.left = four;
+// two.right = five;
+// three.left = eight;
 
 
 // console.log(getNodesKDistanceFromRoot(root, 2));    //=> [ 4, 5, 8 ]

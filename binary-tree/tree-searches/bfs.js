@@ -26,20 +26,17 @@ class TreeNode {
 // b.right = e;
 // c.right = f;
 //
-// DFS Order = A B D E C F
+// BFS Order = A B C D E F
 
 
 // *****************************************************************************
 // SOLUTION V1- RECURSIVE
 // Takes in root TreeNode, and string val, returns first TreeNode matching string val
 // Return null if targetVal not found
-// DFS = continuously travel deeper into a tree before switching branches. 
-// 		(i.e. must visit all descendants before visiting siblings)
-//     = PRE ORDER (SELF, LEFT, RIGHT)
-// 
-// (TreeNode A, 'x') => TreeNode X node2
-function depthFirstSearch(root, targetVal) {
 
+// (TreeNode A, 'x') => TreeNode X node2
+function breadthFirstSearch(root, targetVal) {
+  
 }
 
 // EXAMPLE 2:
@@ -57,9 +54,9 @@ root.left = node1;
 root.right = node2;
 node1.left = node3;
 node1.right = node4;
-// console.log(depthFirstSearch(root, 'x'));		//=> node3 x
-// console.log(depthFirstSearch(root, 'e'));		//=> node4 e
-// console.log(depthFirstSearch(root, 'z'));		//=> null  or -1
+// console.log(breadthFirstSearch(root, 'x'));		//=> node2
+// console.log(breadthFirstSearch(root, 'e'));		//=> node4
+// console.log(breadthFirstSearch(root, 'z'));		//=> null  or -1
 
 
 
@@ -68,14 +65,27 @@ node1.right = node4;
 // SOLUTION V2- ITERATIVE
 // Takes in root TreeNode, and string val, returns first TreeNode matching string val
 // Return null if targetVal not found
-// DFS = continuously travel deeper into a tree before switching branches. 
-// 		(i.e. must visit all descendants before visiting siblings)
-//     = PRE ORDER (SELF, LEFT, RIGHT)
-// 
-// (TreeNode A, 'x') => TreeNode X node2
-function depthFirstSearchIter(root, targetVal) {
 
+
+// (TreeNode A, 'x') => TreeNode X node2
+function breadthFirstSearchIter(root, targetVal) {
+  if (!root) return null;
+
+  let queue = [ root ];                                                         // use queue
+
+  while (queue.length) {                                                        // keep looping while queue not empty
+
+    let node = queue.shift();                                                   // remove first node from queue
+
+    if (node.val === targetVal) return node;                                    // current node matches target node val, return node
+
+    if (node.left) queue.push(node.left);                                       // push left node to queue (if node exists)
+    if (node.left) queue.push(node.right);                                      // push right node to queue (if node exists)
+  }
+
+  return null;                                                                  // not found
 }
+
 
 // EXAMPLE 2:
 //      a
@@ -92,6 +102,6 @@ root.left = node1;
 root.right = node2;
 node1.left = node3;
 node1.right = node4;
-// console.log(depthFirstSearchIter(root, 'x'));		//=> node3   x
-// console.log(depthFirstSearchIter(root, 'e'));		//=> node4   e
-// console.log(depthFirstSearchIter(root, 'z'));		//=> null    or -1
+// console.log(breadthFirstSearchIter(root, 'x'));		//=> node2   x
+// console.log(breadthFirstSearchIter(root, 'e'));		//=> node4   e
+// console.log(breadthFirstSearchIter(root, 'z'));		//=> null    or -1
