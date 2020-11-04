@@ -44,57 +44,27 @@ class TreeNode {
 
 // TreeNode 1  =>  3
 function diameterOfBinaryTree(root) {
-  let max = 0;
+  let diameter = 0;
 
-  // helper function that:
-  // - returns maxDepth of tree
-  // - keeps track/updates max diameter at each node
+  // 1) helper function, that:
+  //    1- calculates maxDepth of a tree, given a root node
+  //       maxDepth = #NODES
+  //    2- keeps updating the max diameter of the tree
   function maxDepth(node) {
-    if (!node) return 0;                      // base case, if no node/null, tree has 0 depth
-    // 1:   N1    false  
-    // 2:   N2    false  
-    // 3:   N4    false  
-    // 4:   null  true
-    // 5:   null  true
-    // 6:   N5    false
-    // 7:   null  true
-    // 8:   null  true
-    // 9:   N3    false
-    // 10:  null  true
-    // 11:  null  true
 
-    let left = maxDepth(node.left);           // calculate maxDepth of left subtree
-    // 1:   left = maxDepth(N2)   = 2
-    // 2:   left = maxDepth(N4)   = 1
-    // 3:   left = maxDepth(null) = 0
-    // 6:   left = maxDepth(null) = 0
-    // 9:   left = maxDepth(null) = 0
+    if (!node) return 0;                                                        // 2) base case- if no node, depth is 0
 
-    let right = maxDepth(node.right);         // calculate maxDepth of right subtree
-    // 3:   right = maxDepth(null) = 0
-    // 2:   right = maxDepth(N5)   = 1
-    // 6:   right = maxDepth(null) = 0
-    // 1:   right = maxDepth(N3)   = 1
-    // 9:   right = maxDepth(null) = 0
+    let left = maxDepth(node.left);                                             // 3) recursively calculate left and right subtree depths
+    let right = maxDepth(node.right);
 
-    max = Math.max(max, left + right);        // meat and pototoes! update diameter at every node
-    // 3:   max = max(0, 0 + 0)    = 0
-    // 6:   max = max(0, 0 + 0)    = 0
-    // 2:   max = max(0, 1 + 1)    = 2
-    // 9:   max = max(2, 0 + 0)    = 2
-    // 1:   max = max(2, 2 + 1)    = 3
+    diameter = Math.max(diameter, left + right);                                // 5) update diameter = greater of current diameter and sum of left + right subtree depths
 
-    return Math.max(left, right) + 1;         // update current node depth
-    // 3:   max(0, 0) + 1       = 1
-    // 6:   max(0, 0) + 1       = 1
-    // 2:   max(1, 1) + 1       = 2
-    // 9:   max(0, 0) + 1       = 1
-    // 1:   max(2, 1) + 1       = 3
+    return Math.max(left, right) + 1;                                           // 4) maxDepth is the greater of the left and right subtrees (for every node)
   }
 
-  maxDepth(root);
+  maxDepth(root);                                                               // call helper, and return diameter
 
-  return max;
+  return diameter;
 }
 
 
