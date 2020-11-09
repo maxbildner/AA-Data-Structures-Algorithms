@@ -1,8 +1,8 @@
 // BINARY HEAP IMPLEMENTATION NOTES
 // 1) Can use array to represent a heap
 //    - each index represents a node (root = index 1 so math is easy)
-//    - left child of node i can be found at index 2 * i
-//    - right child of node i can be found at index 2 * i + 1
+//    - left child of node i can be found at index = 2 * i
+//    - right child of node i can be found at index = 2 * i + 1
 //    - parent of node at index i can be found at Math.floor(i / 2)
 //    example: [ null, 42, 32, 24, 30, 9, 20, 18, 2, 7 ]
 //        idx:      0   1   2   3   4  5   6   7  8  9
@@ -42,26 +42,24 @@ class MaxHeap {
   // TIME COMPLEXITY:  O(log(N)),      N = number of nodes in heap
   // SPACE COMPLEXITY: O(N),           2N -> O(N)  (2N bec recursive call stack?)
   insert(val) {
-    this.array.push(val);                                                       // insert new node at bottom level (farthest to left)
-    
-    // takes in index position of the node we want to sift up
-    this.siftUp(this.array.length - 1);                                         // sift that value up the heap to restore heap property
+    this.array.push(val);																												// push value to end of array (add node to farthest bottom left of tree)
+
+    this.siftUp(this.array.length - 1);																					// continuously swap value toward front of array to maintain maxHeap property
   }
 
 
+  // helper- No return value (undefined)
   siftUp(idx) {
-    if (idx === 1) return;                                                      // no need to sift up, node is at the root
+    if (idx === 1) return;																											// no need to siftUp if node is at root
 
-    let parentIdx = this.getParent(idx);
+    let parentIdx = this.getParent(idx);																				// grab parent node idx
 
-    // if node is bigger than parent, we are breaking heap definition, so we need to sift up
-    if (this.array[parentIdx] < this.array[idx]) {
+    if (this.array[idx] > this.array[parentIdx]) {															// if node is bigger than parent, we're breaking heap proprty, so siftUp
 
-      // swap node with it's parent
-      [ this.array[parentIdx], this.array[idx] ] = [ this.array[idx], this.array[parentIdx] ];
+      [this.array[idx], this.array[parentIdx]] = 																// swap node w/ parent
+      [this.array[parentIdx], this.array[idx]];
 
-      // continue to sift it up recursively
-      this.siftUp(parentIdx);
+      this.siftUp(parentIdx);																										// recursively siftUp node
     }
   }
 
@@ -73,58 +71,41 @@ class MaxHeap {
     // recall that we have an empty position at the very front of the array, 
     // so an array length of 2 means there is only 1 item in the heap
 
-    // if there's only 1 node in the heap, just remove it (2 bec. null doesnt count)
-    if (this.array.length === 2) return this.array.pop();
+    if (this.array.length === 1) return null;																		// edge case- if no nodes in tree, exit
 
-    // if there're no nodes in the heap, do nothing
-    if (this.array.length === 1) return null;
+    if (this.array.length === 2) return this.array.pop();												// edge case- if only 1 node in heap, just remove it (2 bec. null doesnt count)
 
-    // otherwise remove the last element and make it the root at the front of the array
-    let max = this.array[1];                                                    // get max value in heap
-    this.array[1] = this.array.pop();                                           // reasign root value in heap to last value in array (and remove last value in array)
+    let max = this.array[1];																										// save reference to root value (max)
 
-    // sift the new root down to restore heap property
-    this.siftDown(1);
-    return max;
-  } 
+    let last = this.array.pop();																								// remove last val in array (farthest right node in tree), and update root value with it
+    this.array[1] = last;
+
+    this.siftDown(1);																														// continuoully swap the new root toward the back of the array to maintain maxHeap property
+
+    return max;																																	// return max value
+  }
 
 
+  // helper- no return value
   siftDown(idx) {
-    // 1: idx = 1
+    let ary = this.array;																												// optional- reference to this.array w/ shorter variable name
 
-    let ary = this.array;
-    // 1: ary [ null, 9, 32, 24, 30, 31, 20, 18, 2, 7 ]
-
-    let leftIdx = this.getLeftChild(idx);
+    let leftIdx = this.getLeftChild(idx);																				// optional- grab left and right child indexes/values (easier to work w/ variable names)
     let rightIdx = this.getRightChild(idx);
-    // 1: leftIdx = 2      rightIdx = 3
+    let leftVal = ary[leftIdx] || -Infinity;																		// short circuit if node missing child/undefined, use -Infinity (any val is > -Inifinity)
+    let rightVal = ary[rightIdx] || -Infinity;
 
-    let leftVal = ary[leftIdx];
-    let rightVal = ary[rightIdx];
-    // 1: leftVal = 32     rightVal = 24
+    if (ary[idx] > leftVal && ary[idx] > rightVal) return;											// if node is bigger than both children, we have restored heap property, so exit
 
-    // if the node is missing children, consider the missing children as the value -Infinity
-    // this allows the node to keep heap property, since any value is greater than -Infinity
-    // this will also give us children values to compare later, undefined should not be used for comparison
-    if (leftVal === undefined) leftVal = -Infinity;
-    if (rightVal === undefined) rightVal = -Infinity;
-
-    // if the node (@ index idx) is bigger than both children, we have restored heap property, so exit
-    if (ary[idx] > leftVal && ary[idx] > rightVal) return;  
-    // 1:  9 > 32   && 1 > 24     false
-
-    // otherwise the node is bigger than one of it's children,
-    // so swap this node with the bigger between the two children
-    if (leftVal < rightVal) {
+    if (leftVal < rightVal) {																										// node bigger than one of it's children, so swap this node with the larger of the two children
       var swapIdx = rightIdx;
-    } else {                                                                    // leftVal >= rightVal
+
+    } else {
       var swapIdx = leftIdx;
     }
-    [ ary[idx], ary[swapIdx] ] = [ ary[swapIdx], ary[idx] ];
-    // 1:  null, 32, 9, 24, 30, 31, 20, 18, 2, 7, 9 ]
+    [ary[idx], ary[swapIdx]] = [ary[swapIdx], ary[idx]];
 
-    // continue to sift node down recursively
-    this.siftDown(swapIdx);
+    this.siftDown(swapIdx);																											// continue to sift node down recursively
   }
 }
 
