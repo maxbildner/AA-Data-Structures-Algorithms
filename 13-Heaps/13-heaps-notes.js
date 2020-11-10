@@ -1,5 +1,25 @@
 // BINARY HEAP IMPLEMENTATION NOTES
-// 1) Can use array to represent a heap
+// 1) MAX HEAP
+//    - binary tree data structure (semi ordered, NOT Binary Search Tree BST)
+//    - each node is greater or equal <= than its children
+//    - Balanced && Complete
+//
+// 2) COMPLETE Tree
+//    - every level node (except maybe last) are filled to the left
+// 
+// 3) TIME COMPLEXITY #INSERT/#DELETE = O(LogN)
+//    SPACE COMPLEXITY O(N) bec array to store data
+//
+// 4) HEAPIFY = converting array to heap
+//    TIME COMPLEXITY = N * logN => amortized O(logN)
+//
+// 5) WHEN TO USE
+//    - find min/max very quickly, while maintaining some order
+//    - problems that require you to “partially sort” data. (ex. Calculate 
+//      largest or smaller N numbers of a collection. 
+//      Ex. Find largest 5 numbers in an array in linear time O(N) 
+// 
+// 6) Can use array to represent a Max Heap
 //    - each index represents a node (root = index 1 so math is easy)
 //    - left child of node i can be found at index = 2 * i
 //    - right child of node i can be found at index = 2 * i + 1
@@ -18,6 +38,17 @@
 
 // *****************************************************************************
 // 2) 
+// Create a MaxHeap Data Structure w/ the following Attribute:
+// 	array of values where indices represent nodes (indexing starting at 1 for easy math)
+// Methods:
+// 	#getParent(idx) 		=> idx						
+// 	#getLeftChild(idx) 	=> idx
+// 	#getRightChild(idx) => idx
+// 	#insert(val) 				=> undefined			 O(logN) TIME,  O(N) SPACE
+//  #siftUp(idx)			  => undefined   
+//  #deleteMax()			  => val (int)			 O(logN) TIME,  O(N) SPACE
+//  #siftDown(idx)			=> undefined			 
+// 
 class MaxHeap {
   constructor() {
     this.array = [ null ];                                                      // array of values

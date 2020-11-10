@@ -1,4 +1,4 @@
-// Create a MaxHeap Data Structure w/ the following attribute:
+// Create a MaxHeap Data Structure w/ the following Attribute:
 // 	array of values where indices represent nodes (indexing starting at 1 for easy math)
 // Methods:
 // 	#getParent(idx) 		=> idx						
@@ -10,10 +10,12 @@
 //  #siftDown(idx)			=> undefined			 
 // 
 // Run `npx mocha` in terminal for testing
+// see test.js for specs/behavior of methods
 
 
+// TIME: 1.5HRS
 class MaxHeap {
-	
+
 }
 
 

@@ -1,13 +1,11 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 Helvetica-Bold;
-\f3\fnil\fcharset0 Menlo-Regular;}
+\f3\fswiss\fcharset0 Helvetica-Oblique;\f4\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red251\green0\blue7;\red25\green60\blue255;
-\red25\green60\blue255;\red88\green138\blue67;\red255\green255\blue255;\red202\green202\blue202;\red202\green202\blue202;
-}
+\red88\green138\blue67;\red255\green255\blue255;\red202\green202\blue202;\red202\green202\blue202;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\cssrgb\c100000\c12195\c0;\cssrgb\c12594\c35385\c100000;
-\cssrgb\c12594\c35385\c100000;\cssrgb\c41525\c59950\c33208;\cssrgb\c100000\c100000\c100000\c0;\cssrgb\c83229\c83229\c83125;\cssrgb\c83137\c83137\c83137;
-}
-\margl1440\margr1440\vieww22240\viewh23100\viewkind0
+\cssrgb\c41525\c59950\c33208;\cssrgb\c100000\c100000\c100000\c0;\cssrgb\c83229\c83229\c83125;\cssrgb\c83137\c83137\c83137;}
+\margl1440\margr1440\vieww22200\viewh24600\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\fs32 \cf0 7/13/20\
@@ -33,7 +31,7 @@ AA Data Structures/Algorithms Notes\
 \f2\b 2. \cf3 Max Heap
 \f0\b0 \cf0 \
 	- \cf4 for any node, it\'92s children must be <= that node\cf0 \
-	- Is \cf5 Complete AND Balanced\cf0 \
+	- Is \cf4 Complete AND Balanced\cf0 \
 	- Example:\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
@@ -48,7 +46,7 @@ AA Data Structures/Algorithms Notes\
 \
 3. \cf3 Complete Trees
 \f0\b0 \cf0 \
-	-\cf5  every complete tree is a balanced tree\cf0 , but not every balanced tree is complete\
+	-\cf4  every complete tree is a balanced tree\cf0 , but not every balanced tree is complete\
 	- a tree where all levels have the maximum number of nodes (except bottom level)\
 	- AND the bottom level has all nodes filled as far left as possible\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
@@ -62,7 +60,10 @@ AA Data Structures/Algorithms Notes\
 4. \cf3 When to use Heaps?
 \f0\b0 \cf0 \
 	- good for problems that require you to \'93partially sort\'94 data. (ex. Calculate largest or smaller n numbers of a collection. \
-	ex. Find largest 5 numbers in an array in linear time O(N) 
+	ex. Find largest 5 numbers in an array in linear time O(N) \
+	- allow you to pull min/max and quickly know the 
+\f3\i next
+\f0\i0  min/max
 \f2\b \
 \
 \
@@ -107,29 +108,30 @@ AA Data Structures/Algorithms Notes\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 
-\f3\b0\fs24 \cf6 \cb7 \expnd0\expndtw0\kerning0
-// BINARY HEAP IMPLEMENTATION NOTES\cf8 \
-\cf6 // 1) Can use array to represent a heap\cf8 \
-\cf6 //    - each index represents a node (root = index 1 so math is easy)\cf8 \
-\cf6 //    - left child of node i can be found at index 2 * i\cf8 \
-\cf6 //    - right child of node i can be found at index 2 * i + 1\cf8 \
-\cf6 //    - parent of node at index i can be found at Math.floor(i / 2)\cf8 \
-\cf6 //    example: [ null, 42, 32, 24, 30, 9, 20, 18, 2, 7 ]\cf8 \
-\cf6 //        idx:      0   1   2   3   4  5   6   7  8  9\cf8 \
-\cf6 // \cf8 \
-\cf6 //        42\cf8 \
-\cf6 //       /  \\           \cf8 \
-\cf6 //     32    24         for root i = 1:   24 = array[2 * i + 1]\cf8 \
-\cf6 //    / \\    / \\\cf8 \
-\cf6 //   30  9  20  18\cf8 \
-\cf6 //  / \\\cf8 \
-\cf6 // 2   7\cf9 \cb1 \
+\f4\b0\fs24 \cf5 \cb6 \expnd0\expndtw0\kerning0
+// BINARY HEAP IMPLEMENTATION NOTES\cf7 \
+\cf5 // 1) Can use array to represent a heap\cf7 \
+\cf5 //    - each index represents a node (root = index 1 so math is easy)\cf7 \
+\cf5 //    - left child of node i can be found at index 2 * i\cf7 \
+\cf5 //    - right child of node i can be found at index 2 * i + 1\cf7 \
+\cf5 //    - parent of node at index i can be found at Math.floor(i / 2)\cf7 \
+\cf5 //    example: [ null, 42, 32, 24, 30, 9, 20, 18, 2, 7 ]\cf7 \
+\cf5 //        idx:      0   1   2   3   4  5   6   7  8  9\cf7 \
+\cf5 // \cf7 \
+\cf5 //        42\cf7 \
+\cf5 //       /  \\           \cf7 \
+\cf5 //     32    24         for root i = 1:   24 = array[2 * i + 1]\cf7 \
+\cf5 //    / \\    / \\\cf7 \
+\cf5 //   30  9  20  18\cf7 \
+\cf5 //  / \\\cf7 \
+\cf5 // 2   7\cf8 \cb1 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f2\b\fs32 \cf0 \kerning1\expnd0\expndtw0 \
 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\b0 MISC
+\f0\b0 \cf0 MISC
 \f2\b \
 \
 \
