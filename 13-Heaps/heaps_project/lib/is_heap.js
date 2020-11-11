@@ -4,22 +4,20 @@
 // TIME COMPLEXITY: 	O(N), N = array length
 // SPACE COMPLEXITY:	O(1)
 // [null, 50, 42, 27, 32, 24]		=> true
-function isMaxHeapV1(array, idx=1) {
-	// max heap properties:
-	// - for any node @ index i, left child <= node AND right child <= node
 
-	if (array.length <= 2) return true;
+function isMaxHeapV1(array) {
 
-	for (let i = 1; i < array.length; i++) {
-		let num = array[i];	
-		let leftIdx = i * 2;
-		let rightIdx = i * 2 + 1;
-		let leftVal = array[leftIdx] === undefined ? -Infinity : array[leftIdx];
-		let rightVal = array[rightIdx] === undefined ? -Infinity : array[rightIdx];
-		if (num < leftVal || num < rightVal) return false;
+	for (let i = 1; i < array.length; i++) {																			// loop through array and check each node's children <= parent node
+
+		let leftChildIdx = i * 2;																										// grab child indices/vals
+		let rightChildIdx = i * 2 + 1;
+		let leftChildVal = array[leftChildIdx] || -Infinity;												// short circuit -Inf bec. easier for comparison than undefined
+		let rightChildVal = array[rightChildIdx] || -Infinity;
+
+		if (array[i] < leftChildVal || array[i] < rightChildVal) return false;			// exit if maxHeap property broken
 	}
 
-	return true;
+	return true;																																	// return true- finished looping
 }
 
 

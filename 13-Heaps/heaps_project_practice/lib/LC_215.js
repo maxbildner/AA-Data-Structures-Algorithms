@@ -19,16 +19,14 @@
 // Explanation: 342 + 465 = 807
 
 
-
+// TIME: 
 // *****************************************************************************
 // VERSION 1- MY SOLUTION, Naive brute force. Sort nums, then get kth largest
 // MUTATES INPUT
 // TIME COMPLEXITY: 	O(N log(N)),  N = array length
 // SPACE COMPLEXITY:	O(1),         if in place sort is used that mutates input
 var findKthLargestV1 = function (nums, k) {
-  let sorted = nums.sort((a, b) => a - b);                                      // 1) sort nums in place. TIME: O(N log(N))
-  let kthIdx = sorted.length - k;
-  return sorted[kthIdx];                                                        // 2) return kth element from end of array. O(1)
+  
 };
 
 // [1, 2, 2, 3, 3, 4, 5, 5, 6]
@@ -41,7 +39,7 @@ var findKthLargestV1 = function (nums, k) {
 
 
 
-
+// TIME: 
 // *****************************************************************************
 // VERSION 2- Uses MaxHeap Data Structure
 // Loop through nums and insert each num into a Heap data structure
@@ -50,98 +48,99 @@ var findKthLargestV1 = function (nums, k) {
 // SPACE COMPLEXITY:	O(k),         to store heap elements    
 class MaxHeap {
   constructor() {
-    this.array = [null];
+    this.array = [null];                                                      // array of values
   }
+
 
   getParent(idx) {
     return Math.floor(idx / 2);
   }
 
+
   getLeftChild(idx) {
     return 2 * idx;
   }
+
 
   getRightChild(idx) {
     return 2 * idx + 1;
   }
 
-  // TIME: O(log(k))
-  insert(val) {
-    this.array.push(val);
 
-    let insertedNodeIdx = this.array.length - 1;																// idx of node we just inserted
-    this.siftUp(insertedNodeIdx);
+  // TIME COMPLEXITY:  O(log(N)),      N = number of nodes in heap
+  // SPACE COMPLEXITY: O(N),           2N -> O(N)  (2N bec recursive call stack?)
+  insert(val) {
+    this.array.push(val);																												// push value to end of array (add node to farthest bottom left of tree)
+
+    this.siftUp(this.array.length - 1);																					// continuously swap value toward front of array to maintain maxHeap property
   }
 
+
+  // helper- No return value (undefined)
   siftUp(idx) {
-    if (idx === 1) return;                                                      // no need to sift up, node is at the root
+    if (idx === 1) return;																											// no need to siftUp if node is at root
 
-    let parentIdx = this.getParent(idx);
+    let parentIdx = this.getParent(idx);																				// grab parent node idx
 
-    // if node is bigger than parent, we are breaking heap definition, so we need to sift up
-    if (this.array[parentIdx] < this.array[idx]) {
+    if (this.array[idx] > this.array[parentIdx]) {															// if node is bigger than parent, we're breaking heap proprty, so siftUp
 
-      // swap node with it's parent
-      [this.array[parentIdx], this.array[idx]] = [this.array[idx], this.array[parentIdx]];
+      [this.array[idx], this.array[parentIdx]] = 																// swap node w/ parent
+        [this.array[parentIdx], this.array[idx]];
 
-      // continue to sift it up recursively
-      this.siftUp(parentIdx);
+      this.siftUp(parentIdx);																										// recursively siftUp node
     }
   }
 
 
+  // returns deleted max value (root) in heap
+  // TIME COMPLEXITY:  O(log(N)),      N = number of nodes in heap
+  // SPACE COMPLEXITY: O(N),           2N -> O(N)  (2N bec recursive call stack?)
   deleteMax() {
-    if (this.array.length === 2) return this.array.pop();
-    if (this.array.length === 1) return null;
+    // recall that we have an empty position at the very front of the array, 
+    // so an array length of 2 means there is only 1 item in the heap
 
-    let rootMax = this.array[1];
+    if (this.array.length === 1) return null;																		// edge case- if no nodes in tree, exit
 
-    this.array[1] = this.array.pop();
+    if (this.array.length === 2) return this.array.pop();												// edge case- if only 1 node in heap, just remove it (2 bec. null doesnt count)
 
-    this.siftDown(1);
+    let max = this.array[1];																										// save reference to root value (max)
 
-    return rootMax;
+    let last = this.array.pop();																								// remove last val in array (farthest right node in tree), and update root value with it
+    this.array[1] = last;
+
+    this.siftDown(1);																														// continuoully swap the new root toward the back of the array to maintain maxHeap property
+
+    return max;																																	// return max value
   }
 
 
+  // helper- no return value
   siftDown(idx) {
-    let ary = this.array;
-    let leftChildIdx = this.getLeftChild(idx);
-    let rightChildIdx = this.getRightChild(idx);
-    let leftVal = ary[leftChildIdx];
-    let rightVal = ary[rightChildIdx];
-    if (leftVal === undefined) leftVal = -Infinity;
-    if (rightVal === undefined) rightVal = -Infinity;
+    let ary = this.array;																												// optional- reference to this.array w/ shorter variable name
 
-    if (ary[idx] > leftVal && ary[idx] > rightVal) return;
+    let leftIdx = this.getLeftChild(idx);																				// optional- grab left and right child indexes/values (easier to work w/ variable names)
+    let rightIdx = this.getRightChild(idx);
+    let leftVal = ary[leftIdx] || -Infinity;																		// short circuit if node missing child/undefined, use -Infinity (any val is > -Inifinity)
+    let rightVal = ary[rightIdx] || -Infinity;
 
-    // swap node with greater of left/right
-    if (leftVal > rightVal) {
-      var swapIdx = leftChildIdx;
+    if (ary[idx] > leftVal && ary[idx] > rightVal) return;											// if node is bigger than both children, we have restored heap property, so exit
+
+    if (leftVal < rightVal) {																										// node bigger than one of it's children, so swap this node with the larger of the two children
+      var swapIdx = rightIdx;
+
     } else {
-      var swapIdx = rightChildIdx;
+      var swapIdx = leftIdx;
     }
     [ary[idx], ary[swapIdx]] = [ary[swapIdx], ary[idx]];
 
-    this.siftDown(swapIdx);
+    this.siftDown(swapIdx);																											// continue to sift node down recursively
   }
 }
 
 
+
 var findKthLargestV2 = function (nums, k) {
-  let heap = new MaxHeap();
   
-  // converting an array into a heap takes O(N) time ?
-  for (let i = 0; i < nums.length; i++) {                                       // O(N) ?
-    let num = nums[i];
-    heap.insert(num);                                                           // log(N) ?
-  }
-
-  for (let i = 1; i < k; i++) {                                                 // log(k) ?
-    heap.deleteMax();
-  }
-
-  return heap.array[1];
 };
 
 

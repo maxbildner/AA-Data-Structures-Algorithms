@@ -1,14 +1,15 @@
 // BINARY HEAP IMPLEMENTATION NOTES
 // 1) MAX HEAP
 //    - binary tree data structure (semi ordered, NOT Binary Search Tree BST)
-//    - each node is greater or equal <= than its children
+//    - each node is greater or equal >= than its children
 //    - Balanced && Complete
 //
 // 2) COMPLETE Tree
 //    - every level node (except maybe last) are filled to the left
+//    - why important? = can be represented as an array
 // 
 // 3) TIME COMPLEXITY #INSERT/#DELETE = O(LogN)
-//    SPACE COMPLEXITY O(N) bec array to store data
+//    SPACE COMPLEXITY                = O(N) bec array to store data
 //
 // 4) HEAPIFY = converting array to heap
 //    TIME COMPLEXITY = N * logN => amortized O(logN)
