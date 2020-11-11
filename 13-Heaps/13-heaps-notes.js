@@ -8,11 +8,11 @@
 //    - every level node (except maybe last) are filled to the left
 //    - why important? = can be represented as an array
 // 
-// 3) TIME COMPLEXITY #INSERT/#DELETE = O(LogN)
+// 3) TIME COMPLEXITY #INSERT/#DELETE = O(log N)
 //    SPACE COMPLEXITY                = O(N) bec array to store data
 //
 // 4) HEAPIFY = converting array to heap
-//    TIME COMPLEXITY = N * logN => amortized O(logN)
+//    TIME COMPLEXITY = N * log N => amortized O(N)
 //
 // 5) WHEN TO USE
 //    - find min/max very quickly, while maintaining some order
@@ -45,9 +45,9 @@
 // 	#getParent(idx) 		=> idx						
 // 	#getLeftChild(idx) 	=> idx
 // 	#getRightChild(idx) => idx
-// 	#insert(val) 				=> undefined			 O(logN) TIME,  O(N) SPACE
+// 	#insert(val) 				=> undefined			 O(log N) TIME,  O(N) SPACE
 //  #siftUp(idx)			  => undefined   
-//  #deleteMax()			  => val (int)			 O(logN) TIME,  O(N) SPACE
+//  #deleteMax()			  => val (int)			 O(log N) TIME,  O(N) SPACE
 //  #siftDown(idx)			=> undefined			 
 // 
 class MaxHeap {
@@ -71,7 +71,7 @@ class MaxHeap {
   }
 
 
-  // TIME COMPLEXITY:  O(log(N)),      N = number of nodes in heap
+  // TIME COMPLEXITY:  O(log N),       N = number of nodes in heap
   // SPACE COMPLEXITY: O(N),           2N -> O(N)  (2N bec recursive call stack?)
   insert(val) {
     this.array.push(val);																												// push value to end of array (add node to farthest bottom left of tree)
@@ -97,7 +97,7 @@ class MaxHeap {
 
 
   // returns deleted max value (root) in heap
-  // TIME COMPLEXITY:  O(log(N)),      N = number of nodes in heap
+  // TIME COMPLEXITY:  O(log N),       N = number of nodes in heap
   // SPACE COMPLEXITY: O(N),           2N -> O(N)  (2N bec recursive call stack?)
   deleteMax() {
     // recall that we have an empty position at the very front of the array, 
@@ -181,8 +181,8 @@ niceHeap.insert(7);
 //    2- construct sorted list: continue to deleteMax until heap is empty
 //       every deletion will return the next element in decreasing order
 // DOES NOT MUTATE INPUT ARRAY
-// TIME COMPLEXITY:   O(N log(N)),      N = array size
-//      N + N*log(N)  => N*log(N)
+// TIME COMPLEXITY:    O(N log(N)),      N = array size
+//      N + N*log(N)  => N *log(N)
 //      First N  comes from = step 1 (building heap)
 //      N*log(N) comes from = step 2 
 // SPACE COMPLEXITY: O(N), because heap is maintained separately from input array

@@ -144,12 +144,12 @@ var findKthLargestV2 = function (nums, k) {
   let heap = new MaxHeap();
   
   // converting an array into a heap takes O(N) time ?
-  for (let i = 0; i < nums.length; i++) {                                       // O(N) ?
+  for (let i = 0; i < nums.length; i++) {                                       // O(N) TIME amortized, O(N * log N) Worst Case
     let num = nums[i];
-    heap.insert(num);                                                           // log(N) ?
+    heap.insert(num);                                                           
   }
 
-  for (let i = 1; i < k; i++) {                                                 // log(k) ?
+  for (let i = 1; i < k; i++) {                                                 // log(k) TIME
     heap.deleteMax();
   }
 

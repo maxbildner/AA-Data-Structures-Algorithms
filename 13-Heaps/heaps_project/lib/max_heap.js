@@ -47,8 +47,8 @@ class MaxHeap {
 
 		if (this.array[idx] > this.array[parentIdx]) {															// if node is bigger than parent, we're breaking heap proprty, so siftUp
 
-			[this.array[idx], this.array[parentIdx]] = 															// swap node w/ parent
-				[this.array[parentIdx], this.array[idx]];
+			[this.array[idx], this.array[parentIdx]] = 															  // swap node w/ parent
+			[this.array[parentIdx], this.array[idx]];
 
 			this.siftUp(parentIdx);																										// recursively siftUp node
 		}
