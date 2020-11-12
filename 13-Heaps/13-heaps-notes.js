@@ -192,7 +192,6 @@ function heapSort(array) {
   
   let heap = new MaxHeap();
   array.forEach(num => heap.insert(num));                                       // 1) build heap O(N) Amortized Time
-  // heap.array = [ null, 5, 3, 1, 0, 2 ]
 
   let sorted = [];
   while (heap.array.length > 1) {                                               // 2) continously delete max and push deleted to sorted arr until heap empty

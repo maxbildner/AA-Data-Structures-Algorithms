@@ -21,7 +21,7 @@
 
 // TIME: 
 // *****************************************************************************
-// VERSION 1- MY SOLUTION, Naive brute force. Sort nums, then get kth largest
+// VERSION 1- MY SOLUTION, Naive brute force. 
 // MUTATES INPUT
 // TIME COMPLEXITY: 	O(N log(N)),  N = array length
 // SPACE COMPLEXITY:	O(1),         if in place sort is used that mutates input
@@ -42,13 +42,14 @@ var findKthLargestV1 = function (nums, k) {
 // TIME: 
 // *****************************************************************************
 // VERSION 2- Uses MaxHeap Data Structure
-// Loop through nums and insert each num into a Heap data structure
-// Then delete the first k elements from heap. First element in heap is answer
+// 
+// 
+// Does NOT mutate input array
 // TIME COMPLEXITY: 	O(N log(k)),  N = array length, k = kth element from end of sorted array
 // SPACE COMPLEXITY:	O(k),         to store heap elements    
 class MaxHeap {
   constructor() {
-    this.array = [null];                                                      // array of values
+    this.array = [null];                                                        // array of values
   }
 
 
@@ -138,9 +139,9 @@ class MaxHeap {
 }
 
 
-
+// TIME: 10M
 var findKthLargestV2 = function (nums, k) {
-  
+
 };
 
 

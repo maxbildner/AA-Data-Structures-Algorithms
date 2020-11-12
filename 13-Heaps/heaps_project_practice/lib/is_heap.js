@@ -5,7 +5,7 @@
 // SPACE COMPLEXITY:	O(1)
 // [null, 50, 42, 27, 32, 24]		=> true
 
-// TIME: 
+// TIME: 6MIN (11/12/20)
 function isMaxHeap(array) {
 
 }

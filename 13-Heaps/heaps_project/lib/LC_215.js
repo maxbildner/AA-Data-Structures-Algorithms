@@ -46,6 +46,7 @@ var findKthLargestV1 = function (nums, k) {
 // VERSION 2- Uses MaxHeap Data Structure
 // Loop through nums and insert each num into a Heap data structure
 // Then delete the first k elements from heap. First element in heap is answer
+// Does NOT mutate input array
 // TIME COMPLEXITY: 	O(N log(k)),  N = array length, k = kth element from end of sorted array
 // SPACE COMPLEXITY:	O(k),         to store heap elements    
 class MaxHeap {
