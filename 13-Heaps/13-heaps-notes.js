@@ -176,11 +176,11 @@ niceHeap.insert(7);
 
 
 // *****************************************************************************
-// 3) HEAP SORT (decreasing order, O(N) space)
+// 3) HEAP SORT V1 (decreasing order, O(N) space)
 //    1- build the heap: insert all elements of the array into MaxHeap
 //    2- construct sorted list: continue to deleteMax until heap is empty
 //       every deletion will return the next element in decreasing order
-// DOES NOT MUTATE INPUT ARRAY
+//    - DOES NOT MUTATE INPUT ARRAY
 // TIME COMPLEXITY:    O(N log(N)),      N = array size
 //      N + N*log(N)  => N *log(N)
 //      First N  comes from = step 1 (building heap)
@@ -210,9 +210,20 @@ function heapSort(array) {
 
 
 // *****************************************************************************
-// 4) HEAP SORT (increasing order, O(1) space)
-// Uses similar logic to MaxHeap#siftDown
-// DOES NOT MUTATE INPUT ARRAY
+// 4) HEAP SORT V2- (Increasing order, O(1) space)
+//    1- convert input array into maxHeap (in place), using heapify helper 
+//       (similar to MaxHeap#siftDown method). This involves looping from 
+//       left of array to front/right
+//       2 diff btwn heapify and #siftDown:
+//          - root idx at 0 not one (no null placeholder)
+//          - input arg, n determines out of bounds of array, not array length
+//            this is needed for part 2 below
+//    2- loop from end of maxHeap to begin, 
+//       continually swap root val w/ end of heap, and call heapify helper
+//       dont forget to define n as end of heap when calling heapify helper
+//    - see heap-sort-diagram.png for visualization of step 2
+//    - DOES MUTATE INPUT ARRAY
+//    
 // TIME COMPLEXITY:   O(N log(N)),      N = array size
 //      N + N*log(N)  => N*log(N)
 //      First N  comes from = step 1 (building heap)
@@ -220,46 +231,48 @@ function heapSort(array) {
 // SPACE COMPLEXITY: O(1)   (unless you count recursive stack?)
 
 // HELPER FUNCTION similar logic to MaxHeap#SiftDown
-// n = number of nodes in heap
+// n = number of nodes in heap, denotes where heap ends, and sorted region begins
+// ([ 0, 5, 1, 3, 2 ])  =>  [ 5, 3, 1, 0, 2 ]
 function heapify(array, n, i) {
-  let leftIdx = 2 * i + 1;                                                      // root index is now 0 instead of 1 
-  let rightIdx = 2 * i + 2;
-
+  let leftIdx = 2 * i + 1;                                                      // 1) grab left/right indices/values of current val/node
+  let rightIdx = 2 * i + 2;                                                     //    root index is now 0 instead of 1 (no null placeholder)
   let leftVal = array[leftIdx];
   let rightVal = array[rightIdx];
 
-  if (leftIdx >= n) leftVal = -Infinity;
+  if (leftIdx >= n) leftVal = -Infinity;                                        // 2) set left/right val to -infinity if we're out of array bounds (determined by n)
   if (rightIdx >= n) rightVal = -Infinity;
 
-  if (array[i] > leftVal && array[i] > rightVal) return;
+  if (array[i] > leftVal && array[i] > rightVal) return;                        // 3) exit if current val > both children
 
   let swapIdx;
-  if (leftVal < rightVal) {
+  if (leftVal < rightVal) {                                                     // 4) determine index to swap current value with
     swapIdx = rightIdx;
   } else {
     swapIdx = leftIdx;
   }
 
-  [ array[i], array[swapIdx] ] = [ array[swapIdx], array[i] ];                  // swap values
+  [array[i], array[swapIdx]] = [array[swapIdx], array[i]];                      // 5) swap current val w/ larger of two children
 
-  heapify(array, n, swapIdx);
+  heapify(array, n, swapIdx);                                                   // 6) recursively siftDown/heapify until maxHeap property met
 }
 
 
+//   0  1  2  3  4
 // [ 0, 5, 1, 3, 2 ]      =>    [ 0, 1, 2, 3, 5 ]
 function heapSortV2(array) {
 
-  for (let i = array.length - 1; i >= 0; i--) {                                 // 1) heapify the tree from the bottom up (right to left)
-    heapify(array, array.length, i);
+  for (let i = array.length - 1; i >= 0; i--) {                                 // 1) loop through array, and convert it to maxHeap using heapify helper
+    heapify(array, array.length, i);                                            //    array length not really used for this part
   }
-  // entire array is now a heap
 
-  for (let endOfHeap = array.length - 1; endOfHeap >= 0; endOfHeap--) {         // 2) loop until the heap is empty, continue to "delete max"
+  for (let endOfHeap = array.length - 1; endOfHeap >= 0; endOfHeap--) {         // 2) loop from end of maxHeap to begin/left, and "delete" max val until heap region is "empty"
     [array[endOfHeap], array[0]] = [array[0], array[endOfHeap]];                // 3) swap the root of the heap with the last element of the heap, this shrinks the heap by 1 and grows the sorted array by 1
+
+    console.log(array);
 
     heapify(array, endOfHeap, 0);                                               // 4) sift down the new root, but not past the end of the heap
   }
-  
+
   return array;
 }
 

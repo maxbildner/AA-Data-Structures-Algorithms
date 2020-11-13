@@ -39,7 +39,7 @@ var findKthLargestV1 = function (nums, k) {
 
 
 
-// TIME: 
+// TIME: 40m (11/12/20)
 // *****************************************************************************
 // VERSION 2- Uses MaxHeap Data Structure
 // 
