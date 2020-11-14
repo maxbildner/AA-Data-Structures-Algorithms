@@ -43,13 +43,16 @@ class TreeNode {
 //  use two queues: one for the current level, and one for the next. 
 //  The idea is to pop the nodes one by one from the current level and push 
 //  their children into the next level queue. Each time the current queue is 
-//  empty, we have the right side element in hands.
+//  empty, the last node removed is the farthest right
 // 
-// 			 1      <--     currLevel = [ 1 ]
+// INPUT:  TreeNode 1
+// OUTPUT: Right Side = [ 1, 3, 5 ]
+//
+// 			 1      <--     currLevel = [ 1 ]     when this empty, last node removed is farthest right, and nextLevel is full
 // 			/ \
-// 		 2   3    <--     nextLevel = [ 2, 3 ]
-// 			  / \
-// 		   5   4  
+// 		 2   3    <--     nextLevel = [ 2, 3 ]  then this becomes the currLevel, and nextLevel reset to empty
+// 	  / \
+// 	 4   5
 //
 // TIME COMPLEXITY:  O(N),   N = num nodes in tree 
 // SPACE COMPLEXITY: O(D)    D = tree Diameter, to keep the queues
@@ -61,23 +64,23 @@ function rightSideView(root) {
 
   let rightSide = [];
   let currLevel;
-  let nextLevel = [root];                                                       // initialize queue nextLevel w/ root
-  let node;                                                                     // declare vars to track node, currLevel, rightSide
+  let nextLevel = [root];                                                       // initialize two queues- currLevel (empty), nextLevel (w/ root)
+  let node;                                                                     // declare vars to track node, rightSide
 
   while (nextLevel.length) {                                                    // loop while nextLevel not empty
 
-    currLevel = nextLevel;                                                      //  - reassign currentLevel to nextLevel
-    nextLevel = [];                                                             //  - reassign nextLevel to empty array
+    currLevel = nextLevel;                                                      //  - reassign currLevel to nextLevel
+    nextLevel = [];                                                             //  - reassign nextLevel to empty 
 
-    while (currLevel.length) {                                                  //  - loop while currentLevel not empty
+    while (currLevel.length) {                                                  //  - loop while currLevel not empty
 
-      node = currLevel.shift();                                                 //    - remove first node from currentLevel queue, save ref
+      node = currLevel.shift();                                                 //    - remove first node from currLevel
 
-      if (node.left) nextLevel.push(node.left);                                 //    - push left and right children to nextLevel (if they exist)
+      if (node.left) nextLevel.push(node.left);                                 //    - push node's children (if they exist) to nextLevel
       if (node.right) nextLevel.push(node.right);
     }
 
-    rightSide.push(node.val);                                                   //  - push current node val to rightSide, currLevel should be empty
+    rightSide.push(node.val);                                                   //  - add node val to rightSide (currLevel should be empty now)
   }
 
   return rightSide;

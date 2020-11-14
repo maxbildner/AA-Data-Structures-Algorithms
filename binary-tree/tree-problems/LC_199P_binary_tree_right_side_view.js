@@ -38,25 +38,22 @@ class TreeNode {
 
 
 
-// TIME: 
+// TIME: 32min (11/14/20)
 // *****************************************************************************
-// SOLUTION V1- BFS, TWO QUEUES
-//  use two queues: one for the current level, and one for the next. 
-//  The idea is to pop the nodes one by one from the current level and push 
-//  their children into the next level queue. Each time the current queue is 
-//  empty, we have the right side element in hands.
-// 
-// 			 1      <--     currLevel = [ 1 ]
+// SOLUTION V1- 
+// Right Side = [ 1, 3, 5 ]
+//
+// 			 1      <--     currLevel = [ 1 ]     when this empty, last node removed is farthest right, and nextLevel is full
 // 			/ \
-// 		 2   3    <--     nextLevel = [ 2, 3 ]
-// 			  / \
-// 		   5   4  
+// 		 2   3    <--     nextLevel = [ 2, 3 ]  then this becomes the currLevel, and nextLevel reset to empty
+// 	  / \
+// 	 4   5
 //
 // TIME COMPLEXITY:  O(N),   N = num nodes in tree 
 // SPACE COMPLEXITY: O(D)    D = tree Diameter, to keep the queues
                
 
-// EX: (TreeNode 1) =>  [ 1, 3, 4 ]
+// EX: (TreeNode 1) =>  [ 1, 3, 5 ]
 function rightSideView(root) {
   
 };
