@@ -38,8 +38,8 @@ c.right = f;
 // 
 // (TreeNode A)    				=>      				['a', 'b', 'c', 'd', 'e', 'f']
 function breadthFirstArray(root) {
+  if (!root) return [];
   let queue = [root];																														// 1) use lazy Queue array (shift, push)
-
   let path = [];
 
   while (queue.length > 0) {																										// 2) loop while queue is not empty
@@ -51,4 +51,6 @@ function breadthFirstArray(root) {
 
   return path;
 }
+// console.log(breadthFirstArray(b));																						//=> ['b', 'd', 'e' ]
 // console.log(breadthFirstArray(a));																						//=> ['a', 'b', 'c', 'd', 'e', 'f']
+// console.log(breadthFirstArray(null));																				//=> []

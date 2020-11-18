@@ -48,7 +48,7 @@ function preOrderArray(root) {
 // console.log(preOrderArray(root));				//=> [ 'a', 'b', 'd', 'e', 'c', 'f' ]
 
 
-// PRE ORDER ITERATIVE
+// PRE ORDER ITERATIVE- S, L, R
 // (TreeNode A) => [ A, B, D, E, C, F ]
 // (TreeNode B)	=> [ B, D, E ]
 function preOrderArrayIter(root) {
@@ -72,7 +72,7 @@ function preOrderArrayIter(root) {
 
 
 // *****************************************************************************
-// IN ORDER RECURSIVE 
+// IN ORDER RECURSIVE- L, S, R
 // - a node can only be "visited" once its left subtree has been visited
 // (TreeNode)   => 	Array
 // (TreeNode A)	=> 	[ D, B, E, A, C, F ]
@@ -91,7 +91,7 @@ function inOrderArray(root) {
 // console.log(inOrderArray(root));					//=> [ 'd', 'b', 'e', 'a', 'c', 'f' ]
 
 
-// IN ORDER ITERATIVE 
+// IN ORDER ITERATIVE0 - L, S, R
 // (TreeNode)   => 	Array
 // (TreeNode A)	=> 	[ D, B, E, A, C, F ]
 // (TreeNode B)	=> 	[ D, B, E ]
@@ -122,7 +122,7 @@ function inOrderArrayIter(root) {
 
 
 // *****************************************************************************
-// POSTORDER RECURSIVE
+// POSTORDER RECURSIVE- L, R, S
 // - a node can only be "visited" once its left and right subtrees have been visited
 // (TreeNode)   => 	Array
 // (TreeNode A)	=> 	[ D, E, B, F, C, A ] 
@@ -138,7 +138,7 @@ function postOrderArray(root) {
 // console.log(postOrderArray(root));				//=> [ 'd', 'e', 'b', 'f', 'c', 'a' ]
 
 
-// POSTORDER ITERATIVE
+// POSTORDER ITERATIVE- L, R, S
 // - a node can only be "visited" once its left and right subtrees have been visited
 // (TreeNode)   => 	Array
 // (TreeNode A)	=> 	[ D, E, B, F, C, A ] 
@@ -163,6 +163,7 @@ function postOrderArrayIter(root) {
   return path;
 }
 // console.log(postOrderArrayIter(root));				//=> [ 'd', 'e', 'b', 'f', 'c', 'a' ]
+
 
 
 

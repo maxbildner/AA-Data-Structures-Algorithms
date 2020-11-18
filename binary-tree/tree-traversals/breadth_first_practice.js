@@ -30,6 +30,7 @@ c.right = f;
 
 
 
+// TIME: 3Min (11/18/20)
 // *****************************************************************************
 // SOLUTION V1- ITERATIVE
 // Takes in root TreeNode, returns array with node values in BFS order (left to right)
@@ -38,7 +39,8 @@ c.right = f;
 // 
 // (TreeNode A)    				=>      				['a', 'b', 'c', 'd', 'e', 'f']
 function breadthFirstArray(root) {
-  
+ 
 }
-// console.log(breadthFirstArray(b));																						//=> ['b', 'd', 'e' ]
-// console.log(breadthFirstArray(a));																						//=> ['a', 'b', 'c', 'd', 'e', 'f']
+// console.log(breadthFirstArray(b));																						  //=> ['b', 'd', 'e' ]
+// console.log(breadthFirstArray(a));																						  //=> ['a', 'b', 'c', 'd', 'e', 'f']
+// console.log(breadthFirstArray(null));																					//=> []
