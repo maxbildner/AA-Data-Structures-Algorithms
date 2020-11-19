@@ -69,7 +69,7 @@ node1.right = node4;
 
 // (TreeNode A, 'x') => TreeNode X node2
 function breadthFirstSearchIter(root, targetVal) {
-  if (!root) return null;
+  if (!root) return null;                                                       // exit if no root node
 
   let queue = [ root ];                                                         // use queue
 
@@ -102,6 +102,8 @@ root.left = node1;
 root.right = node2;
 node1.left = node3;
 node1.right = node4;
-// console.log(breadthFirstSearchIter(root, 'x'));		//=> node2   x
-// console.log(breadthFirstSearchIter(root, 'e'));		//=> node4   e
-// console.log(breadthFirstSearchIter(root, 'z'));		//=> null    or -1
+// console.log(breadthFirstSearchIter(root, 'x'));		          //=> node2   x
+// console.log(breadthFirstSearchIter(root, 'x') === node2);		//=> true    
+// console.log(breadthFirstSearchIter(root, 'e'));		          //=> node4   e
+// console.log(breadthFirstSearchIter(root, 'z'));		          //=> null    or -1
+// console.log(breadthFirstSearchIter(null, 'z'));		          //=> null    or -1
