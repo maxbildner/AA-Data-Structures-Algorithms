@@ -109,8 +109,7 @@ class MaxHeap {
 
     let max = this.array[1];																										// save reference to root value (max)
 
-    let last = this.array.pop();																								// remove last val in array (farthest right node in tree), and update root value with it
-    this.array[1] = last;
+    this.array[1] = this.array.pop();																					  // remove last val in array (farthest right node in tree), and update root value with it
 
     this.siftDown(1);																														// continuoully swap the new root toward the back of the array to maintain maxHeap property
 
