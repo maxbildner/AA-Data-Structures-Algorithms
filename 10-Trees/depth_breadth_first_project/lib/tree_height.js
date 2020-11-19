@@ -29,7 +29,7 @@ b.right = e;
 
 // *****************************************************************************
 // SOLUTION V1- RECURSIVE, uses DEPTH FIRST (DF) Traversal
-// TIME COMPLEXITY:  O(N),			N = Number of nodes in tree
+// TIME COMPLEXITY:  O(N),			N = Number of edges in tree
 // SPACE COMPLEXITY: O(N)				worst case, tree unbalanced so recursion call would occur N times (each node only has a left child)
 // Takes in root TreeNode, returns height of tree (i.e. max num of edges btwn the root and any leaf)
 //                         returns -1 if tree is empty
