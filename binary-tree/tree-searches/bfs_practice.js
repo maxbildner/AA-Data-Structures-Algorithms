@@ -29,6 +29,7 @@ class TreeNode {
 // BFS Order = A B C D E F
 
 
+// TIME: 
 // *****************************************************************************
 // SOLUTION V1- RECURSIVE
 // Takes in root TreeNode, and string val, returns first TreeNode matching string val
@@ -54,12 +55,15 @@ root.left = node1;
 root.right = node2;
 node1.left = node3;
 node1.right = node4;
-// console.log(breadthFirstSearch(root, 'x'));		//=> node2
-// console.log(breadthFirstSearch(root, 'e'));		//=> node4
-// console.log(breadthFirstSearch(root, 'z'));		//=> null  or -1
+console.log(breadthFirstSearch(root, 'x'));		          //=> node2   x
+console.log(breadthFirstSearch(root, 'x') === node2);		//=> true    
+console.log(breadthFirstSearch(root, 'e'));		          //=> node4   e
+console.log(breadthFirstSearch(root, 'z'));		          //=> null    or -1
+console.log(breadthFirstSearch(null, 'z'));		          //=> null    or -1
 
 
 
+// TIME: 10m (11//19/20)
 // *****************************************************************************
 // SOLUTION V2- ITERATIVE
 // Takes in root TreeNode, and string val, returns first TreeNode matching string val
@@ -87,6 +91,8 @@ root.left = node1;
 root.right = node2;
 node1.left = node3;
 node1.right = node4;
-// console.log(breadthFirstSearchIter(root, 'x'));		//=> node2   x
-// console.log(breadthFirstSearchIter(root, 'e'));		//=> node4   e
-// console.log(breadthFirstSearchIter(root, 'z'));		//=> null    or -1
+// console.log(breadthFirstSearchIter(root, 'x'));		          //=> node2   x
+// console.log(breadthFirstSearchIter(root, 'x') === node2);		//=> true    
+// console.log(breadthFirstSearchIter(root, 'e'));		          //=> node4   e
+// console.log(breadthFirstSearchIter(root, 'z'));		          //=> null    or -1
+// console.log(breadthFirstSearchIter(null, 'z'));		          //=> null    or -1
