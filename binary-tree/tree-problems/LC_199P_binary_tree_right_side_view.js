@@ -39,13 +39,14 @@ class TreeNode {
 
 
 // TIME: 32min (11/14/20)
+// TIME: 18min (12/3/20)
 // *****************************************************************************
 // SOLUTION V1- 
 // Right Side = [ 1, 3, 5 ]
 //
-// 			 1      <--     currLevel = [ 1 ]     when this empty, last node removed is farthest right, and nextLevel is full
+// 			 1      
 // 			/ \
-// 		 2   3    <--     nextLevel = [ 2, 3 ]  then this becomes the currLevel, and nextLevel reset to empty
+// 		 2   3    
 // 	  / \
 // 	 4   5
 //
