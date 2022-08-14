@@ -51,15 +51,17 @@ class MerkleTree {
     this.root.unshift(data) // adds data to beginning of root array
     this.root.unshift(data.map(item => hashFn(item).toString('hex'))); // creates first layer/leaves of tree (hashed values of data layer)
 
-    while (this.root[0].length > 1) {
-      let temp = [];
+    while (this.root[0].length > 1) { // keep looping until first array in root array has a length of 1
+      let nextLayer = [];
   
-      for (let index = 0; index < this.root[0].length; index += 2) {
-        if (index < this.root[0].length - 1 && index % 2 == 0)
-          temp.push(hashFn(this.root[0][index] + this.root[0][index + 1]).toString('hex'));
-        else temp.push(this.root[0][index]);
+      for (let i = 0; i < this.root[0].length; i += 2) { // looping two at a time
+        if (i < this.root[0].length - 1 && i % 2 == 0) { // take two items from top most layer and hash them together
+          nextLayer.push(hashFn(this.root[0][i] + this.root[0][i + 1]).toString('hex'));
+        } else { // if there's a single item remaining, no need to hash (its already hashed), just add it to the nextLayer
+          nextLayer.push(this.root[0][i]);
+        }
       }
-      this.root.unshift(temp);
+      this.root.unshift(nextLayer); // add nextLayer array to begin of root
     }
   }
 }
