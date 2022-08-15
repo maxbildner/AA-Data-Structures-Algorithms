@@ -64,17 +64,56 @@ class MerkleTree {
       this.root.unshift(nextLayer); // add nextLayer array to begin of root
     }
   }
+
+  verify(transaction) {
+    // let position = this.root.slice(-1)[0].findIndex(t => t.hash == transaction.hash);
+    // get last element in root (original transaction data/leaves), and find index where hashing the result matches hashed result of verify input
+    let position = this.root.slice(-1)[0].findIndex(t => keccak256(t).toString('hex') == keccak256(transaction).toString('hex'));
+    console.log("position:", position);
+
+    if (position) {
+      // let verifyHash = transaction.getHash();
+      let verifyHash = keccak256(transaction).toString('hex');
+  
+      // - only loop to 2nd to last element in this.root (exclude last leaves data)
+      // - looping from base of tree to root (hence starting at i = this.root.length - 2, and i--)
+      for (let i = this.root.length - 2; i > 0; i--) { 
+        let neighbour = null;
+
+        if (position % 2 == 0) {
+          neighbour = this.root[i][position + 1];
+          position = Math.floor((position) / 2);
+          // verifyHash = sha256(verifyHash + neighbour);
+          verifyHash = keccak256(verifyHash + neighbour).toString('hex');
+
+        } else {
+          neighbour = this.root[i][position - 1];
+          position = Math.floor((position - 1) / 2);
+          // verifyHash = sha256(neighbour + verifyHash);
+          verifyHash = keccak256(neighbour + verifyHash).toString('hex');
+        }
+      }
+      console.log(verifyHash == this.root[0][0] ? "Valid" : "Not Valid");
+
+    } else {
+      console.log("Data not found with the id");
+    }
+  }
 }
 
 
 
-const data = ['a', 'b', 'c', 'd', 'e']
+const data = ['a', 'b', 'c', 'd', 'e']; 
 
-let transactionList = new TransactionList();
+let transactionList = new TransactionList(); // not being used for now
 for (let i = 0; i < data.length; i++) {
 	transactionList.add(new Transaction(Math.random(), Math.random(), Math.random()));
 }
-// console.log(transactionList); //=> array of transaction objects
+console.log(transactionList); //=> array of transaction objects
 
-const tree = new MerkleTree(data, keccak256) // takes in array of data, and hashing function you want to hash data with
+// const tree = new MerkleTree(data, keccak256) // takes in array of data, and hashing function you want to hash data with
+const tree = new MerkleTree(transactionList.list, keccak256) // takes in array of data, and hashing function you want to hash data with
 console.log(tree.root)
+console.log("--------------------------------");
+// tree.verify(data[3]); // verify 'd' => 'Valid
+// tree.verify('z');     //=> 'Not Valid'
